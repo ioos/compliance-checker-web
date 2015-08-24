@@ -1,0 +1,10 @@
+COMMON: &common
+  LOGGING: True
+  LOG_FILE_PATH: 'logs/'
+  LOG_FILE: 'cchecker_web.log'
+  SECRET_KEY: xxxxxxxxxxx
+  HOST: localhost
+  PORT: 3000
+  DEBUG: True
+
+
