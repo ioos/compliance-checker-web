@@ -1,2 +1,4 @@
 *.pyc
 *.swp
+cchecker_web/static/lib/
+logs/*
