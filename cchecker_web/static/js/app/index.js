@@ -75,6 +75,7 @@ _.extend(App.prototype, {
       });
       req.done(function(data) {
         $('.drop-status').html('<div class="alert alert-success">' + data.message + '</div>');
+        console.log(data.job_id);
       });
     });
     this.initializeModels();

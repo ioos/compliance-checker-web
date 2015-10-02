@@ -1,11 +1,30 @@
 {
   "main": {
     "jst": {
+      "cchecker_web/static/js/partials/compiled/report.js": [
+        "cchecker_web/static/js/partials/Report.html"
+      ],
       "cchecker_web/static/js/partials/compiled/index.js": [
         "cchecker_web/static/js/partials/TestSelection.html"
       ]
     },
     "js": {      
+      "cchecker_web/static/js/compiled/report.js" : [
+        "cchecker_web/static/lib/jquery/dist/jquery.min.js",
+        "cchecker_web/static/lib/underscore/underscore-min.js",
+        "cchecker_web/static/lib/bootstrap/dist/js/bootstrap.min.js",
+        "cchecker_web/static/lib/backbone/backbone-min.js",
+        "cchecker_web/static/lib/backbone.stickit/backbone.stickit.js",
+
+        "cchecker_web/static/js/partials/compiled/report.js",
+
+        "cchecker_web/static/js/models/ReportModel.js",
+
+        "cchecker_web/static/js/views/ReportView.js",
+
+        "cchecker_web/static/js/app.js",
+        "cchecker_web/static/js/app/report.js"
+      ],
       "cchecker_web/static/js/compiled/index.js" : [
         "cchecker_web/static/lib/jquery/dist/jquery.min.js",
         "cchecker_web/static/lib/underscore/underscore-min.js",
@@ -25,6 +44,12 @@
       ]
     },
     "css": {
+      "cchecker_web/static/css/compiled/report.css":[
+        "cchecker_web/static/lib/bootstrap/dist/css/bootstrap.min.css",
+        "cchecker_web/static/lib/bootstrap-select/dist/css/bootstrap-select.min.css",
+        "cchecker_web/static/css/result.css",
+        "cchecker_web/static/css/main.css"
+      ],
       "cchecker_web/static/css/compiled/index.css":[
         "cchecker_web/static/lib/bootstrap/dist/css/bootstrap.min.css",
         "cchecker_web/static/lib/bootstrap-select/dist/css/bootstrap-select.min.css",

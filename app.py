@@ -44,11 +44,12 @@ import redis
 redis_pool = redis.ConnectionPool(host=app.config.get('REDIS_HOST'),
                                   port=app.config.get('REDIS_PORT'),
                                   db=app.config.get('REDIS_DB'))
-redis_connection = redis.Redis(connection_pool=redis_pool)
+app.redis = redis.Redis(connection_pool=redis_pool)
+redis_connection = app.redis
 
 # rq
 from rq import Queue
-app.queue = Queue('default', connection=redis_connection)
+app.queue = Queue('default', connection=app.redis)
 
 
 from cchecker_web.utils import setup_uploads

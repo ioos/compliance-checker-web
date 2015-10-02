@@ -31,7 +31,7 @@ def upload_dataset():
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], file_object.filename)
             file_object.save(filepath)
             job_id = get_job_id(filepath)
-            app.queue.enqueue(compliance_check, job_id, filepath, 'gliderdac')
+            app.queue.enqueue_call(func=compliance_check, args=(job_id, filepath, 'gliderdac'))
             successful.append(file_object.filename)
             break
     if successful:

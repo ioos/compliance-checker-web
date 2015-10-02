@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}
+<title>IOOS Compliance Checker</title>
+{% endblock %}
+{% block head %}
+
+<!-- scripts -->
+{{ scripts|safe }}
+
+<!-- css -->
+{{ css|safe }}
+
+{% endblock %}
+{% block body %}
+<header>
+  <nav class="navbar navbar-custom">
+    <div class="container">
+      <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nb-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-img-brand" href="http://ioos.noaa.gov/">
+        <img src="{{url_for('.static', filename='img/ioos.png')}}" alt="IOOS Catalog" />
+      </a>
+      <div class="navbar-brand">
+          Compliance Checker
+      </div>
+    </div>
+  </nav>
+</header>
+<div id="report" class="report">
+</div>
+<script type="text/javascript">
+var app = new App();
+$(document).ready(function() {
+  app.start();
+});
+</script>
+{% endblock %}
+

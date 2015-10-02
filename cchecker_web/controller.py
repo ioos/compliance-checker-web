@@ -57,10 +57,6 @@ def load_css(key, template_name):
     path = path.replace('cchecker_web/static', '')
     return '<link href="%s" rel="stylesheet" type="text/css" />' % path
 
-@api.route('/')
-def show_root():
-    return redirect(url_for('.show_index'))
-
 
 @api.route('/')
 @api.route('/index.html')
@@ -68,3 +64,10 @@ def show_index():
     scripts = load_javascripts('main.js', 'index')
     css = load_css('main.css', 'index')
     return render_template('index.html', scripts=scripts, css=css)
+
+@api.route('/report/<string:job_id>')
+def show_report(job_id):
+    scripts = load_javascripts('main.js', 'report')
+    css = load_css('main.css', 'report')
+    return render_template('report.html', scripts=scripts, css=css)
+
