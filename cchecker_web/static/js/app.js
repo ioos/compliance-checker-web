@@ -11,7 +11,7 @@ _.extend(App.prototype, Backbone.Events, {
   collections: {},
   views: {},
   models: {},
-
+  urlRoot: $('meta[name=url-root]').attr('content'),
   initializeModels: function() {
   },
 

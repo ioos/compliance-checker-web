@@ -59,6 +59,9 @@ def load_css(key, template_name):
 
 
 @api.route('/')
+def show_root():
+    return redirect(url_for('.show_index'))
+
 @api.route('/index.html')
 def show_index():
     scripts = load_javascripts('main.js', 'index')
