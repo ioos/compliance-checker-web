@@ -5,7 +5,7 @@ Compliance Checker Web
 
 '''
 
-from flask import Flask
+from flask import Flask, url_for, jsonify
 from flask_environments import Environments
 import os
 
@@ -44,15 +44,21 @@ import redis
 redis_pool = redis.ConnectionPool(host=app.config.get('REDIS_HOST'),
                                   port=app.config.get('REDIS_PORT'),
                                   db=app.config.get('REDIS_DB'))
-redis_connection = redis.Redis(connection_pool=redis_pool)
+app.redis = redis.Redis(connection_pool=redis_pool)
+redis_connection = app.redis
 
 # rq
 from rq import Queue
-app.queue = Queue('default', connection=redis_connection)
+app.queue = Queue('default', connection=app.redis)
+
+@app.context_processor
+def url_process():
+    def url_root():
+        return url_for('.show_root')
+    return {'url_root': url_root}
 
 
 from cchecker_web.utils import setup_uploads
-
 setup_uploads(app)
 
 if __name__ == '__main__':

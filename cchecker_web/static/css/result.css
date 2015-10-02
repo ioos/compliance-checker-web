@@ -1,0 +1,50 @@
+.result .bad-score {
+  color: #D70834;
+}
+
+.result thead .tname {
+  width: 60%;
+}
+.result thead .tpriority {
+  width: 20%;
+}
+
+.result thead .tscore {
+  width: 20%;
+}
+
+.result thead .cname {
+  width: 25%;
+}
+
+.result thead .cpriority {
+  width: 5%;
+}
+
+.result thead .ccorrection {
+  width: 70%;
+}
+
+.result .table-collapse {
+  display: inline;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.result .table-collapse a{
+  color: #333;
+}
+
+.result .table-collapse a:hover {
+  color: #777;
+  text-decoration: none;
+}
+
+.result .failures {
+  display: inline;
+}
+
+.result .label-as-badge {
+  border-radius: 1em;
+}
+

@@ -10,6 +10,7 @@ _.extend(App.prototype, {
   collections: {
     testCollection: new TestCollection()
   },
+  form: new FormData(),
   initializeViews: function() {
     var self = this;
     this.views.testSelection = new TestSelectionView({
@@ -27,6 +28,7 @@ _.extend(App.prototype, {
   start: function() {
     var self = this;
     this.drop = $('#dropbox');
+    this.submit = $('#submit-btn');
 
     this.drop.on('dragover', function(e) {
       e.preventDefault();
@@ -45,13 +47,17 @@ _.extend(App.prototype, {
       e.preventDefault();
       e.stopPropagation();
 
-      var formData = new FormData();
       _.each(e.originalEvent.dataTransfer.files, function(file, i) {
-        formData.append('file-' + i, file);
+        self.form.append('file-' + i, file);
       });
 
       $(this).addClass('uploading');
-
+    });
+    this.submit.on('click', function() {
+      var urlInput = $('#url-input').val();
+      if(urlInput.length > 0) {
+        self.form.append('url', urlInput);
+      }
       var req = $.ajax({
         url: '/upload',
         xhr: function() {
@@ -68,13 +74,14 @@ _.extend(App.prototype, {
         cache: false,
         contentType: false,
         processData: false,
-        data: formData
+        data: self.form
       });
       req.always(function() {
         self.drop.removeClass('uploading');
       });
       req.done(function(data) {
         $('.drop-status').html('<div class="alert alert-success">' + data.message + '</div>');
+        self.pollResult(data.job_id);
       });
     });
     this.initializeModels();
@@ -83,6 +90,28 @@ _.extend(App.prototype, {
     this.initializeListeners();
     this.fetchCollections();
     this.test();
+  },
+  pollResult: function(jobID) {
+    var self = this;
+    $.ajax({
+      url: '/api/job/' + jobID,
+      dataType: 'json',
+      method: 'GET',
+      beforeSend: this.beforeSend.bind(this),
+      success: function() {
+        console.log("Fetch successful");
+        window.location.href = self.urlRoot + 'report/' + jobID;
+      },
+      error: function() {
+        setTimeout(function() {
+          self.pollResult(jobID)
+        }, 500);
+      }
+    });
+  },
+  beforeSend: function(xhr, settings) {
+    settings.url = this.urlRoot + settings.url.substring(1, settings.url.length);
+    //xhr.setRequestHeader("X-CSRFToken", this.csrf_token);
   },
   test: function() {
     this.collections.tests = new TestCollection();
