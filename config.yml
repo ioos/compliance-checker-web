@@ -6,5 +6,9 @@ COMMON: &common
   HOST: localhost
   PORT: 3000
   DEBUG: True
+  UPLOAD_FOLDER: /tmp/datasets
+  REDIS_HOST: localhost
+  REDIS_PORT: 6379
+  REDIS_DB: 6
 
 

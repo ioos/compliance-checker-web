@@ -14,8 +14,11 @@
     "tests"
   ],
   "dependencies": {
+    "backbone": "~1.2.3",
+    "backbone.stickit": "~0.9.2",
     "bootstrap": "~3.3.5",
     "font-awesome": "fontawesome#~4.4.0",
-    "underscore": "~1.8.3"
+    "underscore": "~1.8.3",
+    "bootstrap-select": "~1.7.4"
   }
 }

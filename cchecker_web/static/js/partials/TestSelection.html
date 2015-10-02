@@ -1,0 +1,8 @@
+<h3>Select the test you want to run</h3>
+<p>
+  <select class="selectpicker">
+    <% collection.each(function(model) { %>
+    <option data-id="<%= model.get('id') %>"><%=model.get('name')%></option>
+    <% }); %>
+  </select>
+</p>

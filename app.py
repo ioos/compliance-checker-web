@@ -40,5 +40,20 @@ if app.config['LOGGING'] == True:
 from cchecker_web import cchecker_web
 app.register_blueprint(cchecker_web, url_prefix='')
 
+import redis
+redis_pool = redis.ConnectionPool(host=app.config.get('REDIS_HOST'),
+                                  port=app.config.get('REDIS_PORT'),
+                                  db=app.config.get('REDIS_DB'))
+redis_connection = redis.Redis(connection_pool=redis_pool)
+
+# rq
+from rq import Queue
+app.queue = Queue('default', connection=redis_connection)
+
+
+from cchecker_web.utils import setup_uploads
+
+setup_uploads(app)
+
 if __name__ == '__main__':
     app.run(host=app.config['HOST'], port=app.config['PORT'], debug=app.config['DEBUG'])
