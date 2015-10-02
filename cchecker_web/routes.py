@@ -23,6 +23,8 @@ def get_job_id(filepath):
 @cchecker_web.route('/upload', methods=['POST'])
 def upload_dataset():
     successful = []
+    if not request.files:
+        return jsonify(error='UploadError', message='No files found')
     for filename in request.files:
         file_object = request.files[filename]
         if allowed_file(filename):
@@ -30,10 +32,10 @@ def upload_dataset():
             file_object.save(filepath)
             job_id = get_job_id(filepath)
             app.queue.enqueue(compliance_check, job_id, filepath, 'gliderdac')
-
             successful.append(file_object.filename)
+            break
     if successful:
-        return jsonify(message='Upload successful', files=successful)
+        return jsonify(message='Upload successful', job_id=job_id, files=successful)
             
     return jsonify(error='upload_failed', message='Upload failed'), 400
 

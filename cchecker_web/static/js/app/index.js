@@ -1,12 +1,29 @@
 "use strict";
 /*
- * cchecker_web/static/js/index.js
+ * cchecker_web/static/js/app/index.js
  */
 
-var App = function() {
-};
-
 _.extend(App.prototype, {
+  views: {
+    testSelection: null
+  },
+  collections: {
+    testCollection: new TestCollection()
+  },
+  initializeViews: function() {
+    var self = this;
+    this.views.testSelection = new TestSelectionView({
+      el: $('.testselection'),
+      collection: this.collections.testCollection
+    });
+  },
+  initializeCollections: function() {
+    var self = this;
+    var testFetch = this.collections.testCollection.fetch();
+    $.when.apply($, [testFetch]).done(function() {
+      self.views.testSelection.render();
+    });
+  },
   start: function() {
     var self = this;
     this.drop = $('#dropbox');
@@ -60,6 +77,16 @@ _.extend(App.prototype, {
         $('.drop-status').html('<div class="alert alert-success">' + data.message + '</div>');
       });
     });
+    this.initializeModels();
+    this.initializeCollections();
+    this.initializeViews();
+    this.initializeListeners();
+    this.fetchCollections();
+    this.test();
+  },
+  test: function() {
+    this.collections.tests = new TestCollection();
+    this.collections.tests.fetch();
   }
 });
 
