@@ -94,7 +94,7 @@ _.extend(App.prototype, {
   pollResult: function(jobID) {
     var self = this;
     $.ajax({
-      url: '/api/job/' + jobID,
+      url: self.urlRoot + 'api/job/' + jobID,
       dataType: 'json',
       method: 'GET',
       beforeSend: this.beforeSend.bind(this),

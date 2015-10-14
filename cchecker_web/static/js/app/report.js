@@ -22,6 +22,7 @@ _.extend(App.prototype, {
     var jobID = pathArray[pathArray.length - 1];
     this.models.report.set('id', jobID);
     this.models.report.fetch({
+      beforeSend: this.beforeSend.bind(this),
       success: function() {
         self.views.report.render();
       },
