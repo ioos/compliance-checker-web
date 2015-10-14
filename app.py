@@ -11,6 +11,9 @@ import os
 
 
 app = Flask(__name__)
+from cchecker_web.reverse_proxy import ReverseProxied
+app.wsgi_app = ReverseProxied(app.wsgi_app)
+
 
 env = Environments(app, default_env='COMMON')
 env.from_yaml('config.yml')
