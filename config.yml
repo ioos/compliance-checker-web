@@ -11,4 +11,11 @@ COMMON: &common
   REDIS_PORT: 6379
   REDIS_DB: 6
 
+DEVELOPMENT: &development
+  <<: *common 
+  DEBUG: True
+
+PRODUCTION: &production
+  <<: *common
+  DEBUG: False
 

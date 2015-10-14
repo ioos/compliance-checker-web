@@ -38,11 +38,13 @@ def load_javascripts(key, template_name):
     if app.config['DEBUG']:
         scripts_list = []
         for js_file in load_assets(key, path):
+            js_file = url_for('.static', filename=js_file)
             script = '<script src="%s" type="text/javascript"></script>' % js_file
             scripts_list.append(script)
         scripts = '\n'.join(scripts_list)
         return scripts
     path = path.replace('cchecker_web/static', '')
+    path = url_for('.static', filename=path)
     return '<script src="%s" type="text/javascript"></script>' % path
 
 def load_css(key, template_name):
@@ -50,11 +52,13 @@ def load_css(key, template_name):
     if app.config['DEBUG']:
         scripts_list = []
         for css_file in load_assets(key, path):
+            css_file = url_for('.static', filename=css_file)
             script = '<link href="%s" rel="stylesheet" type="text/css" />' % css_file
             scripts_list.append(script)
         scripts = '\n'.join(scripts_list)
         return scripts
     path = path.replace('cchecker_web/static', '')
+    path = url_for('.static', filename=path)
     return '<link href="%s" rel="stylesheet" type="text/css" />' % path
 
 
