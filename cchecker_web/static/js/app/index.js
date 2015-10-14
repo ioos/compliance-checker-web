@@ -59,7 +59,7 @@ _.extend(App.prototype, {
         self.form.append('url', urlInput);
       }
       var req = $.ajax({
-        url: '/upload',
+        url: self.urlRoot + 'upload',
         xhr: function() {
           var x = $.ajaxSettings.xhr();
           x.upload.addEventListener('progress', function(e) {
