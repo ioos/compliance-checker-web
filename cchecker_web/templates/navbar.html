@@ -1,0 +1,28 @@
+<header>
+  <div class="banner">
+    <a class="banner-img-brand" href="http://ioos.noaa.gov/">
+      <img src="{{url_for('.static', filename='img/ioos_logo.png')}}" alt="IOOS Logo" />
+    </a>
+    <div class="banner-text">
+      <a href="http://ioos.noaa.gov/">
+        | Integrated Ocean Observing System
+      </a>
+    </div>
+  </div>
+  <nav class="navbar navbar-custom">
+    <div class="container">
+      <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nb-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <div class="navbar-brand">
+        <a href="{{url_for('.show_index')}}">
+          Compliance Checker
+        </a>
+      </div>
+    </div>
+  </nav>
+</header>
+

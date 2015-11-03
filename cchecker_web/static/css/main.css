@@ -1,5 +1,57 @@
+@font-face {
+  font-family: 'KlinicSlabBold';
+  src: url("/fonts/KlinicSlabBold.otf") format("opentype");
+}
+@font-face {
+  font-family: 'KlinicSlabMedium';
+  src: url("/fonts/KlinicSlabMedium.otf") format("opentype");
+}
+
+.banner {
+  min-height: 60px;
+  background-color: #ffffff;
+  padding-left: 30%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.banner .banner-img-brand {
+  display: inline-block;
+  float: left;
+}
+
+.banner .banner-img-brand img {
+  height: 60px;
+}
+
+.banner .banner-text {
+  font-family: "KlinicSlabBold";
+  font-size: 24px;
+  color:#003087;
+  display: inline-block;
+  float:left;
+  margin-top: 13px;
+  padding-left: 20px;
+}
+
+.banner .banner-text a {
+  color:#003087;
+}
+.banner .banner-text a:hover,
+.banner .banner-text a:focus {
+  text-decoration: none;
+  color: #007396;
+}
+
+
+.banner .banner-text {
+  font-size: 27px;
+  color: #003087;
+}
+
+
 .navbar-custom {
-  background-color: #c6d4e1;
+  background-color: #003087;
   border-size: 0px;
   margin-bottom: 0px;
   border-radius: 0px;
@@ -13,13 +65,14 @@
   height: 47px;
 }
 
-.navbar-custom .navbar-brand {
-  color: #565c61;
+.navbar-custom .navbar-brand a {
+  color: #ffffff;
 }
-.navbar-custom .navbar-brand:hover,
-.navbar-custom .navbar-brand:focus {
-  color: #3e4246;
+.navbar-custom .navbar-brand a:hover,
+.navbar-custom .navbar-brand a:focus {
+  color: #d6deeb;
   background-color: transparent;
+  text-decoration: none;
 }
 .navbar-custom .navbar-text {
   color: #565c61;
@@ -199,4 +252,8 @@ thead .ccorrection {
 
 .submit-row {
   padding-top: 15px;
+}
+
+.testselection .btn-group.bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
+  width: 241px;
 }
