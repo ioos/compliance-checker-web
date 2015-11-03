@@ -54,6 +54,8 @@ _.extend(App.prototype, {
       $(this).addClass('uploading');
     });
     this.submit.on('click', function() {
+      var checkID = self.views.testSelection.getSelected();
+      self.form.append('checker', checkID);
       var urlInput = $('#url-input').val();
       if(urlInput.length > 0) {
         self.form.append('url', urlInput);

@@ -2,14 +2,14 @@
 
 import logging
 import json
-from compliance_checker.runner import ComplianceCheckerCheckSuite
+from compliance_checker.runner import CheckSuite
 from rq.connections import get_current_connection
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
 def compliance_check(job_id, filepath, checker):
-    cs = ComplianceCheckerCheckSuite()
+    cs = CheckSuite()
     ds = cs.load_dataset(filepath)
     redis = get_current_connection()
     score_groups = cs.run(ds, checker)

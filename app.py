@@ -64,5 +64,9 @@ def url_process():
 from cchecker_web.utils import setup_uploads
 setup_uploads(app)
 
+# The compliance checker needs to load all plugins at runtime
+from compliance_checker.runner import CheckSuite
+CheckSuite.load_all_available_checkers()
+
 if __name__ == '__main__':
     app.run(host=app.config['HOST'], port=app.config['PORT'], debug=app.config['DEBUG'])

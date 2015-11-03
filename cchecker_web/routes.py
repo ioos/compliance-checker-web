@@ -23,20 +23,23 @@ def get_job_id(filepath):
 @cchecker_web.route('/upload', methods=['POST'])
 def upload_dataset():
     url = request.form.get('url')
+    checker = request.form.get('checker')
+    if not checker:
+        return jsonify(error='ValueError', message='Invalid checker'), 400
     if url:
-        return check_url(url)
+        return check_url(url, checker)
     elif request.files:
-        return check_files(request.files)
+        return check_files(request.files, checker)
     return jsonify(error='UploadError', message='No files found')
 
 
-def check_url(url):
+def check_url(url, checker):
     job_id = get_job_id(url)
-    app.queue.enqueue_call(func=compliance_check, args=(job_id, url, 'gliderdac'))
+    app.queue.enqueue_call(func=compliance_check, args=(job_id, url, checker))
     return jsonify(message='Check successful', job_id=job_id)
 
 
-def check_files(files):
+def check_files(files, checker):
     successful = []
     for filename in files:
         file_object = files[filename]
@@ -44,7 +47,7 @@ def check_files(files):
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], file_object.filename)
             file_object.save(filepath)
             job_id = get_job_id(filepath)
-            app.queue.enqueue_call(func=compliance_check, args=(job_id, filepath, 'gliderdac'))
+            app.queue.enqueue_call(func=compliance_check, args=(job_id, filepath, checker))
             successful.append(file_object.filename)
             break
     if successful:

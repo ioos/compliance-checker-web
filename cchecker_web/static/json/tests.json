@@ -1,5 +1,15 @@
 [
   {
+    "id" : "gliderdac",
+    "version" : "1.0",
+    "name" : "GliderDAC Compliance Check"
+  },
+  {
+    "id" : "acdd",
+    "version" : "1.1",
+    "name" : "ACDD 1.1 Compliance Check"
+  },
+  {
     "id" : "cf",
     "version" : "1.6",
     "name" : "CF 1.6 Compliance Check"
