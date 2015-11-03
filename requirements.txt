@@ -12,3 +12,4 @@ wsgiref==0.1.2
 redis==2.10.3
 rq==0.5.5
 compliance-checker>=2.0.0
+cc_plugin_glider>=1.0.0

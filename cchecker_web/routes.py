@@ -13,8 +13,13 @@ from hashlib import sha1
 from datetime import datetime
 import os
 
+ALLOWED_FILENAMES = ['.nc', '.nc3', '.nc4', '.netcdf', '.netcdf3', '.netcdf4']
+
 def allowed_file(filename):
-    return True
+    print filename
+    if filename.endswith('.nc'):
+        return True
+    return False
 
 def get_job_id(filepath):
     datestr = datetime.utcnow().isoformat()
@@ -43,7 +48,7 @@ def check_files(files, checker):
     successful = []
     for filename in files:
         file_object = files[filename]
-        if allowed_file(filename):
+        if allowed_file(file_object.filename):
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], file_object.filename)
             file_object.save(filepath)
             job_id = get_job_id(filepath)

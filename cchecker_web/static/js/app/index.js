@@ -85,6 +85,15 @@ _.extend(App.prototype, {
         $('.drop-status').html('<div class="alert alert-success">' + data.message + '</div>');
         self.pollResult(data.job_id);
       });
+      req.error(function(jqXHR, textStatus, error) {
+        if(jqXHR.status == 413) {
+          $('.drop-status').html('<div class="alert alert-danger">File is too large!</div>');
+        } else if(jqXHR.status == 400) {
+          $('.drop-status').html('<div class="alert alert-danger">' + jqXHR.responseJSON.message + '</div>');
+        } else {
+          $('.drop-status').html('<div class="alert alert-danger">' + error + '</div>');
+        }
+      });
     });
     this.initializeModels();
     this.initializeCollections();

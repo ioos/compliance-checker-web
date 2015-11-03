@@ -1,4 +1,5 @@
 COMMON: &common
+  MAX_CONTENT_LENGTH: 16793600 # 16 MB
   LOGGING: True
   LOG_FILE_PATH: 'logs/'
   LOG_FILE: 'cchecker_web.log'
