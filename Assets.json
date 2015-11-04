@@ -5,6 +5,7 @@
         "cchecker_web/static/js/partials/Report.html"
       ],
       "cchecker_web/static/js/partials/compiled/index.js": [
+        "cchecker_web/static/js/partials/NetCDFUpload.html",
         "cchecker_web/static/js/partials/TestSelection.html"
       ]
     },
@@ -36,7 +37,9 @@
         "cchecker_web/static/js/partials/compiled/index.js",
 
         "cchecker_web/static/js/models/TestModel.js",
+        "cchecker_web/static/js/models/UploadModel.js",
 
+        "cchecker_web/static/js/views/NetCDFUploadView.js",
         "cchecker_web/static/js/views/TestSelectionView.js",
 
         "cchecker_web/static/js/app.js",
@@ -53,7 +56,8 @@
       "cchecker_web/static/css/compiled/index.css":[
         "cchecker_web/static/lib/bootstrap/dist/css/bootstrap.min.css",
         "cchecker_web/static/lib/bootstrap-select/dist/css/bootstrap-select.min.css",
-        "cchecker_web/static/css/main.css"
+        "cchecker_web/static/css/main.css",
+        "cchecker_web/static/css/netcdf_upload.css"
       ]
     }
   }
