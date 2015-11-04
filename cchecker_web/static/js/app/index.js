@@ -5,10 +5,14 @@
 
 _.extend(App.prototype, {
   views: {
-    testSelection: null
+    testSelection: null,
+    netCDFUpload: null
   },
   collections: {
     testCollection: new TestCollection()
+  },
+  models:{
+    upload: new UploadModel()
   },
   form: new FormData(),
   initializeViews: function() {
@@ -16,6 +20,11 @@ _.extend(App.prototype, {
     this.views.testSelection = new TestSelectionView({
       el: $('.testselection'),
       collection: this.collections.testCollection
+    });
+
+    this.views.netCDFUpload = new NetCDFUploadView({
+      el: $('#fileupload'),
+      model: this.models.upload
     });
   },
   initializeCollections: function() {
@@ -35,6 +44,8 @@ _.extend(App.prototype, {
     this.drop.on('dragover', function(e) {
       e.preventDefault();
       e.stopPropagation();
+      $(this).removeClass();
+      self.views.netCDFUpload.$el.html("");
     });
 
     this.drop.on('dragenter', function(e) {
@@ -50,14 +61,19 @@ _.extend(App.prototype, {
       e.stopPropagation();
 
       _.each(e.originalEvent.dataTransfer.files, function(file, i) {
-        self.form.append('file-' + i, file);
+        if(i > 0) {
+          return;
+        }
+        self.models.upload.set({filename: file.name, file: file});
       });
 
       $(this).addClass('uploading');
+      self.views.netCDFUpload.render();
     });
     this.submit.on('click', function() {
       var checkID = self.views.testSelection.getSelected();
       self.form.append('checker', checkID);
+      self.form.append('file-0', self.models.upload.get('file'));
       var urlInput = $('#url-input').val();
       if(urlInput.length > 0) {
         self.form.append('url', urlInput);
@@ -69,7 +85,6 @@ _.extend(App.prototype, {
           x.upload.addEventListener('progress', function(e) {
             if(e.lengthComputable) {
               var pct = e.loaded / e.total * 100;
-              console.log(pct);
             }
           }, false);
           return x;
@@ -111,7 +126,6 @@ _.extend(App.prototype, {
       method: 'GET',
       beforeSend: this.beforeSend.bind(this),
       success: function() {
-        console.log("Fetch successful");
         window.location.href = self.urlRoot + 'report/' + jobID;
       },
       error: function() {

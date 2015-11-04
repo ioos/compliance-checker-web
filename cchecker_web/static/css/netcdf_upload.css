@@ -1,0 +1,13 @@
+#fileupload {
+  padding-left: 14%;
+  color: black;
+}
+
+#fileupload .filename {
+  display: inline-block;
+  padding-left: 20px;
+  font-size: 21px;
+  font-family: 'Anonymous Pro';
+}
+
+
