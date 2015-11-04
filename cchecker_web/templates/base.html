@@ -9,6 +9,17 @@
   <meta name="description" content="IOOS Compliance Checker">
   <meta name="author" content="IOOS">  
   <meta name="url-root" content="{{ url_root() }}">
+<style>
+@font-face {
+  font-family: 'KlinicSlabBold';
+  src: url("{{url_for('.static', filename='fonts/KlinicSlabBold.otf')}}") format("opentype");
+}
+@font-face {
+  font-family: 'KlinicSlabMedium';
+  src: url("{{url_for('.static', filename='fonts/KlinicSlabMedium.otf')}}") format("opentype");
+}
+</style>
+
 
   {% block head %}
   {% endblock %}
