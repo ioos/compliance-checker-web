@@ -20,7 +20,9 @@ _.extend(App.prototype, {
   },
   initializeCollections: function() {
     var self = this;
-    var testFetch = this.collections.testCollection.fetch();
+    var testFetch = this.collections.testCollection.fetch({
+      beforeSend: this.beforeSend.bind(this)
+    });
     $.when.apply($, [testFetch]).done(function() {
       self.views.testSelection.render();
     });
@@ -100,7 +102,6 @@ _.extend(App.prototype, {
     this.initializeViews();
     this.initializeListeners();
     this.fetchCollections();
-    this.test();
   },
   pollResult: function(jobID) {
     var self = this;
@@ -123,10 +124,6 @@ _.extend(App.prototype, {
   beforeSend: function(xhr, settings) {
     settings.url = this.urlRoot + settings.url.substring(1, settings.url.length);
     //xhr.setRequestHeader("X-CSRFToken", this.csrf_token);
-  },
-  test: function() {
-    this.collections.tests = new TestCollection();
-    this.collections.tests.fetch();
   }
 });
 
