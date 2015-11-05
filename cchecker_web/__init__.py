@@ -32,6 +32,24 @@ def valid_csrf(f):
         return f(*args, **kwargs)
     return decorated_function
 
+def login_required(f):
+    from cchecker_web.user import UserAppStore, UserError, UserAppServiceException
+    from flask import session, jsonify, redirect, url_for
+    @wraps(f)
+    def wrapper(*args, **kwargs):
+        if 'user_id' not in session or 'user_token' not in session:
+            app.logger.info("User is not logged in")
+            return redirect(url_for('.user_login'))
+        try:
+            app.logger.info("User IS logged in")
+            user_token = session['user_token']
+            user_store = UserAppStore(user_token)
+            response = user_store.read('self')
+            return f(*args, **kwargs)
+        except (UserError,UserAppServiceException) as e:
+            return redirect(url_for('.user_login'))
+    return wrapper
+
 
 cchecker_web = Blueprint('cchecker_web', __name__, static_url_path='', static_folder='static', template_folder='templates')
 

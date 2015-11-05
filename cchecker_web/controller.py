@@ -4,6 +4,7 @@
 cchecker_web/controller.py
 '''
 from cchecker_web import cchecker_web as api
+from cchecker_web import login_required
 from flask import render_template, redirect, url_for, jsonify
 from flask import current_app as app
 from glob import glob
@@ -67,6 +68,7 @@ def show_root():
     return redirect(url_for('.show_index'))
 
 @api.route('/index.html')
+@login_required
 def show_index():
     scripts = load_javascripts('main.js', 'index')
     css = load_css('main.css', 'index')
