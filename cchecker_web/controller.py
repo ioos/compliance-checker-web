@@ -78,3 +78,44 @@ def show_report(job_id):
     css = load_css('main.css', 'report')
     return render_template('report.html', scripts=scripts, css=css)
 
+@api.route('/user/new', methods=['GET'])
+def new_user():
+    scripts = load_javascripts('main.js', 'new_user')
+    css = load_css('main.css', 'new_user')
+    return render_template('new_user.html', scripts=scripts, css=css)
+
+@api.route('/user/edit/<string:user_id>', methods=['GET'])
+def edit_user(user_id):
+    scripts = load_javascripts('main.js', 'edit_user')
+    css = load_css('main.css', 'edit_user')
+    return render_template('edit_user.html', scripts=scripts, css=css)
+
+@api.route('/user/login', methods=['GET'])
+def user_login():
+    scripts = load_javascripts('main.js', 'login')
+    css = load_css('main.css', 'login')
+    return render_template('login.html', scripts=scripts, css=css)
+
+@api.route('/user/logout', methods=['GET'])
+def user_logout():
+    scripts = load_javascripts('main.js', 'logout')
+    css = load_css('main.css', 'logout')
+    return render_template('logout.html', scripts=scripts, css=css)
+
+@api.route('/user/', methods=['GET'])
+def show_users():
+    scripts = load_javascripts('main.js', 'show_users')
+    css = load_css('main.css', 'show_users')
+    return render_template('show_users.html', scripts=scripts, css=css)
+
+@api.route('/user/reset_password/<string:key>', methods=['GET'])
+def show_reset_password(key):
+    reset_information = app.redis.get('user:reset:%s' % key)
+    reset_information = json.loads(reset_information)
+    user_id = reset_information['user_id']
+    password_token = reset_information['password_token']
+    scripts = load_javascripts('main.js', 'reset_password')
+    css = load_css('main.css', 'reset_password')
+    return render_template('reset_password.html', scripts=scripts, css=css, temporary_key=key, user_id=user_id, password_token=password_token)
+
+

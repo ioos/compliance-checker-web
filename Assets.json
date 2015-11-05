@@ -1,6 +1,25 @@
 {
   "main": {
     "jst": {
+      "cchecker_web/static/js/partials/compiled/reset_password.js" : [
+        "cchecker_web/static/js/partials/UserChangePasswordForm.html"
+      ],
+      "cchecker_web/static/js/partials/compiled/show_users.js" : [
+        "cchecker_web/static/js/partials/UserTable.html",
+        "cchecker_web/static/js/partials/UserTableItem.html"
+      ],
+      "cchecker_web/static/js/partials/compiled/logout.js" : [
+      ],
+      "cchecker_web/static/js/partials/compiled/login.js" : [
+        "cchecker_web/static/js/partials/UserPasswordResetForm.html",
+        "cchecker_web/static/js/partials/UserLoginForm.html"
+      ],
+      "cchecker_web/static/js/partials/compiled/edit_user.js" : [
+        "cchecker_web/static/js/partials/UserForm.html"
+      ],
+      "cchecker_web/static/js/partials/compiled/new_user.js" : [
+        "cchecker_web/static/js/partials/UserForm.html"
+      ],
       "cchecker_web/static/js/partials/compiled/report.js": [
         "cchecker_web/static/js/partials/Report.html"
       ],
@@ -10,6 +29,105 @@
       ]
     },
     "js": {      
+      "cchecker_web/static/js/compiled/show_users.js" : [
+        "cchecker_web/static/lib/jquery/dist/jquery.js",
+        "cchecker_web/static/lib/bootstrap/dist/js/bootstrap.js",
+        "cchecker_web/static/lib/moment/moment.js",
+        "cchecker_web/static/lib/underscore/underscore.js",
+        "cchecker_web/static/lib/backbone/backbone.js",
+        "cchecker_web/static/lib/backbone.stickit/backbone.stickit.js",
+
+        "cchecker_web/static/js/partials/compiled/show_users.js",
+
+        "cchecker_web/static/js/models/UserModel.js",
+        
+        "cchecker_web/static/js/views/UserTableView.js",
+
+        "cchecker_web/static/js/app.js",
+        "cchecker_web/static/js/app/show_users.js"
+      ],
+      "cchecker_web/static/js/compiled/reset_password.js" : [
+        "cchecker_web/static/lib/jquery/dist/jquery.js",
+        "cchecker_web/static/lib/bootstrap/dist/js/bootstrap.js",
+        "cchecker_web/static/lib/moment/moment.js",
+        "cchecker_web/static/lib/underscore/underscore.js",
+        "cchecker_web/static/lib/backbone/backbone.js",
+        "cchecker_web/static/lib/backbone.stickit/backbone.stickit.js",
+
+        "cchecker_web/static/js/partials/compiled/reset_password.js",
+
+        "cchecker_web/static/js/models/UserModel.js",
+
+        "cchecker_web/static/js/views/UserChangePasswordFormView.js",
+
+        "cchecker_web/static/js/app.js",
+        "cchecker_web/static/js/app/reset_password.js"
+      ],
+      "cchecker_web/static/js/compiled/logout.js" : [
+        "cchecker_web/static/lib/jquery/dist/jquery.js",
+        "cchecker_web/static/lib/bootstrap/dist/js/bootstrap.js",
+        "cchecker_web/static/lib/moment/moment.js",
+        "cchecker_web/static/lib/underscore/underscore.js",
+        "cchecker_web/static/lib/backbone/backbone.js",
+        "cchecker_web/static/lib/backbone.stickit/backbone.stickit.js",
+
+        "cchecker_web/static/js/partials/compiled/logout.js",
+
+        "cchecker_web/static/js/app.js",
+        "cchecker_web/static/js/app/logout.js"
+      ],
+      "cchecker_web/static/js/compiled/login.js" : [
+        "cchecker_web/static/lib/jquery/dist/jquery.js",
+        "cchecker_web/static/lib/bootstrap/dist/js/bootstrap.js",
+        "cchecker_web/static/lib/moment/moment.js",
+        "cchecker_web/static/lib/underscore/underscore.js",
+        "cchecker_web/static/lib/backbone/backbone.js",
+        "cchecker_web/static/lib/backbone.stickit/backbone.stickit.js",
+
+        "cchecker_web/static/js/partials/compiled/login.js",
+
+        "cchecker_web/static/js/models/UserModel.js",
+
+        "cchecker_web/static/js/views/UserLoginFormView.js",
+        "cchecker_web/static/js/views/UserPasswordResetFormView.js",
+
+        "cchecker_web/static/js/app.js",
+        "cchecker_web/static/js/app/login.js"
+      ],
+      "cchecker_web/static/js/compiled/new_user.js" : [
+        "cchecker_web/static/lib/jquery/dist/jquery.js",
+        "cchecker_web/static/lib/bootstrap/dist/js/bootstrap.js",
+        "cchecker_web/static/lib/moment/moment.js",
+        "cchecker_web/static/lib/underscore/underscore.js",
+        "cchecker_web/static/lib/backbone/backbone.js",
+        "cchecker_web/static/lib/backbone.stickit/backbone.stickit.js",
+
+        "cchecker_web/static/js/partials/compiled/new_user.js",
+        
+        "cchecker_web/static/js/models/UserModel.js",
+
+        "cchecker_web/static/js/views/UserFormView.js",
+        
+        "cchecker_web/static/js/app.js",
+        "cchecker_web/static/js/app/new_user.js"
+      ],
+      "cchecker_web/static/js/compiled/edit_user.js" : [
+        "cchecker_web/static/lib/jquery/dist/jquery.js",
+        "cchecker_web/static/lib/bootstrap/dist/js/bootstrap.js",
+        "cchecker_web/static/lib/moment/moment.js",
+        "cchecker_web/static/lib/underscore/underscore.js",
+        "cchecker_web/static/lib/backbone/backbone.js",
+        "cchecker_web/static/lib/backbone.stickit/backbone.stickit.js",
+
+        "cchecker_web/static/js/partials/compiled/edit_user.js",
+        
+        "cchecker_web/static/js/models/UserModel.js",
+
+        "cchecker_web/static/js/views/UserFormView.js",
+        
+        "cchecker_web/static/js/app.js",
+        "cchecker_web/static/js/app/edit_user.js"
+      ],
       "cchecker_web/static/js/compiled/report.js" : [
         "cchecker_web/static/lib/jquery/dist/jquery.min.js",
         "cchecker_web/static/lib/underscore/underscore-min.js",
@@ -38,6 +156,7 @@
 
         "cchecker_web/static/js/models/TestModel.js",
         "cchecker_web/static/js/models/UploadModel.js",
+        "cchecker_web/static/js/models/UserModel.js",
 
         "cchecker_web/static/js/views/NetCDFUploadView.js",
         "cchecker_web/static/js/views/TestSelectionView.js",
@@ -47,6 +166,31 @@
       ]
     },
     "css": {
+      "cchecker_web/static/css/compiled/reset_password.css" : [
+        "cchecker_web/static/lib/bootstrap/dist/css/bootstrap.min.css",
+        "cchecker_web/static/css/main.css"
+      ],
+      "cchecker_web/static/css/compiled/show_users.css" : [
+        "cchecker_web/static/lib/bootstrap/dist/css/bootstrap.min.css",
+        "cchecker_web/static/css/main.css"
+      ],
+      "cchecker_web/static/css/compiled/logout.css" : [
+        "cchecker_web/static/lib/bootstrap/dist/css/bootstrap.min.css",
+        "cchecker_web/static/css/logout.css",
+        "cchecker_web/static/css/main.css"
+      ],
+      "cchecker_web/static/css/compiled/login.css" : [
+        "cchecker_web/static/lib/bootstrap/dist/css/bootstrap.min.css",
+        "cchecker_web/static/css/main.css"
+      ],
+      "cchecker_web/static/css/compiled/edit_user.css" : [
+        "cchecker_web/static/lib/bootstrap/dist/css/bootstrap.min.css",
+        "cchecker_web/static/css/main.css"
+      ],
+      "cchecker_web/static/css/compiled/new_user.css" : [
+        "cchecker_web/static/lib/bootstrap/dist/css/bootstrap.min.css",
+        "cchecker_web/static/css/main.css"
+      ],
       "cchecker_web/static/css/compiled/report.css":[
         "cchecker_web/static/lib/bootstrap/dist/css/bootstrap.min.css",
         "cchecker_web/static/lib/bootstrap-select/dist/css/bootstrap-select.min.css",

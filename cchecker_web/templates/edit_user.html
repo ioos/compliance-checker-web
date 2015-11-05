@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}
+    <title>MyGLOS - Edit User</title>
+{% endblock %}
+{% block head %}
+
+<!-- Scripts -->
+{{ scripts|safe }}
+<!-- CSS -->
+{{ css|safe }}
+{% endblock %}
+{% block body %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div id="user-form-view">
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+var app = new App();
+$(document).ready(function() {
+  app.start();
+});
+
+</script>
+{% endblock %}
+
+

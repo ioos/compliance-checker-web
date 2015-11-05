@@ -12,7 +12,8 @@ _.extend(App.prototype, {
     testCollection: new TestCollection()
   },
   models:{
-    upload: new UploadModel()
+    upload: new UploadModel(),
+    userModel: new UserModel()
   },
   form: new FormData(),
   initializeViews: function() {
@@ -34,6 +35,13 @@ _.extend(App.prototype, {
     });
     $.when.apply($, [testFetch]).done(function() {
       self.views.testSelection.render();
+    });
+  },
+  initializeModels: function() {
+    var self = this;
+    this.models.userModel.set({user_id: "self"});
+    this.models.userModel.fetch({
+      beforeSend: this.beforeSend.bind(this)
     });
   },
   start: function() {
@@ -134,10 +142,6 @@ _.extend(App.prototype, {
         }, 500);
       }
     });
-  },
-  beforeSend: function(xhr, settings) {
-    settings.url = this.urlRoot + settings.url.substring(1, settings.url.length);
-    //xhr.setRequestHeader("X-CSRFToken", this.csrf_token);
   }
 });
 
