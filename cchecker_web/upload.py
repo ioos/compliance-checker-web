@@ -5,12 +5,14 @@ Compliance Checker Web
 
 '''
 
-from cchecker_web import cchecker_web
+from cchecker_web import cchecker_web, login_required
 from cchecker_web.processing import compliance_check
-from flask import request, jsonify
+from cchecker_web.user import UserAppStore
+from flask import request, jsonify, session
 from flask import current_app as app
 from hashlib import sha1
 from datetime import datetime
+import base64
 import os
 
 ALLOWED_FILENAMES = ['.nc', '.nc3', '.nc4', '.netcdf', '.netcdf3', '.netcdf4']
@@ -26,6 +28,7 @@ def get_job_id(filepath):
     return sha1(filepath + datestr).hexdigest()
 
 @cchecker_web.route('/upload', methods=['POST'])
+@login_required
 def upload_dataset():
     url = request.form.get('url')
     checker = request.form.get('checker')
@@ -46,16 +49,27 @@ def check_url(url, checker):
 
 def check_files(files, checker):
     successful = []
+    user_token = session['user_token']
+    user_store = UserAppStore(user_token)
+    user = user_store.read(user_id='self')
+    user_id = user['user_id']
+
     for filename in files:
         file_object = files[filename]
-        if allowed_file(file_object.filename):
-            filepath = os.path.join(app.config['UPLOAD_FOLDER'], file_object.filename)
-            file_object.save(filepath)
-            job_id = get_job_id(filepath)
-            app.queue.enqueue_call(func=compliance_check, args=(job_id, filepath, checker))
-            successful.append(file_object.filename)
-            break
-    if successful:
-        return jsonify(message='Upload successful', job_id=job_id, files=successful)
+        if not allowed_file(file_object.filename):
+            continue
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], 
+                                user_id,
+                                base64.b64encode(file_object.filename))
+        if not os.path.exists(os.path.dirname(filepath)):
+            os.makedirs(os.path.dirname(filepath))
+        file_object.save(filepath)
+        job_id = get_job_id(filepath)
+        app.queue.enqueue_call(func=compliance_check, args=(job_id, filepath, checker))
+        successful.append(file_object.filename)
+        break
+    else:
+        return jsonify(error='upload_failed', message='Upload failed'), 400
+
+    return jsonify(message='Upload successful', job_id=job_id, files=successful)
             
-    return jsonify(error='upload_failed', message='Upload failed'), 400

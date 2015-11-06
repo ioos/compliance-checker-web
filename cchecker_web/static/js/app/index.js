@@ -5,6 +5,7 @@
 
 _.extend(App.prototype, {
   views: {
+    navbar: null,
     testSelection: null,
     netCDFUpload: null
   },
@@ -12,11 +13,20 @@ _.extend(App.prototype, {
     testCollection: new TestCollection()
   },
   models:{
-    upload: new UploadModel()
+    upload: new UploadModel(),
+    userModel: new UserModel()
   },
   form: new FormData(),
   initializeViews: function() {
     var self = this;
+    this.views.navbar = new IOOSNavbarView({
+      el: $('#navbar-view'),
+      links: [{
+        name: "Logout",
+        href: this.urlRoot + 'user/logout'
+      }]
+    });
+    this.views.navbar.render();
     this.views.testSelection = new TestSelectionView({
       el: $('.testselection'),
       collection: this.collections.testCollection
@@ -34,6 +44,13 @@ _.extend(App.prototype, {
     });
     $.when.apply($, [testFetch]).done(function() {
       self.views.testSelection.render();
+    });
+  },
+  initializeModels: function() {
+    var self = this;
+    this.models.userModel.set({user_id: "self"});
+    this.models.userModel.fetch({
+      beforeSend: this.beforeSend.bind(this)
     });
   },
   start: function() {
@@ -134,10 +151,6 @@ _.extend(App.prototype, {
         }, 500);
       }
     });
-  },
-  beforeSend: function(xhr, settings) {
-    settings.url = this.urlRoot + settings.url.substring(1, settings.url.length);
-    //xhr.setRequestHeader("X-CSRFToken", this.csrf_token);
   }
 });
 

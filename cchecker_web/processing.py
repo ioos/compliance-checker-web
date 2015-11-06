@@ -2,6 +2,7 @@
 
 from compliance_checker.runner import CheckSuite
 from rq.connections import get_current_connection
+import base64
 import logging
 import requests
 import json
@@ -22,6 +23,9 @@ def compliance_check(job_id, dataset, checker):
 
     aggregates = cs.build_structure(checker, groups, dataset)
     aggregates = cs.serialize(aggregates)
+    # We use b64 to keep the filenames safe but it's helpful to the user to see
+    # the filename they uploaded
+    aggregates['source_name'] = base64.b64decode(aggregates['source_name'].split('/')[-1])
     buf = json.dumps(aggregates)
 
     redis.set('processing:job:%s' % job_id, buf, 3600)

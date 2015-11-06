@@ -11,6 +11,24 @@ COMMON: &common
   REDIS_HOST: localhost
   REDIS_PORT: 6379
   REDIS_DB: 6
+  USERAPP:
+    ENABLED: False
+    APPLICATION_ID: xxxx
+    API_KEY: xxx
+
+  CACHE:
+    CACHE_TYPE: simple
+    
+  MAIL_SERVER: localhost
+  MAIL_PORT: 25
+  MAIL_USE_TLS: True
+  MAIL_USERNAME: localuser
+  MAIL_PASSWORD: password
+  MAIL_DEFAULT_SENDER: localuser@localhost
+  MAIL_ENABLED: False
+  MAIL_DEFAULT_TO: 
+    - localuser@localhost
+  MAILER_DEBUG: False
 
 DEVELOPMENT: &development
   <<: *common 
