@@ -1,5 +1,6 @@
 #fileupload {
-  padding-left: 14%;
+  display: inline;
+  padding-left: 25px;
   color: black;
 }
 
@@ -9,5 +10,4 @@
   font-size: 21px;
   font-family: 'Anonymous Pro';
 }
-
 

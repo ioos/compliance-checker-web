@@ -323,7 +323,7 @@ Please visit %s to reset your password.
 
 Thank you!
 
-- MyGLOS Team
+- IOOS
 '''
     
     try:

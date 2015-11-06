@@ -58,6 +58,15 @@ _.extend(App.prototype, {
     this.drop = $('#dropbox');
     this.submit = $('#submit-btn');
 
+    $('.btn-file :file').change(function(e) {
+      if($(this).get(0).files.length > 0) {
+        var file = $(this).get(0).files[0];
+        self.models.upload.set({filename: file.name, file:file});
+        self.drop.addClass('uploading');
+        self.views.netCDFUpload.render();
+      }
+    });
+
     this.drop.on('dragover', function(e) {
       e.preventDefault();
       e.stopPropagation();

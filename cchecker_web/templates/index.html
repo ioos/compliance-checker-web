@@ -32,15 +32,27 @@
   <div class="row">
     <div class="col-sm-12">
       <div id="dropbox">
-        <p>Drop files here to upload</p>
-        <div id="fileupload">
-        </div>
+        <p><i class="fa fa-upload"></i> Drop files here to upload</p>
       </div>
     </div>
   </div>
   <div class="row">
     <div class="col-sm-12">
-      <input type="text" class="form-control" id="url-input" placeholder="&#xf019; Enter URLfor dataset">
+      <span class="btn btn-default btn-file btn-upload">
+        <i class="fa fa-upload"></i> Browse <input type="file">
+      </span>
+      <div id="fileupload">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <h3>Or run on a remote dataset via HTTP</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <input type="text" class="form-control" id="url-input" placeholder="&#xf0ed; Enter URL for dataset">
     </div>
   </div>
   <div class="row submit-row">

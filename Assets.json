@@ -177,28 +177,34 @@
     "css": {
       "cchecker_web/static/css/compiled/reset_password.css" : [
         "cchecker_web/static/lib/bootstrap/dist/css/bootstrap.min.css",
+        "cchecker_web/static/lib/font-awesome/css/font-awesome.css",
         "cchecker_web/static/css/main.css"
       ],
       "cchecker_web/static/css/compiled/show_users.css" : [
         "cchecker_web/static/lib/bootstrap/dist/css/bootstrap.min.css",
+        "cchecker_web/static/lib/font-awesome/css/font-awesome.css",
         "cchecker_web/static/css/main.css"
       ],
       "cchecker_web/static/css/compiled/logout.css" : [
         "cchecker_web/static/lib/bootstrap/dist/css/bootstrap.min.css",
+        "cchecker_web/static/lib/font-awesome/css/font-awesome.css",
         "cchecker_web/static/css/logout.css",
         "cchecker_web/static/css/main.css"
       ],
       "cchecker_web/static/css/compiled/login.css" : [
         "cchecker_web/static/lib/bootstrap/dist/css/bootstrap.min.css",
+        "cchecker_web/static/lib/font-awesome/css/font-awesome.css",
         "cchecker_web/static/css/login_form.css",
         "cchecker_web/static/css/main.css"
       ],
       "cchecker_web/static/css/compiled/edit_user.css" : [
         "cchecker_web/static/lib/bootstrap/dist/css/bootstrap.min.css",
+        "cchecker_web/static/lib/font-awesome/css/font-awesome.css",
         "cchecker_web/static/css/main.css"
       ],
       "cchecker_web/static/css/compiled/new_user.css" : [
         "cchecker_web/static/lib/bootstrap/dist/css/bootstrap.min.css",
+        "cchecker_web/static/lib/font-awesome/css/font-awesome.css",
         "cchecker_web/static/css/main.css",
         "cchecker_web/static/css/user_form.css",
         "cchecker_web/static/css/ioos_navbar.css"
@@ -206,13 +212,16 @@
       "cchecker_web/static/css/compiled/report.css":[
         "cchecker_web/static/lib/bootstrap/dist/css/bootstrap.min.css",
         "cchecker_web/static/lib/bootstrap-select/dist/css/bootstrap-select.min.css",
+        "cchecker_web/static/lib/font-awesome/css/font-awesome.css",
         "cchecker_web/static/css/result.css",
         "cchecker_web/static/css/main.css"
       ],
       "cchecker_web/static/css/compiled/index.css":[
         "cchecker_web/static/lib/bootstrap/dist/css/bootstrap.min.css",
         "cchecker_web/static/lib/bootstrap-select/dist/css/bootstrap-select.min.css",
+        "cchecker_web/static/lib/font-awesome/css/font-awesome.css",
         "cchecker_web/static/css/main.css",
+        "cchecker_web/static/css/index.css",
         "cchecker_web/static/css/ioos_navbar.css",
         "cchecker_web/static/css/netcdf_upload.css"
       ]
