@@ -327,7 +327,8 @@ Thank you!
 '''
     
     try:
-        send('MyGLOS - Password Reset', [email], [], message % url, None)
+        send('Compliance Checker - Password Reset', [email], [], message % url, None)
     except Exception as e:
+        app.logger.exception("Failed to send message")
         raise MailError("Failed to send message: %s" % e.message)
 

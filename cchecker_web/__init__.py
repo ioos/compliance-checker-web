@@ -37,6 +37,8 @@ def login_required(f):
     from flask import session, jsonify, redirect, url_for
     @wraps(f)
     def wrapper(*args, **kwargs):
+        if app.config['USERAPP']['ENABLED'] is not True:
+            return f(*args, **kwargs)
         if 'user_id' not in session or 'user_token' not in session:
             app.logger.info("User is not logged in")
             return redirect(url_for('.user_login'))
@@ -55,6 +57,6 @@ cchecker_web = Blueprint('cchecker_web', __name__, static_url_path='', static_fo
 
 
 from cchecker_web.controller import show_index
-from cchecker_web.routes import upload_dataset
+from cchecker_web.upload import upload_dataset
 from cchecker_web.api import show_job
 from cchecker_web.user import show_user

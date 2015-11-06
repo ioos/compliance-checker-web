@@ -75,6 +75,7 @@ def show_index():
     return render_template('index.html', scripts=scripts, css=css)
 
 @api.route('/report/<string:job_id>')
+@login_required
 def show_report(job_id):
     scripts = load_javascripts('main.js', 'report')
     css = load_css('main.css', 'report')
@@ -87,6 +88,7 @@ def new_user():
     return render_template('new_user.html', scripts=scripts, css=css)
 
 @api.route('/user/edit/<string:user_id>', methods=['GET'])
+@login_required
 def edit_user(user_id):
     scripts = load_javascripts('main.js', 'edit_user')
     css = load_css('main.css', 'edit_user')
@@ -99,12 +101,14 @@ def user_login():
     return render_template('login.html', scripts=scripts, css=css)
 
 @api.route('/user/logout', methods=['GET'])
+@login_required
 def user_logout():
     scripts = load_javascripts('main.js', 'logout')
     css = load_css('main.css', 'logout')
     return render_template('logout.html', scripts=scripts, css=css)
 
 @api.route('/user/', methods=['GET'])
+@login_required
 def show_users():
     scripts = load_javascripts('main.js', 'show_users')
     css = load_css('main.css', 'show_users')

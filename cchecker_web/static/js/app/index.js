@@ -5,6 +5,7 @@
 
 _.extend(App.prototype, {
   views: {
+    navbar: null,
     testSelection: null,
     netCDFUpload: null
   },
@@ -18,6 +19,14 @@ _.extend(App.prototype, {
   form: new FormData(),
   initializeViews: function() {
     var self = this;
+    this.views.navbar = new IOOSNavbarView({
+      el: $('#navbar-view'),
+      links: [{
+        name: "Logout",
+        href: this.urlRoot + 'user/logout'
+      }]
+    });
+    this.views.navbar.render();
     this.views.testSelection = new TestSelectionView({
       el: $('.testselection'),
       collection: this.collections.testCollection

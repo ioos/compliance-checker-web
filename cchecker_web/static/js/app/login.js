@@ -8,6 +8,7 @@ _.extend(App.prototype, {
     userModel: new UserModel()
   },
   views: {
+    navbar: null,
     userLoginFormView: null,
     userPasswordResetFormView: null
   },
@@ -29,6 +30,12 @@ _.extend(App.prototype, {
   initializeViews: function() {
     var self = this;
 
+    this.views.navbar = new IOOSNavbarView({
+      el: $('#navbar-view'),
+      links: []
+    });
+    this.views.navbar.render();
+
     // See if we're logged in already. If we aren't then present the form
 
     this.views.userLoginFormView = new UserLoginFormView({
@@ -40,6 +47,8 @@ _.extend(App.prototype, {
       el: $('#user-password-reset-view'),
       model: this.models.userModel
     });
+    this.views.userPasswordResetFormView.$el.hide();
+    this.views.userPasswordResetFormView.render();
   },
   initializeCollections: function() {
     var self = this;
@@ -60,7 +69,11 @@ _.extend(App.prototype, {
     });
     this.listenTo(this.views.userLoginFormView, "forgot", function() {
       self.views.userLoginFormView.$el.hide();
-      self.views.userPasswordResetFormView.render();
+      self.views.userPasswordResetFormView.$el.show();
+    });
+    this.listenTo(this.views.userPasswordResetFormView, 'back', function() {
+      self.views.userPasswordResetFormView.$el.hide();
+      self.views.userLoginFormView.$el.show();
     });
     this.listenTo(this.views.userPasswordResetFormView, 'passwordReset', function(model) {
       $('#user-password-reset-view').hide();
@@ -80,6 +93,9 @@ _.extend(App.prototype, {
           }, 3000);
         }
       });
+    });
+    this.listenTo(this.views.userLoginFormView, "register", function(e) {
+      window.location.href = self.urlRoot + "user/new";
     });
   },
   fetchCollections: function() {

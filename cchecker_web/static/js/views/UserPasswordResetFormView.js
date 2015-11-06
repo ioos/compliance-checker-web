@@ -8,7 +8,12 @@ var UserPasswordResetFormView = Backbone.View.extend({
     '#email' : 'email'
   },
   events: {
-    'click #reset': 'onReset'
+    'click #reset': 'onReset',
+    'click #back' : 'onBack'
+  },
+  onBack: function(e) {
+    e.preventDefault();
+    this.trigger('back');
   },
   onReset: function(e) {
     e.preventDefault();

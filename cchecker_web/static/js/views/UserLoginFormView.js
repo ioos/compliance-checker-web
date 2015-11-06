@@ -10,7 +10,8 @@ var UserLoginFormView = Backbone.View.extend({
   },
   events: {
     'click #login' : 'onLogin',
-    'click #forgot': 'onForgot'
+    'click #forgot': 'onForgot',
+    'click #register' : 'onRegister'
   },
   onLogin: function(e) {
     e.preventDefault();
@@ -19,6 +20,10 @@ var UserLoginFormView = Backbone.View.extend({
   onForgot: function(e) {
     e.preventDefault();
     this.trigger('forgot');
+  },
+  onRegister: function(e) {
+    e.preventDefault();
+    this.trigger('register');
   },
   initialize: function(options) {
     _.bindAll(this, "onLogin", "onForgot");

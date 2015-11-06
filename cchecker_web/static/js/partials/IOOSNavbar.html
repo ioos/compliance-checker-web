@@ -1,0 +1,34 @@
+<header>
+  <div class="banner">
+    <a class="banner-img-brand" href="http://ioos.noaa.gov/">
+      <img src="<%= app.urlRoot %>img/ioos_logo.png" alt="IOOS Logo" />
+    </a>
+    <div class="banner-text">
+      <a href="http://ioos.noaa.gov/">
+        | Integrated Ocean Observing System
+      </a>
+    </div>
+  </div>
+  <nav class="navbar navbar-custom">
+    <div class="container">
+      <div class="navbar-header">
+        <div class="navbar-brand">
+          <a href="{{url_for('.show_index')}}">
+            Compliance Checker
+          </a>
+        </div> <!-- .navbar-brand -->
+      </div> <!-- .navbar-header -->
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <% _.each(links, function(link) { %>
+          <li>
+            <a href="<%= link.href %>"><%= link.name %></a>
+          </li>
+          <% }); %>
+        </ul> <!-- .nav.navbar-nav.navbar-right -->
+      </div> <!-- .collapse.navbar-collapse -->
+    </div> <!-- .container -->
+  </nav>
+</header>
+
+

@@ -8,6 +8,7 @@ _.extend(App.prototype, {
     userModel: new UserModel()
   },
   views: {
+    navbar: null,
     userFormView: null
   },
   collections: {},
@@ -17,6 +18,14 @@ _.extend(App.prototype, {
   },
   initializeViews: function() {
     var self = this;
+
+    this.views.navbar = new IOOSNavbarView({
+      el: $('#navbar-view'),
+      links: [{
+        name: "Login",
+        href: this.urlRoot + "user/login"
+      }]
+    }).render();
 
     this.views.userFormView = new UserFormView({
       legend: "New User Account",
