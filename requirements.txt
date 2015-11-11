@@ -14,5 +14,6 @@ rq==0.5.5
 compliance-checker>=2.0.0
 cc_plugin_glider>=1.0.0
 userapp>=1.0.5
-flask-wtf>=0.12
+Flask-WTF==0.12
 Flask-Mail>=0.9.1
+Flask-Cache==0.13.1
