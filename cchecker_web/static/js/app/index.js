@@ -19,6 +19,7 @@ _.extend(App.prototype, {
   form: new FormData(),
   initializeViews: function() {
     var self = this;
+    // Initialize the Navbar with a Logout button
     this.views.navbar = new IOOSNavbarView({
       el: $('#navbar-view'),
       links: [{
@@ -27,6 +28,7 @@ _.extend(App.prototype, {
       }]
     });
     this.views.navbar.render();
+
     this.views.testSelection = new TestSelectionView({
       el: $('.testselection'),
       collection: this.collections.testCollection
@@ -39,6 +41,8 @@ _.extend(App.prototype, {
   },
   initializeCollections: function() {
     var self = this;
+
+    // Get the checkers
     var testFetch = this.collections.testCollection.fetch({
       beforeSend: this.beforeSend.bind(this)
     });
@@ -58,6 +62,17 @@ _.extend(App.prototype, {
     this.drop = $('#dropbox');
     this.submit = $('#submit-btn');
 
+    // Listen for someone selecting a file witht he browse button
+    $('.btn-file :file').change(function(e) {
+      if($(this).get(0).files.length > 0) {
+        var file = $(this).get(0).files[0];
+        self.models.upload.set({filename: file.name, file:file});
+        self.drop.addClass('uploading');
+        self.views.netCDFUpload.render();
+      }
+    });
+
+    // Someone dragged a file
     this.drop.on('dragover', function(e) {
       e.preventDefault();
       e.stopPropagation();
@@ -73,6 +88,7 @@ _.extend(App.prototype, {
       $(this).removeClass('hovered');
     });
 
+    // Someone dropped a file
     this.drop.on('drop', function(e) {
       e.preventDefault();
       e.stopPropagation();
@@ -87,6 +103,8 @@ _.extend(App.prototype, {
       $(this).addClass('uploading');
       self.views.netCDFUpload.render();
     });
+
+
     this.submit.on('click', function() {
       var checkID = self.views.testSelection.getSelected();
       self.form.append('checker', checkID);
@@ -135,8 +153,13 @@ _.extend(App.prototype, {
     this.initializeListeners();
     this.fetchCollections();
   },
-  pollResult: function(jobID) {
+  pollResult: function(jobID, count) {
     var self = this;
+    count = count || 0;
+    if(count > 15) {
+          $('.drop-status').html('<div class="alert alert-danger"><p>Error while processing the job.</p><p>Job Timed Out</p></div>');
+          return;
+    }
     $.ajax({
       url: self.urlRoot + 'api/job/' + jobID,
       dataType: 'json',
@@ -145,10 +168,16 @@ _.extend(App.prototype, {
       success: function() {
         window.location.href = self.urlRoot + 'report/' + jobID;
       },
-      error: function() {
-        setTimeout(function() {
-          self.pollResult(jobID)
-        }, 500);
+      error: function(jqXHR, response, options) {
+        if(jqXHR.status == 404) {
+          setTimeout(function() {
+            self.pollResult(jobID, count+1)
+          }, 500);
+        } else if(jqXHR.status == 400) {
+          $('.drop-status').html('<div class="alert alert-danger"><p>Error while processing the job.</p><p>' + jqXHR.responseJSON.error +': ' + jqXHR.responseJSON.message +  '</p></div>');
+        } else {
+          $('.drop-status').html('<div class="alert alert-danger"><p>Error while processing the job.</p><p>Server Error, please check the logs</p></div>');
+        }
       }
     });
   }
