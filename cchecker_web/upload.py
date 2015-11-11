@@ -71,5 +71,5 @@ def check_files(files, checker):
     else:
         return jsonify(error='upload_failed', message='Upload failed'), 400
 
-    return jsonify(message='Upload successful', job_id=job_id, files=successful)
+    return jsonify(message='Upload successful. Please wait a moment while we process the file...', job_id=job_id, files=successful)
             

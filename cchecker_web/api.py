@@ -13,5 +13,8 @@ def show_job(job_id):
     job_result = app.redis.get('processing:job:%s' % job_id)
     if job_result is None:
         return jsonify({}), 404
-    return job_result or '{}', 200, {'Content-Type':'application/json;charset=utf8'}
+    job_result = json.loads(job_result)
+    if 'error' in job_result:
+        return jsonify(job_result), 400
+    return jsonify(job_result), 200
 

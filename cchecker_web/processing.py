@@ -11,25 +11,30 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
 def compliance_check(job_id, dataset, checker):
-    cs = CheckSuite()
-    if dataset.startswith('http'):
-        dataset = check_redirect(dataset)
-    ds = cs.load_dataset(dataset)
-    redis = get_current_connection()
-    score_groups = cs.run(ds, checker)
+    try:
+        cs = CheckSuite()
+        if dataset.startswith('http'):
+            dataset = check_redirect(dataset)
+        ds = cs.load_dataset(dataset)
+        redis = get_current_connection()
+        score_groups = cs.run(ds, checker)
 
-    rpair = score_groups[checker]
-    groups, errors = rpair
+        rpair = score_groups[checker]
+        groups, errors = rpair
 
-    aggregates = cs.build_structure(checker, groups, dataset)
-    aggregates = cs.serialize(aggregates)
-    # We use b64 to keep the filenames safe but it's helpful to the user to see
-    # the filename they uploaded
-    aggregates['source_name'] = base64.b64decode(aggregates['source_name'].split('/')[-1])
-    buf = json.dumps(aggregates)
+        aggregates = cs.build_structure(checker, groups, dataset)
+        aggregates = cs.serialize(aggregates)
+        # We use b64 to keep the filenames safe but it's helpful to the user to see
+        # the filename they uploaded
+        if not aggregates['source_name'].startswith('http'):
+            aggregates['source_name'] = base64.b64decode(aggregates['source_name'].split('/')[-1])
+        buf = json.dumps(aggregates)
 
-    redis.set('processing:job:%s' % job_id, buf, 3600)
-    return True
+        redis.set('processing:job:%s' % job_id, buf, 3600)
+        return True
+    except Exception as e:
+        redis.set('processing:job:%s' % job_id, json.dumps({"error":type(e).__name__, "message":e.message}), 3600)
+        return False
 
 def check_redirect(dataset, checked_urls=None):
     checked_urls = checked_urls or []
