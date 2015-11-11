@@ -36,7 +36,7 @@ var UserTableItemView = Backbone.View.extend({
     window.location = this.getEdit();
   },
   getEdit: function() {
-    var edit_url = '/user/edit/' + this.model.get('user_id');
+    var edit_url = app.urlRoot + 'user/edit/' + this.model.get('user_id');
     return edit_url;
   },
   render: function() {

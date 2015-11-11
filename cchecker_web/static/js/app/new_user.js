@@ -50,7 +50,7 @@ _.extend(App.prototype, {
             model.login({
               beforeSend: self.beforeSend.bind(self),
               success: function(data, textStatus, jqXHR) {
-                window.location.href = '/';
+                window.location.href = app.urlRoot;
               },
               error: function(jqXHR, textStatus, options) {
                 self.views.userFormView.setAlert(jqXHR.responseJSON.message);
@@ -67,7 +67,8 @@ _.extend(App.prototype, {
   fetchCollections: function() {
     var self = this;
   },
-  beforeSend: function(xhr) {
+  beforeSend: function(xhr, settings) {
+    settings.url = this.urlRoot + settings.url.substring(1, settings.url.length);
     xhr.setRequestHeader("X-CSRFToken", this.csrf_token);
   },
   test: function() {

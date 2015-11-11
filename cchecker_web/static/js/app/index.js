@@ -161,7 +161,7 @@ _.extend(App.prototype, {
           return;
     }
     $.ajax({
-      url: self.urlRoot + 'api/job/' + jobID,
+      url: '/api/job/' + jobID,
       dataType: 'json',
       method: 'GET',
       beforeSend: this.beforeSend.bind(this),

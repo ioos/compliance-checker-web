@@ -10,21 +10,32 @@ _.extend(App.prototype, {
   },
   collections: {},
   csrf_token: $('meta[name=csrf-token]').attr('content'),
-  beforeSend: function(xhr) {
+  beforeSend: function(xhr, settings) {
+    settings.url = this.urlRoot + settings.url.substring(1, settings.url.length);
     xhr.setRequestHeader("X-CSRFToken", this.csrf_token);
-    debugger;
   },
-  start: function() {
+  initializeViews: function() {
+    var self = this;
+
+    this.views.navbar = new IOOSNavbarView({
+      el: $('#navbar-view'),
+      links: []
+    });
+    this.views.navbar.render();
+  },
+  fetchCollections: function() {
+    var self = this;
     $.ajax({
+      beforeSend: this.beforeSend.bind(this),
       url: '/api/user/logout',
       success:function() {
         setTimeout(function(){
-          window.location = '/';
+          window.location = app.urlRoot;
         }, 500);
       },
       error: function() {
         setTimeout(function(){
-          window.location = '/';
+          window.location = app.urlRoot;
         }, 500);
       }
     });

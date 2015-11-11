@@ -29,7 +29,9 @@ _.extend(App.prototype, {
       el: $('#user-form-view'),
       model: this.models.userModel
     });
-    $.when(this.models.userModel.fetch()).done(function() {
+    $.when(this.models.userModel.fetch({
+      beforeSend: self.beforeSend.bind(self)
+    })).done(function() {
       self.views.userFormView.render();
     });
   },
@@ -56,7 +58,8 @@ _.extend(App.prototype, {
   fetchCollections: function() {
     var self = this;
   },
-  beforeSend: function(xhr) {
+  beforeSend: function(xhr, settings) {
+    settings.url = this.urlRoot + settings.url.substring(1, settings.url.length);
     xhr.setRequestHeader("X-CSRFToken", this.csrf_token);
   },
   test: function() {
