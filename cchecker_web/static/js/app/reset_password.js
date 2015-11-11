@@ -53,7 +53,8 @@ _.extend(App.prototype, {
   fetchCollections: function() {
     var self = this;
   },
-  beforeSend: function(xhr) {
+  beforeSend: function(xhr, settings) {
+    settings.url = this.urlRoot + settings.url.substring(1, settings.url.length);
     xhr.setRequestHeader("X-CSRFToken", this.csrf_token);
   },
   test: function() {

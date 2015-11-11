@@ -7,6 +7,7 @@ _.extend(App.prototype, {
   models: {
   },
   views: {
+    navbar: null,
     userTableView: null
   },
   collections: {
@@ -18,6 +19,11 @@ _.extend(App.prototype, {
   },
   initializeViews: function() {
     var self = this;
+    this.views.navbar = new IOOSNavbarView({
+      el: $('#navbar-view'),
+      links: []
+    });
+    this.views.navbar.render();
 
     this.views.userTableView = new UserTableView({
       collection: this.collections.userCollection,
@@ -26,7 +32,9 @@ _.extend(App.prototype, {
   },
   initializeCollections: function() {
     var self = this;
-    $.when(this.collections.userCollection.fetch()).done(function() {
+    $.when(this.collections.userCollection.fetch({
+      beforeSend: self.beforeSend.bind(self)
+    })).done(function() {
       self.views.userTableView.render();
     });
   },
@@ -36,7 +44,8 @@ _.extend(App.prototype, {
   fetchCollections: function() {
     var self = this;
   },
-  beforeSend: function(xhr) {
+  beforeSend: function(xhr, settings) {
+    settings.url = this.urlRoot + settings.url.substring(1, settings.url.length);
     xhr.setRequestHeader("X-CSRFToken", this.csrf_token);
   },
   test: function() {
