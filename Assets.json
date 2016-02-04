@@ -171,6 +171,7 @@
         "cchecker_web/static/js/models/TestModel.js",
         "cchecker_web/static/js/models/UploadModel.js",
         "cchecker_web/static/js/models/UserModel.js",
+        "cchecker_web/static/js/models/ConfigModel.js",
 
         "cchecker_web/static/js/views/BaseView.js",
         "cchecker_web/static/js/views/NetCDFUploadView.js",
