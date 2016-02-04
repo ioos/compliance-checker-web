@@ -64,10 +64,8 @@ def url_process():
 from cchecker_web.utils import setup_uploads
 setup_uploads(app)
 
-from cchecker_web import cache, csrf, mail
+from cchecker_web import cache
 cache.init_app(app, config=app.config['CACHE'])
-csrf.init_app(app)
-mail.init_app(app)
 
 # The compliance checker needs to load all plugins at runtime
 from compliance_checker.runner import CheckSuite

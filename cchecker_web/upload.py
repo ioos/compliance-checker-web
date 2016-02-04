@@ -5,9 +5,8 @@ Compliance Checker Web
 
 '''
 
-from cchecker_web import cchecker_web, login_required
+from cchecker_web import cchecker_web
 from cchecker_web.processing import compliance_check
-from cchecker_web.user import UserAppStore
 from flask import request, jsonify, session
 from flask import current_app as app
 from hashlib import sha1
@@ -18,7 +17,6 @@ import os
 ALLOWED_FILENAMES = ['.nc', '.nc3', '.nc4', '.netcdf', '.netcdf3', '.netcdf4']
 
 def allowed_file(filename):
-    print filename
     if filename.endswith('.nc'):
         return True
     return False
@@ -28,7 +26,6 @@ def get_job_id(filepath):
     return sha1(filepath + datestr).hexdigest()
 
 @cchecker_web.route('/upload', methods=['POST'])
-@login_required
 def upload_dataset():
     url = request.form.get('url')
     checker = request.form.get('checker')
@@ -49,17 +46,12 @@ def check_url(url, checker):
 
 def check_files(files, checker):
     successful = []
-    user_token = session['user_token']
-    user_store = UserAppStore(user_token)
-    user = user_store.read(user_id='self')
-    user_id = user['user_id']
 
     for filename in files:
         file_object = files[filename]
         if not allowed_file(file_object.filename):
             continue
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], 
-                                user_id,
                                 base64.b64encode(file_object.filename))
         if not os.path.exists(os.path.dirname(filepath)):
             os.makedirs(os.path.dirname(filepath))

@@ -11,10 +11,6 @@ COMMON: &common
   REDIS_HOST: localhost
   REDIS_PORT: 6379
   REDIS_DB: 6
-  USERAPP:
-    ENABLED: False
-    APPLICATION_ID: xxxx
-    API_KEY: xxx
 
   CACHE:
     CACHE_TYPE: simple
