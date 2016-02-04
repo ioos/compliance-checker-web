@@ -18,3 +18,7 @@ def show_job(job_id):
         return jsonify(job_result), 400
     return jsonify(job_result), 200
 
+@api.route('/api/config')
+def show_config():
+    size_limit = app.config.get('MAX_CONTENT_LENGTH')
+    return jsonify(size_limit=size_limit)

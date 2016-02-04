@@ -17,3 +17,7 @@
     cursor: inherit;
     display: block;
 }
+
+#max-size {
+  display: inline;
+}

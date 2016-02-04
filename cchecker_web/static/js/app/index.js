@@ -14,7 +14,8 @@ _.extend(App.prototype, {
   },
   models:{
     upload: new UploadModel(),
-    userModel: new UserModel()
+    userModel: new UserModel(),
+    configModel: new ConfigModel()
   },
   form: new FormData(),
   initializeViews: function() {
@@ -55,6 +56,16 @@ _.extend(App.prototype, {
     this.models.userModel.set({user_id: "self"});
     this.models.userModel.fetch({
       beforeSend: this.beforeSend.bind(this)
+    });
+  },
+  fetchCollections: function() {
+    var self = this;
+    var configFetch = this.models.configModel.fetch({
+      beforeSend: this.beforeSend.bind(this),
+      success: function(model) {
+        var size = model.get('size_limit') / 1048576;
+        $('#max-size').html("(Max Size: " + size.toFixed(1).toString() + "MB)");
+      }
     });
   },
   start: function() {
