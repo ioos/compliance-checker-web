@@ -14,7 +14,6 @@ _.extend(App.prototype, {
   },
   models:{
     upload: new UploadModel(),
-    userModel: new UserModel(),
     configModel: new ConfigModel()
   },
   form: new FormData(),
@@ -22,11 +21,7 @@ _.extend(App.prototype, {
     var self = this;
     // Initialize the Navbar with a Logout button
     this.views.navbar = new IOOSNavbarView({
-      el: $('#navbar-view'),
-      links: [{
-        name: "Logout",
-        href: this.urlRoot + 'user/logout'
-      }]
+      el: $('#navbar-view')
     });
     this.views.navbar.render();
 
@@ -53,10 +48,6 @@ _.extend(App.prototype, {
   },
   initializeModels: function() {
     var self = this;
-    this.models.userModel.set({user_id: "self"});
-    this.models.userModel.fetch({
-      beforeSend: this.beforeSend.bind(this)
-    });
   },
   fetchCollections: function() {
     var self = this;
