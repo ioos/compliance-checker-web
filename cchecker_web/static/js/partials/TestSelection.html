@@ -2,7 +2,7 @@
 <p>
   <select class="selectpicker" data-width="241px">
     <% collection.each(function(model) { %>
-    <option data-id="<%= model.get('id') %>"><%=model.get('name')%></option>
+    <option data-id="<%= model.get('id') %>"><%=model.get('name')%> <%= model.get('version')%></option>
     <% }); %>
   </select>
 </p>

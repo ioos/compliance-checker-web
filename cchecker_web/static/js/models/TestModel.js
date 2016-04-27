@@ -10,5 +10,5 @@ var TestModel = Backbone.Model.extend({
 });
 
 var TestCollection = Backbone.Collection.extend({
-  url: "/json/tests.json"
+  url: "/api/tests"
 });

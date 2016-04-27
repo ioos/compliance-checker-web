@@ -2,10 +2,12 @@
 
 from compliance_checker.runner import CheckSuite
 from rq.connections import get_current_connection
+
 import base64
 import logging
 import requests
 import json
+import subprocess
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -28,6 +30,7 @@ def compliance_check(job_id, dataset, checker):
         # the filename they uploaded
         if not aggregates['source_name'].startswith('http'):
             aggregates['source_name'] = base64.b64decode(aggregates['source_name'].split('/')[-1])
+        aggregates['ncdump'] = ncdump(dataset)
         buf = json.dumps(aggregates)
 
         redis.set('processing:job:%s' % job_id, buf, 3600)
@@ -47,3 +50,18 @@ def check_redirect(dataset, checked_urls=None):
         new_location = new_location.replace('.das','')
         return check_redirect(new_location, checked_urls)
     return dataset
+
+
+def ncdump(dataset):
+    '''
+    Returns the CDL of the dataset
+    '''
+
+    try:
+        output = subprocess.check_output(['ncdump', '-h', dataset])
+        lines = output.split('\n')
+        filtered_lines = '\n'.join(lines[1:])
+    except Exception:
+        return "Error generating ncdump"
+    return filtered_lines
+
