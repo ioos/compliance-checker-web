@@ -41,7 +41,7 @@ def upload_dataset():
 def check_url(url, checker):
     job_id = get_job_id(url)
     app.queue.enqueue_call(func=compliance_check, args=(job_id, url, checker))
-    return jsonify(message='Check successful', job_id=job_id)
+    return jsonify(message='Job Created', job_id=job_id)
 
 
 def check_files(files, checker):
@@ -51,7 +51,7 @@ def check_files(files, checker):
         file_object = files[filename]
         if not allowed_file(file_object.filename):
             continue
-        filepath = os.path.join(app.config['UPLOAD_FOLDER'], 
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'],
                                 base64.b64encode(file_object.filename))
         if not os.path.exists(os.path.dirname(filepath)):
             os.makedirs(os.path.dirname(filepath))
@@ -64,4 +64,4 @@ def check_files(files, checker):
         return jsonify(error='upload_failed', message='Upload failed'), 400
 
     return jsonify(message='Upload successful. Please wait a moment while we process the file...', job_id=job_id, files=successful)
-            
+

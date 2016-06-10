@@ -44,6 +44,8 @@ def get_tests():
             "version": version,
             "name": pretty_spec
         })
+    tests = sorted(tests, key=lambda x: x['name'])
+
     return json.dumps(tests), 200, {"Content-Type": "application/json"}
 
 

@@ -136,7 +136,7 @@ _.extend(App.prototype, {
         self.drop.removeClass('uploading');
       });
       req.done(function(data) {
-        $('.drop-status').html('<div class="alert alert-success">' + data.message + '</div>');
+        $('.drop-status').html('<div class="alert alert-success"><i class="fa fa-spin fa-fw fa-spinner"> </i>' + data.message + '</div>');
         self.pollResult(data.job_id);
       });
       req.error(function(jqXHR, textStatus, error) {
@@ -158,7 +158,7 @@ _.extend(App.prototype, {
   pollResult: function(jobID, count) {
     var self = this;
     count = count || 0;
-    if(count > 15) {
+    if(count > 120) {
           $('.drop-status').html('<div class="alert alert-danger"><p>Error while processing the job.</p><p>Job Timed Out</p></div>');
           return;
     }

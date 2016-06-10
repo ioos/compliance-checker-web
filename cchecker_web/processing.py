@@ -26,6 +26,7 @@ def compliance_check(job_id, dataset, checker):
 
         aggregates = cs.build_structure(checker, groups, dataset)
         aggregates = cs.serialize(aggregates)
+        aggregates['all_priorities'] = sorted(aggregates['all_priorities'], key=lambda x: x['weight'], reverse=True)
         # We use b64 to keep the filenames safe but it's helpful to the user to see
         # the filename they uploaded
         if not aggregates['source_name'].startswith('http'):
