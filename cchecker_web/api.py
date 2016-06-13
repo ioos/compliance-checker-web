@@ -62,15 +62,17 @@ def prettify(ugly):
         if token.upper() in ('IOOS', 'CF', 'ACDD', 'NCEI'):
             buf.append(token.upper())
         elif token.lower() == 'timeseriesprofile':
-            buf.append('TimeseriesProfile')
+            buf.append('Timeseries Profile')
         elif token.lower() == 'incompletetime':
-            buf.append('IncompleteTime')
+            buf.append('Incomplete Time')
         elif token.lower() == 'incompletedepth':
-            buf.append('IncompleteDepth')
+            buf.append('Incomplete Depth')
         elif token.lower() == 'orthtime':
-            buf.append("OrthogonalTime")
+            buf.append("Orthogonal Time")
         elif token.lower() == "gliderdac":
-            buf.append("GliderDAC")
+            buf.append("Glider DAC")
+        elif token.lower() == 'trajectoryprofile':
+            buf.append('Trajectory Profile')
         else:
             buf.append(token)
 

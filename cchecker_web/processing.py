@@ -14,11 +14,11 @@ logger.setLevel(logging.DEBUG)
 
 def compliance_check(job_id, dataset, checker):
     try:
+        redis = get_current_connection()
         cs = CheckSuite()
         if dataset.startswith('http'):
             dataset = check_redirect(dataset)
         ds = cs.load_dataset(dataset)
-        redis = get_current_connection()
         score_groups = cs.run(ds, checker)
 
         rpair = score_groups[checker]
