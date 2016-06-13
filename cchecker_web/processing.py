@@ -61,7 +61,10 @@ def ncdump(dataset):
     try:
         output = subprocess.check_output(['ncdump', '-h', dataset])
         lines = output.split('\n')
-        filtered_lines = '\n'.join(lines[1:])
+        # replace the filename for safety
+        dataset_id = 'uploaded-file'
+        lines[0] = 'netcdf %s {' % dataset_id
+        filtered_lines = '\n'.join(lines)
     except Exception:
         return "Error generating ncdump"
     return filtered_lines
