@@ -2,21 +2,23 @@
 
 from compliance_checker.runner import CheckSuite
 from rq.connections import get_current_connection
+
 import base64
 import logging
 import requests
 import json
+import subprocess
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
 def compliance_check(job_id, dataset, checker):
     try:
+        redis = get_current_connection()
         cs = CheckSuite()
         if dataset.startswith('http'):
             dataset = check_redirect(dataset)
         ds = cs.load_dataset(dataset)
-        redis = get_current_connection()
         score_groups = cs.run(ds, checker)
 
         rpair = score_groups[checker]
@@ -24,10 +26,12 @@ def compliance_check(job_id, dataset, checker):
 
         aggregates = cs.build_structure(checker, groups, dataset)
         aggregates = cs.serialize(aggregates)
+        aggregates['all_priorities'] = sorted(aggregates['all_priorities'], key=lambda x: x['weight'], reverse=True)
         # We use b64 to keep the filenames safe but it's helpful to the user to see
         # the filename they uploaded
         if not aggregates['source_name'].startswith('http'):
             aggregates['source_name'] = base64.b64decode(aggregates['source_name'].split('/')[-1])
+        aggregates['ncdump'] = ncdump(dataset)
         buf = json.dumps(aggregates)
 
         redis.set('processing:job:%s' % job_id, buf, 3600)
@@ -47,3 +51,21 @@ def check_redirect(dataset, checked_urls=None):
         new_location = new_location.replace('.das','')
         return check_redirect(new_location, checked_urls)
     return dataset
+
+
+def ncdump(dataset):
+    '''
+    Returns the CDL of the dataset
+    '''
+
+    try:
+        output = subprocess.check_output(['ncdump', '-h', dataset])
+        lines = output.split('\n')
+        # replace the filename for safety
+        dataset_id = 'uploaded-file'
+        lines[0] = 'netcdf %s {' % dataset_id
+        filtered_lines = '\n'.join(lines)
+    except Exception:
+        return "Error generating ncdump"
+    return filtered_lines
+
