@@ -109,11 +109,11 @@ _.extend(App.prototype, {
 
     this.submit.on('click', function() {
       var checkID = self.views.testSelection.getSelected();
-      self.form.append('checker', checkID);
-      self.form.append('file-0', self.models.upload.get('file'));
+      self.form.set('checker', checkID);
+      self.form.set('file-0', self.models.upload.get('file'));
       var urlInput = $('#url-input').val();
       if(urlInput.length > 0) {
-        self.form.append('url', urlInput);
+        self.form.set('url', urlInput);
       }
       var req = $.ajax({
         url: self.urlRoot + 'upload',
