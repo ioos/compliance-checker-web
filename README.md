@@ -28,3 +28,85 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
+
+
+### Installation
+
+#### Required Libraries:
+
+ - hdf5
+ - netcdf
+ - openssl
+ - libxml2
+ - libxslt
+ - nodejs
+ - npm
+ - libgeos
+ 
+
+### Required Services:
+
+ - redis
+
+### Installation
+
+1. Clone the repository
+   ```
+   git clone https://github.com/ioos/compliance-checker-web/
+   ```
+
+2. Install node and JS dependencies
+   ```
+   npm install
+   bower install
+   grunt
+   ```
+
+## Running
+
+### The UI
+
+The application has two components that need to run. app.py and worker.py. For development it is sufficient to run:
+
+```
+python app.py
+```
+
+For production, you can use whatever WSGI service you desire, I personally use gunicorn.
+
+```
+gunicorn -w 2 -b 0.0.0.0:3000 app:app
+```
+
+### The Worker
+
+The worker listens for incoming jobs from the UI through a redis connection.
+After the job is executed the resulting report is stored on redis for an hour.
+
+To run the worker:
+
+```
+python worker.py
+```
+
+In production environments it's better to run a few workers.
+
+
+## Running with Docker
+
+1. Create a network to run on
+   ```
+   docker network create ccweb
+   ```
+
+2. Launch redis
+   ```
+   docker run --net ccweb -d --name redis redis:3.0.7-alpine
+   ```
+
+3. Launch this container
+   ```
+   docker run --net ccweb -d --name ccweb -p 3000 ioos/compliance-checker-web
+   ```
+
+
