@@ -3,7 +3,6 @@ COMMON: &common
   LOGGING: True
   LOG_FILE_PATH: 'logs/'
   LOG_FILE: 'cchecker_web.log'
-  SECRET_KEY: xxxxxxxxxxx
   HOST: localhost
   PORT: 3000
   DEBUG: True
@@ -14,17 +13,6 @@ COMMON: &common
 
   CACHE:
     CACHE_TYPE: simple
-    
-  MAIL_SERVER: localhost
-  MAIL_PORT: 25
-  MAIL_USE_TLS: True
-  MAIL_USERNAME: localuser
-  MAIL_PASSWORD: password
-  MAIL_DEFAULT_SENDER: localuser@localhost
-  MAIL_ENABLED: False
-  MAIL_DEFAULT_TO: 
-    - localuser@localhost
-  MAILER_DEBUG: False
 
 DEVELOPMENT: &development
   <<: *common 
