@@ -39,7 +39,7 @@ RUN mkdir /usr/lib/cchecker-web
 
 # Copy over project contents
 COPY cchecker_web /usr/lib/cchecker-web/cchecker_web
-COPY app.py Gruntfile.js Assets.json bower.json package.json setup.py worker.py /usr/lib/cchecker-web/
+COPY .bowerrc app.py Gruntfile.js Assets.json bower.json package.json setup.py worker.py /usr/lib/cchecker-web/
 COPY contrib/config/config.yml /usr/lib/cchecker-web/config.yml
 
 RUN useradd -m web
