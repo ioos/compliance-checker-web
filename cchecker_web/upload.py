@@ -17,7 +17,7 @@ import os
 ALLOWED_FILENAMES = ['.nc', '.nc3', '.nc4', '.netcdf', '.netcdf3', '.netcdf4']
 
 def allowed_file(filename):
-    if filename.endswith('.nc'):
+    if os.path.splitext(filename)[-1] in ALLOWED_FILENAMES:
         return True
     return False
 
