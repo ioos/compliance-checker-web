@@ -1,0 +1,24 @@
+COMMON: &common
+  MAX_CONTENT_LENGTH: 16793600 # 16 MB
+  LOGGING: True
+  LOG_FILE_PATH: '/var/log/ccweb/'
+  LOG_FILE: 'cchecker_web.log'
+  SECRET_KEY: xxxxxxxxxxx
+  HOST: localhost
+  PORT: 3000
+  DEBUG: True
+  UPLOAD_FOLDER: /var/run/datasets
+  REDIS_HOST: redis
+  REDIS_PORT: 6379
+  REDIS_DB: 0
+
+  CACHE:
+    CACHE_TYPE: simple
+    
+DEVELOPMENT: &development
+  <<: *common 
+  DEBUG: True
+
+PRODUCTION: &production
+  <<: *common
+  DEBUG: False
