@@ -106,7 +106,8 @@ In production environments it's better to run a few workers.
 
 3. Launch this container
    ```
-   docker run --net ccweb -d --name ccweb -p 3000 ioos/compliance-checker-web
+   docker run --net ccweb -d --name ccweb -p 3000:3000 ioos/compliance-checker-web
    ```
 
+4. Visit the docker host on port 3000
 
