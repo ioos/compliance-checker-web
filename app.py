@@ -6,6 +6,7 @@ Compliance Checker Web
 '''
 
 from flask import Flask, url_for, jsonify
+from cchecker_web import APP_ROOT
 from cchecker_web.flask_environments import Environments
 import os
 
@@ -16,7 +17,7 @@ app.wsgi_app = ReverseProxied(app.wsgi_app)
 
 
 env = Environments(app, default_env='COMMON')
-env.from_yaml('config.yml')
+env.from_yaml(os.path.join(APP_ROOT, 'config.yml'))
 if os.path.exists('config.local.yml'):
     env.from_yaml('config.local.yml')
 

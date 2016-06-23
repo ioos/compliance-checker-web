@@ -2,73 +2,79 @@ FROM phusion/baseimage:0.9.18
 
 MAINTAINER Luke Campbell <luke.campbell@rpsgroup.com>
 
-RUN apt-get update && apt-get install -y \
-      git \
-      libffi-dev \
-      libhdf5-dev \
-      libnetcdf-dev \
-      netcdf-bin \
-      libssl-dev \
-      libxml2-dev \
-      libxslt1-dev \
-      nodejs \
-      npm \
-      python-dev \
-      python-pip \
-      libudunits2-0 \
-      redis-tools \
-      libgeos-dev \
-      libpng12-dev \
-      libfreetype6-dev \
-      && rm -rf /var/lib/apt/lists/*
+# General dependencies:
+RUN apt-get update && \
+    apt-get install -y wget git build-essential && \
+    rm -rf /var/lib/apt/lists/*
 
-COPY requirements.txt /requirements.txt
-RUN pip install -r /requirements.txt
-# The debian version of six caused a bug in Flask
-RUN pip install -U 'numpy==1.11.0' 'netCDF4==1.2.4'
-RUN pip install -U six
-RUN pip install cc-plugin-ncei
-RUN pip install gunicorn supervisor
+# Install nodejs/npm and friends:
+RUN (curl -sL https://deb.nodesource.com/setup_6.x | bash) && \
+    apt-get update && \
+    apt-get install -y nodejs && \
+    npm install -g grunt-cli && \
+    rm -rf /var/lib/apt/lists/*
 
-# install node dependencies and rename link node binary
-RUN npm install -g bower grunt-cli && npm cache clear && \
-    ln -s /usr/bin/nodejs /usr/bin/node
+# Install conda/python
+RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
+    wget --quiet https://repo.continuum.io/miniconda/Miniconda3-4.0.5-Linux-x86_64.sh -O ~/miniconda.sh && \
+    /bin/bash ~/miniconda.sh -b -p /opt/conda && \
+    rm ~/miniconda.sh && \
+    export PATH="/opt/conda/bin:${PATH}" && \
+    conda config --set always_yes yes --set changeps1 no && \
+    conda config --set show_channel_urls True && \
+    conda config --add create_default_packages pip && \
+    echo 'conda 4.0.*' >> /opt/conda/conda-meta/pinned && \
+    conda update conda && \
+    conda config --add channels conda-forge && \
+    conda clean --all --yes
+ENV PATH=/opt/conda/bin:$PATH
 
-# Directory for the project
-RUN mkdir /usr/lib/cchecker-web
+# Add boot checks
+COPY contrib/docker/my_init.d/50_configure /etc/my_init.d/
 
-# Copy over project contents
-COPY cchecker_web /usr/lib/cchecker-web/cchecker_web
-COPY .bowerrc app.py Gruntfile.js Assets.json bower.json package.json setup.py worker.py /usr/lib/cchecker-web/
-COPY contrib/config/config.yml /usr/lib/cchecker-web/config.yml
 
-RUN useradd -m web
-RUN chown -R web:web /usr/lib/cchecker-web
+# Add our project
+RUN mkdir /usr/lib/ccweb /var/run/datasets /var/log/ccweb
 
-# Install project dependencies
-WORKDIR /usr/lib/cchecker-web
-USER web
+COPY cchecker_web /usr/lib/ccweb/cchecker_web
+COPY .bowerrc Gruntfile.js Assets.json bower.json package.json requirements.txt\
+     app.py setup.py worker.py /usr/lib/ccweb/
+COPY contrib/config/config.yml /usr/lib/ccweb/
 
-RUN npm install
-RUN bower install
-RUN grunt
+RUN useradd -m ccweb
+RUN chown -R ccweb:ccweb /usr/lib/ccweb /var/run/datasets /var/log/ccweb
 
+WORKDIR /usr/lib/ccweb
+
+# Install python dependencies
+    # First, clean up requirements file to be compatible with conda pkgs
+RUN sed -i 's/redis==/redis-py==/' requirements.txt && \
+    sed -i '/flask-cache==/d' requirements.txt && \
+    sed -i '/rq==/d' requirements.txt && \
+    # Install what is possible using conda
+    conda install --file requirements.txt && \
+    # Install remaining using pip
+    pip install flask-cache==0.13.1 rq==0.6.0 && \
+    pip install gunicorn==19.6.0 && \
+    conda clean --all --yes
+
+# Install extra plugins:
+#   These do not support Python 3 yet: cc-plugin-ncei cc-plugin-glider
+# RUN conda install <put plugins here later> && \
+#     conda clean --all --yes
+
+# Install local dependencies
+USER ccweb
+RUN npm install && \
+    ./node_modules/.bin/bower install && \
+    grunt
 USER root
 
-# Set up container-wide services 
-RUN mkdir /etc/supervisor/
+# Add our daemons:
+RUN mkdir /etc/service/ccweb-app /etc/service/ccweb-worker-01
+COPY contrib/docker/runit/web.sh /etc/service/ccweb-app/run
+COPY contrib/docker/runit/worker.sh /etc/service/ccweb-worker-01/run
+RUN chmod +x /etc/service/ccweb-app/run /etc/service/ccweb-worker-01/run
 
-COPY contrib/config/supervisord.conf /etc/supervisor/supervisord.conf
-COPY contrib/docker/my_init.d /etc/my_init.d
-
-# Logging and file support
-RUN mkdir /var/log/ccweb
-RUN mkdir /var/run/datasets
-
-RUN chown -R web:web /var/log/ccweb
-RUN chown -R web:web /var/run/datasets
-
+CMD ["/sbin/my_init"]
 EXPOSE 3000
-
-
-CMD ["/sbin/my_init", "--", "/sbin/setuser", "web", "supervisord", "-c", "/etc/supervisor/supervisord.conf"]

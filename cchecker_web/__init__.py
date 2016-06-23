@@ -8,8 +8,11 @@ Compliance Checker Web
 from flask import Blueprint, request
 from flask import current_app as app
 
-from flask.ext.cache import Cache
+from flask_cache import Cache
 from functools import wraps
+import os
+
+APP_ROOT = os.path.dirname(os.path.abspath(os.path.join(__file__, '..')))
 
 # Cache type is specified by config.yml
 cache = Cache(config={'CACHE_TYPE':'simple'})
