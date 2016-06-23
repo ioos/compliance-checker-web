@@ -13,7 +13,10 @@ def show_job(job_id):
     job_result = app.redis.get('processing:job:%s' % job_id)
     if job_result is None:
         return jsonify({}), 404
-    job_result = json.loads(job_result)
+    if isinstance(job_result, str):
+        job_result = json.loads(job_result)
+    else:
+        job_result = json.loads(job_result.decode('utf-8'))
     if 'error' in job_result:
         return jsonify(job_result), 400
     return jsonify(job_result), 200
@@ -31,7 +34,7 @@ def get_tests():
     '''
     tests = []
     keys = []
-    for test_name, checker in CheckSuite.checkers.iteritems():
+    for test_name, checker in CheckSuite.checkers.items():
         spec = getattr(checker, '_cc_spec', test_name)
         pretty_spec = prettify(spec)
         version = getattr(checker, '_cc_spec_version', '')

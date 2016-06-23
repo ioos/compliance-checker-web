@@ -6,7 +6,7 @@ Compliance Checker Web
 '''
 
 from flask import Flask, url_for, jsonify
-from flask_environments import Environments
+from cchecker_web.flask_environments import Environments
 import os
 
 
