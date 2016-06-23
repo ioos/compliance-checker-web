@@ -23,7 +23,7 @@ def allowed_file(filename):
 
 def get_job_id(filepath):
     datestr = datetime.utcnow().isoformat()
-    return sha1(filepath + datestr).hexdigest()
+    return sha1((filepath + datestr).encode('utf-8')).hexdigest()
 
 @cchecker_web.route('/upload', methods=['POST'])
 def upload_dataset():
@@ -52,7 +52,7 @@ def check_files(files, checker):
         if not allowed_file(file_object.filename):
             continue
         filepath = os.path.join(app.config['UPLOAD_FOLDER'],
-                                base64.b64encode(file_object.filename))
+                                encode(file_object.filename))
         if not os.path.exists(os.path.dirname(filepath)):
             os.makedirs(os.path.dirname(filepath))
         file_object.save(filepath)
@@ -64,4 +64,8 @@ def check_files(files, checker):
         return jsonify(error='upload_failed', message='Upload failed'), 400
 
     return jsonify(message='Upload successful. Please wait a moment while we process the file...', job_id=job_id, files=successful)
+
+
+def encode(s):
+    return base64.b64encode(s.encode('utf-8')).decode('ascii')
 

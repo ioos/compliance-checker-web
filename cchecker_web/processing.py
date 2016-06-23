@@ -30,7 +30,11 @@ def compliance_check(job_id, dataset, checker):
         # We use b64 to keep the filenames safe but it's helpful to the user to see
         # the filename they uploaded
         if not aggregates['source_name'].startswith('http'):
-            aggregates['source_name'] = base64.b64decode(aggregates['source_name'].split('/')[-1])
+            decoded = base64.b64decode(aggregates['source_name'].split('/')[-1])
+            if isinstance(decoded, str):
+                aggregates['source_name'] = decoded
+            else:
+                aggregates['source_name'] = decoded.decode('utf-8')
         aggregates['ncdump'] = ncdump(dataset)
         buf = json.dumps(aggregates)
 
@@ -60,6 +64,8 @@ def ncdump(dataset):
 
     try:
         output = subprocess.check_output(['ncdump', '-h', dataset])
+        if not isinstance(output, str):
+            output = output.decode('utf-8')
         lines = output.split('\n')
         # replace the filename for safety
         dataset_id = 'uploaded-file'
