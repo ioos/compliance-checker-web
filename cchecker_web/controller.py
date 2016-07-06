@@ -4,6 +4,7 @@
 cchecker_web/controller.py
 '''
 from cchecker_web import cchecker_web as api
+from cchecker_web import APP_ROOT
 from flask import render_template, redirect, url_for, jsonify
 from flask import current_app as app
 from glob import glob
@@ -17,7 +18,7 @@ def dot_get(o, path):
     return o[i[0]]
 
 def load_assets(key, path):
-    assets_json = 'Assets.json'
+    assets_json = os.path.join(APP_ROOT, 'Assets.json')
     with open(assets_json, 'r') as f:
         assets = json.loads(f.read())
 
@@ -77,4 +78,3 @@ def show_report(job_id):
     scripts = load_javascripts('main.js', 'report')
     css = load_css('main.css', 'report')
     return render_template('report.html', scripts=scripts, css=css)
-
