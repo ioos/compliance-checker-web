@@ -29,6 +29,12 @@ RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
     conda clean --all --yes
 ENV PATH=/opt/conda/bin:$PATH
 
+# Install container dependencies:
+    # redis: Required for redis-cli ping in 50_configure
+    # gunicorn: Required for webui
+RUN conda install redis=3.2.0 gunicorn=19.6.0 && \
+    conda clean --all --yes
+
 # Add boot checks
 COPY contrib/docker/my_init.d/50_configure /etc/my_init.d/
 
@@ -49,19 +55,14 @@ WORKDIR /usr/lib/ccweb
 # Install python dependencies
     # First, clean up requirements file to be compatible with conda pkgs
 RUN sed -i 's/redis==/redis-py==/' requirements.txt && \
-    sed -i '/flask-cache==/d' requirements.txt && \
-    sed -i '/rq==/d' requirements.txt && \
     # Install what is possible using conda
     conda install --file requirements.txt && \
-    # Install remaining using pip
-    pip install flask-cache==0.13.1 rq==0.6.0 && \
-    pip install gunicorn==19.6.0 && \
     conda clean --all --yes
 
 # Install extra plugins:
-#   These do not support Python 3 yet: cc-plugin-ncei cc-plugin-glider
-# RUN conda install <put plugins here later> && \
-#     conda clean --all --yes
+#   These do not support Python 3 yet: cc-plugin-glider
+RUN conda install cc-plugin-ncei && \
+    conda clean --all --yes
 
 # Install local dependencies
 USER ccweb
