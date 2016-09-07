@@ -38,6 +38,7 @@ def get_tests():
         spec = getattr(checker, '_cc_spec', test_name)
         pretty_spec = prettify(spec)
         version = getattr(checker, '_cc_spec_version', '')
+        description = getattr(checker, '_cc_description', '')
         key = '{} {}'.format(spec, version)
         if key in keys:
             continue
@@ -45,7 +46,8 @@ def get_tests():
         tests.append({
             "id": test_name,
             "version": version,
-            "name": pretty_spec
+            "name": pretty_spec,
+            "description": description
         })
     tests = sorted(tests, key=lambda x: x['name'])
 

@@ -70,6 +70,7 @@
 }
 .navbar-custom .navbar-nav > li > a {
   color: #ffffff;
+  font-size: 18px;
 }
 .navbar-custom .navbar-nav > li > a:hover,
 .navbar-custom .navbar-nav > li > a:focus {
@@ -246,5 +247,15 @@ thead .ccorrection {
 }
 
 .testselection .btn-group.bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
-  width: 241px;
+  width: 100%;
+}
+
+#test-selection-label p {
+  padding-left: 5px;
+  padding-top: 5px;
+}
+
+.padding-0 {
+  padding: 0;
+  margin: 0;
 }
