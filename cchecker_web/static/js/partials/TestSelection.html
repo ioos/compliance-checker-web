@@ -1,8 +1,13 @@
 <h3>Select the test you want to run</h3>
 <p>
-  <select class="selectpicker" data-width="241px">
-    <% collection.each(function(model) { %>
-    <option data-id="<%= model.get('id') %>"><%=model.get('name')%> <%= model.get('version')%></option>
-    <% }); %>
-  </select>
+    <div class="col-sm-3 padding-0">
+        <select id="test-selection" class="selectpicker">
+            <% collection.each(function(model) { %>
+                <option data-id="<%= model.get('id') %>"><%=model.get('name')%> <%= model.get('version')%></option>
+            <% }); %>
+      </select>
+    </div>
+    <div class="col-sm-9">
+        <label id="test-selection-label" for="test-selection"></label>
+    </div>
 </p>
