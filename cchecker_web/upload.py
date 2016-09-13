@@ -78,11 +78,22 @@ def check_files(files, checker):
 
 
 def generate_dataset(nc_path, cdl_path):
+    '''
+    Use ncgen to generate a netCDF file from a .cdl file
+
+    :param str nc_path: Absolute path to netCDF file that will be generated
+    :param str cdl_path: Absolute path to cdl file that is used to generate netCDF file
+    '''
     subprocess.call(['ncgen', '-o', nc_path, cdl_path])
 
 
 def check_for_cdl(filename, filepath):
-    # Check for a metadata .cdl file
+    '''
+    Check for a metadata .cdl file and return the path to the netCDF file generated
+
+    :param str filename: Input filename from user
+    :param str filepath: Generated path to file on server
+    '''
     if os.path.splitext(filename)[-1] == '.cdl':
         nc_file = filename.replace('.cdl', '.nc')
         nc_path = os.path.join(app.config['UPLOAD_FOLDER'],
@@ -93,30 +104,32 @@ def check_for_cdl(filename, filepath):
     return filepath
 
 
-def update_cdl_dimensions(filename):
+def update_cdl_dimensions(filepath):
     '''
     Rewrite the cdl file to make all dimensions size 1
+
+    :param str filepath: Absolute path to .cdl file
     '''
     transform = False
     data = []
-    with open(filename, 'r') as f:
-        while True:
-            line = f.readline()
-            if not line:  # End of file
-                break
-            if 'variables:' in line:
-                transform = False
-            elif transform:  # These lines are dimensions. They should be size 1
-                prefix = line.split('=')[0]
-                line = prefix + '= 1 ;\n'
-            elif 'dimensions:' in line:
-                # This is where we start transforming dimensions
-                transform = True
-            data.append(line)
+    with open(filepath, 'r') as f:
+        lines = f.readlines()
+
+    for line in lines:
+        if 'variables:' in line:
+            transform = False
+        elif transform:
+            prefix = line.split('=')[0]
+            line = prefix + '= 1 ;\n'
+        elif 'dimensions:' in line:
+            # This is where we start transforming dimensions
+            transform = True
+        data.append(line)
+
     # Re write the file
-    with open(filename, 'w') as f:
+    with open(filepath, 'w') as f:
         f.write(''.join(data))
-    return filename
+    return filepath
 
 
 def encode(s):
