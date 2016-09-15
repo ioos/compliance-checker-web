@@ -56,7 +56,7 @@ def execute_job():
     if report_format not in accepted_formats:
         err_msg = ("Report format '{0}' not available. "
                    "Please choose from {1}".format(report_format, accepted_formats))
-        return jsonify({'Error': err_msg}), 400
+        return jsonify({'error': err_msg}), 400
 
     # Check the tests
     tests = populate_tests()
@@ -64,7 +64,7 @@ def execute_job():
     if test not in test_ids:
         err_msg = ("Test '{0}' not available. "
                    "Please choose from {1}".format(test, test_ids))
-        return jsonify({'Error': err_msg}), 400
+        return jsonify({'error': err_msg}), 400
 
     # Check required fields and process
     required_fields = [test, url]
@@ -76,7 +76,7 @@ def execute_job():
         timeout = 20  # secs
 
         # Now we check to see if processing is done
-        for tries in xrange(timeout):
+        for tries in range(timeout):
             time.sleep(1)
             job_result = app.redis.get('processing:job:%s' % job_id)
 
@@ -98,9 +98,9 @@ def execute_job():
             else:
                 return jsonify(job_result), 200
 
-        return jsonify({'Error': 'Job timed out'}), 500
+        return jsonify({'error': 'Job timed out'}), 500
     else:
-        return jsonify({'Error': 'Incorrect Inputs. Please provide a url and a test'}), 400
+        return jsonify({'error': 'Incorrect Inputs. Please provide a url and a test'}), 400
 
 
 def populate_tests():
