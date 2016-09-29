@@ -36,7 +36,8 @@ RUN conda install redis=3.2.0 gunicorn=19.6.0 && \
     conda clean --all --yes
 
 # Add boot checks
-COPY contrib/docker/my_init.d/50_configure /etc/my_init.d/
+COPY contrib/docker/my_init.d/49_configure /etc/my_init.d/
+COPY contrib/docker/my_init.d/50_wait_for_services /etc/my_init.d/
 
 
 # Add our project
@@ -62,6 +63,7 @@ RUN sed -i 's/redis==/redis-py==/' requirements.txt && \
 # Install extra plugins:
 #   These do not support Python 3 yet: cc-plugin-glider
 RUN conda install cc-plugin-ncei && \
+    conda install cc-plugin-glider && \
     conda clean --all --yes
 
 # Install local dependencies
