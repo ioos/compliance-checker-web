@@ -111,3 +111,15 @@ In production environments it's better to run a few workers.
 
 4. Visit the docker host on port 3000
 
+
+### Docker Environment Configurations
+
+The following are a list of useful configuration variables that can be
+specified using an environment file or specifying environment variables when
+launching the docker container.
+
+- `MAX_CONTENT_LENGTH`: Maximum number of bytes allowed for upload. Default is 16793600 (16 MiB)
+- `LOGGING`: Should the application log information
+- `LOG_FILE_PATH`: Root directory where logging should write files
+- `LOG_FILE`: The filename in the directory to write log files to.
+- `UPLOAD_FOLDER`: The folder where uploaded contents should be written to. Defaults to `/var/run/datasets`
