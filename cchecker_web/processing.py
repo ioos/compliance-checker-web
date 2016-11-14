@@ -19,7 +19,7 @@ def compliance_check(job_id, dataset, checker):
         if dataset.startswith('http'):
             dataset = check_redirect(dataset)
         ds = cs.load_dataset(dataset)
-        score_groups = cs.run(ds, checker)
+        score_groups = cs.run(ds, [], checker)
 
         rpair = score_groups[checker]
         groups, errors = rpair
