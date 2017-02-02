@@ -61,7 +61,6 @@ RUN sed -i 's/redis==/redis-py==/' requirements.txt && \
     conda clean --all --yes
 
 # Install extra plugins:
-#   These do not support Python 3 yet: cc-plugin-glider
 RUN conda install cc-plugin-ncei && \
     conda install cc-plugin-glider && \
     conda clean --all --yes
@@ -79,5 +78,6 @@ COPY contrib/docker/runit/web.sh /etc/service/ccweb-app/run
 COPY contrib/docker/runit/worker.sh /etc/service/ccweb-worker-01/run
 RUN chmod +x /etc/service/ccweb-app/run /etc/service/ccweb-worker-01/run
 
+RUN conda install libxml2==2.9.3
 CMD ["/sbin/my_init"]
 EXPOSE 3000
