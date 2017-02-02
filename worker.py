@@ -1,18 +1,22 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 '''
 worker.py
 '''
-
-import os
-import redis
 from rq import Worker, Queue, Connection
 from app import redis_connection
+from compliance_checker.runner import CheckSuite
+
+import logging
+
 
 listen = ['default']
 
-from compliance_checker.runner import CheckSuite
 
 CheckSuite.load_all_available_checkers()
+
+
+logging.basicConfig(level=logging.DEBUG)
 
 
 with Connection(redis_connection):
