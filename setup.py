@@ -1,6 +1,6 @@
 import sys
 
-__version__ = '1.0.0'
+__version__ = '1.0.1'
 
 
 sys.stderr.write("This project is not packaged as a standard python package and can not be"
