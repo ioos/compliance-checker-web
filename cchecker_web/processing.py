@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 from compliance_checker.runner import CheckSuite
 from rq.connections import get_current_connection
@@ -12,7 +13,16 @@ import subprocess
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
+
 def compliance_check(job_id, dataset, checker):
+    '''
+    Performs the Check Suite for the specified checker and sets the result in a
+    redis result for the job_id
+
+    :param str job_id: ID for the rq job
+    :param dataset: Dataset handle
+    :param str checker: Check Suite ID for a checker
+    '''
     try:
         redis = get_current_connection()
         cs = CheckSuite()
@@ -41,10 +51,22 @@ def compliance_check(job_id, dataset, checker):
         redis.set('processing:job:%s' % job_id, buf, 3600)
         return True
     except Exception as e:
-        redis.set('processing:job:%s' % job_id, json.dumps({"error":type(e).__name__, "message":e.message}), 3600)
+        logger.exception("Failed to process job")
+        error_message = {
+            "error": type(e).__name__,
+            "message": e.message
+        }
+        redis.set('processing:job:%s' % job_id, json.dumps(error_message), 3600)
         return False
 
+
 def check_redirect(dataset, checked_urls=None):
+    '''
+    Check for a HTTP Redirect for a URL to a OPeNDAP Dataset
+
+    :param str dataset: URL to the dataset
+    :param list checked_urls: List of already checked URLs
+    '''
     checked_urls = checked_urls or []
     if dataset in checked_urls:
         raise IOError("Invalid URL")
@@ -52,7 +74,7 @@ def check_redirect(dataset, checked_urls=None):
     response = requests.get(dataset + '.das', allow_redirects=False)
     if response.status_code == 301:
         new_location = response.headers['Location']
-        new_location = new_location.replace('.das','')
+        new_location = new_location.replace('.das', '')
         return check_redirect(new_location, checked_urls)
     return dataset
 
