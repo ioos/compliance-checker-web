@@ -16,7 +16,7 @@ _.extend(App.prototype, {
     upload: new UploadModel(),
     configModel: new ConfigModel()
   },
-  form: new FormData(),
+  form: {},
   initializeViews: function() {
     var self = this;
     var referenceUrls = _.compact([
@@ -137,11 +137,15 @@ _.extend(App.prototype, {
 
     this.submit.on('click', function() {
       var checkID = self.views.testSelection.getSelected();
-      self.form.set('checker', checkID);
-      self.form.set('file-0', self.models.upload.get('file'));
+      self.form.checker = checkID;
+      self.form['file-0'] = self.models.upload.get('file');
       var urlInput = $('#url-input').val();
       if(urlInput.length > 0) {
-        self.form.set('url', urlInput);
+        self.form.url = urlInput;
+      }
+      var xhrForm = new FormData();
+      for(var key in self.form) {
+        xhrForm.append(key, self.form[key]);
       }
       var req = $.ajax({
         url: self.urlRoot + 'upload',
@@ -158,7 +162,7 @@ _.extend(App.prototype, {
         cache: false,
         contentType: false,
         processData: false,
-        data: self.form
+        data: xhrForm
       });
       req.always(function() {
         self.drop.removeClass('uploading');
