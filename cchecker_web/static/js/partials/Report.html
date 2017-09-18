@@ -5,6 +5,11 @@
         <h3>Your dataset scored <%= model.get('scored_points') %> out of <%= model.get('possible_points') %> points</h3>
         <p>During the <%= model.get('testname') %> check</p>
         <p>For dataset <%= model.get('source_name') %></p>
+        <p>
+          <a href="<%= model.get('reportUrl') %>" class="btn btn-primary" title="Click to download the report as a text file">
+            <i class="fa fa-download" aria-hidden="true"></i> Download Report
+          </a>
+        </p>
       </div>
     </div>
     <div class="col-md-12">
