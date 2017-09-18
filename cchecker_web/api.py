@@ -6,10 +6,11 @@ cchecker_web/api.py
 from cchecker_web import cchecker_web as api
 from cchecker_web.upload import get_job_id
 from cchecker_web.processing import compliance_check
-from flask import request, redirect, jsonify, current_app as app
+from flask import request, send_file, redirect, jsonify, current_app as app
 from compliance_checker.runner import CheckSuite
 import json
 import time
+import os
 
 
 @api.route('/api/job/<string:job_id>')
@@ -101,6 +102,24 @@ def execute_job():
         return jsonify({'error': 'Job timed out'}), 500
     else:
         return jsonify({'error': 'Incorrect Inputs. Please provide a url and a test'}), 400
+
+
+@api.route('/api/download')
+def download_report():
+    '''
+    Returns a file object containing the compliance checker report as a txt file
+    '''
+    job_id = request.args.get('id', None)
+
+    if job_id is None:
+        err_msg ='Please specify a job id'
+        return jsonify({'error': err_msg}), 400
+
+    fname = 'compliance_{}.txt'.format(job_id)
+    filepath = os.path.join(app.config['UPLOAD_FOLDER'],
+                            job_id,
+                            fname)
+    return send_file(filepath, attachment_filename=fname, as_attachment=True)
 
 
 def populate_tests():

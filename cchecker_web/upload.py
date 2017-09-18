@@ -55,8 +55,13 @@ def check_files(files, checker):
         file_object = files[filename]
         if not allowed_file(file_object.filename):
             continue
+        job_path = os.path.join(app.config['UPLOAD_FOLDER'],
+                            encode(file_object.filename))
+        job_id = get_job_id(job_path)
         filepath = os.path.join(app.config['UPLOAD_FOLDER'],
+                                job_id,
                                 encode(file_object.filename))
+
         if not os.path.exists(os.path.dirname(filepath)):
             os.makedirs(os.path.dirname(filepath))
         file_object.save(filepath)
@@ -67,7 +72,6 @@ def check_files(files, checker):
         except Exception as e:
             return jsonify(error='upload_failed', message='Upload failed: ' + str(e)), 400
 
-        job_id = get_job_id(filepath)
         app.queue.enqueue_call(func=compliance_check, args=(job_id, filepath, checker))
         successful.append(file_object.filename)
         break
@@ -96,7 +100,7 @@ def check_for_cdl(filename, filepath):
     '''
     if os.path.splitext(filename)[-1] == '.cdl':
         nc_file = filename.replace('.cdl', '.nc')
-        nc_path = os.path.join(app.config['UPLOAD_FOLDER'],
+        nc_path = os.path.join(os.path.dirname(filepath),
                                encode(nc_file))
         filepath = update_cdl_dimensions(filepath)
         generate_dataset(nc_path, filepath)

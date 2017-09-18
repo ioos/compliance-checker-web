@@ -21,6 +21,8 @@ _.extend(App.prototype, {
     var pathArray = window.location.pathname.split('/');
     var jobID = pathArray[pathArray.length - 1];
     this.models.report.set('id', jobID);
+    var reportUrl = this.urlRoot + 'api/download?id=' + this.models.report.get('id');
+    this.models.report.set('reportUrl', reportUrl);
     this.models.report.fetch({
       beforeSend: this.beforeSend.bind(this),
       success: function() {
