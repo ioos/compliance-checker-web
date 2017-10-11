@@ -23,7 +23,6 @@ RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
     conda config --set always_yes yes --set changeps1 no && \
     conda config --set show_channel_urls True && \
     conda config --add create_default_packages pip && \
-    echo 'conda 4.0.*' >> /opt/conda/conda-meta/pinned && \
     conda update conda && \
     conda config --add channels conda-forge && \
     conda clean --all --yes
