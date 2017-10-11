@@ -7,7 +7,7 @@ Compliance Checker Web
 
 from cchecker_web import cchecker_web
 from cchecker_web.processing import compliance_check
-from flask import request, jsonify, session
+from flask import request, jsonify
 from flask import current_app as app
 from hashlib import sha1
 from datetime import datetime
@@ -44,7 +44,10 @@ def upload_dataset():
 
 def check_url(url, checker):
     job_id = get_job_id(url)
-    app.queue.enqueue_call(func=compliance_check, args=(job_id, url, checker))
+    filepath = os.path.join(app.config['UPLOAD_FOLDER'], job_id)
+    if not os.path.exists(filepath):
+        os.makedirs(filepath)
+    app.queue.enqueue_call(func=compliance_check, args=(job_id, url, checker, filepath))
     return jsonify(message='Job Created', job_id=job_id)
 
 
@@ -56,7 +59,7 @@ def check_files(files, checker):
         if not allowed_file(file_object.filename):
             continue
         job_path = os.path.join(app.config['UPLOAD_FOLDER'],
-                            encode(file_object.filename))
+                                encode(file_object.filename))
         job_id = get_job_id(job_path)
         filepath = os.path.join(app.config['UPLOAD_FOLDER'],
                                 job_id,

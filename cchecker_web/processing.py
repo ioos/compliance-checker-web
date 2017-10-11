@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function
 from __future__ import unicode_literals
-from compliance_checker.runner import CheckSuite, ComplianceChecker
+from compliance_checker.runner import CheckSuite
 from rq.connections import get_current_connection
 import base64
 import logging
@@ -12,9 +12,7 @@ import io
 import os
 import sys
 import subprocess
-from flask import Response
 from contextlib import contextmanager
-
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -33,7 +31,7 @@ def stdout_redirector(stream):
         sys.stdout = old_stdout
 
 
-def compliance_check(job_id, dataset, checker):
+def compliance_check(job_id, dataset, checker, path=None):
     '''
     Performs the Check Suite for the specified checker and sets the result in a
     redis result for the job_id
@@ -41,6 +39,7 @@ def compliance_check(job_id, dataset, checker):
     :param str job_id: ID for the rq job
     :param dataset: Dataset handle
     :param str checker: Check Suite ID for a checker
+    :param str path: Full path to dataset directory (OPeNDAP only)
     '''
     try:
         redis = get_current_connection()
@@ -68,10 +67,11 @@ def compliance_check(job_id, dataset, checker):
         buf = json.dumps(aggregates)
 
         # Write the report to a text file for download
-        path = os.path.dirname(dataset)
+        if path is None:
+            # Must be a local file, get the path from the dataset
+            path = os.path.dirname(dataset)
         fname = 'compliance_{}.txt'.format(job_id)
         output_filename = os.path.join(path, fname)
-        verbose = 2
         limit = 'strict'
         with io.open(output_filename, 'w', encoding='utf-8') as f:
             with stdout_redirector(f):
@@ -117,6 +117,7 @@ def stdout_output(cs, aggregates, groups, limit, checker):
     # Generate the report as normal
     cs.verbose_output_generation(groups, limit, points, out_of)
     return groups
+
 
 def check_redirect(dataset, checked_urls=None):
     '''
