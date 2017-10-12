@@ -25,7 +25,8 @@
         "cchecker_web/static/js/views/ReportView.js",
 
         "cchecker_web/static/js/app.js",
-        "cchecker_web/static/js/app/report.js"
+        "cchecker_web/static/js/app/report.js",
+        "cchecker_web/static/js/app/feedback.js"
       ],
       "cchecker_web/static/js/compiled/index.js" : [
         "cchecker_web/static/lib/jquery/dist/jquery.min.js",
@@ -47,7 +48,8 @@
         "cchecker_web/static/js/views/TestSelectionView.js",
 
         "cchecker_web/static/js/app.js",
-        "cchecker_web/static/js/app/index.js"
+        "cchecker_web/static/js/app/index.js",
+        "cchecker_web/static/js/app/feedback.js"
       ]
     },
     "css": {

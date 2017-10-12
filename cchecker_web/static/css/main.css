@@ -259,3 +259,36 @@ thead .ccorrection {
   padding: 0;
   margin: 0;
 }
+
+#feedback{
+	border:0px solid #fff;
+	background:#660000 url('/img/feedback-tab-left.png') top left no-repeat;
+	width:36px;
+	height:100px;
+	position:fixed;
+	left:-3px;
+	top:40%;
+  overflow:hidden;
+  cursor:pointer;
+}
+
+#feedback:hover{
+	left:-2px;
+}
+
+#feedbackForm .modal-body .well:not(:first-of-type) {
+  width: 49%;
+  display: inline-block;
+}
+
+#feedbackForm .modal-body .well:last-of-type {
+  margin-left: 7px;
+}
+
+#feedbackForm .form-group {
+    margin-bottom: 0;
+    }
+
+ #feedbackForm .form-group span.glyphicon {
+     visibility: hidden;
+    }
