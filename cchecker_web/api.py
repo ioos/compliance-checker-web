@@ -72,7 +72,10 @@ def execute_job():
     if all(required_fields):
         # Kick off the job
         job_id = get_job_id(url)
-        app.queue.enqueue_call(func=compliance_check, args=(job_id, url, test))
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], job_id)
+        if not os.path.exists(filepath):
+            os.makedirs(filepath)
+        app.queue.enqueue_call(func=compliance_check, args=(job_id, url, test, filepath))
         job_result = None
         timeout = 20  # secs
 
@@ -112,7 +115,7 @@ def download_report():
     job_id = request.args.get('id', None)
 
     if job_id is None:
-        err_msg ='Please specify a job id'
+        err_msg = 'Please specify a job id'
         return jsonify({'error': err_msg}), 400
 
     fname = 'compliance_{}.txt'.format(job_id)
