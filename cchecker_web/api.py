@@ -88,13 +88,13 @@ def execute_job():
                 # Not done yet, try again
                 continue
 
-            if 'error' in job_result:
-                return jsonify(job_result), 500
-
             if isinstance(job_result, str):
                 job_result = json.loads(job_result)
             else:
                 job_result = json.loads(job_result.decode('utf-8'))
+
+            if 'error' in job_result:
+                return jsonify(job_result), 500
 
             # Check the report format for how to return the results
             if report_format == 'html':
