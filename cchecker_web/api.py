@@ -6,7 +6,7 @@ cchecker_web/api.py
 from cchecker_web import cchecker_web as api
 from cchecker_web.upload import get_job_id
 from cchecker_web.processing import compliance_check
-from flask import request, send_file, redirect, jsonify, current_app as app
+from flask import request, send_file, redirect, jsonify, url_for, current_app as app
 from compliance_checker.runner import CheckSuite
 import json
 import time
@@ -98,7 +98,7 @@ def execute_job():
 
             # Check the report format for how to return the results
             if report_format == 'html':
-                return redirect('/report/' + job_id)
+                return redirect(url_for('cchecker_web.show_report', job_id=job_id))
             else:
                 return jsonify(job_result), 200
 
