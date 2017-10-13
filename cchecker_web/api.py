@@ -60,7 +60,7 @@ def execute_job():
         return jsonify({'error': err_msg}), 400
 
     # Check the tests
-    tests = populate_tests()
+    tests = populate_tests(filtered=False)
     test_ids = [t['id'] for t in tests]
     if test not in test_ids:
         err_msg = ("Test '{0}' not available. "
@@ -125,7 +125,7 @@ def download_report():
     return send_file(filepath, attachment_filename=fname, as_attachment=True)
 
 
-def populate_tests():
+def populate_tests(filtered=True):
     '''
     Returns the listing of tests for compliance checker
     '''
@@ -137,7 +137,7 @@ def populate_tests():
         version = getattr(checker, '_cc_spec_version', '')
         description = getattr(checker, '_cc_description', '')
         key = '{} {}'.format(spec, version)
-        if key in keys:
+        if filtered and key in keys:
             continue
         keys.append(key)
         tests.append({
