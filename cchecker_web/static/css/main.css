@@ -262,7 +262,7 @@ thead .ccorrection {
 
 #feedback{
 	border:0px solid #fff;
-	background:#660000 url('/img/feedback-tab-left.png') top left no-repeat;
+	background:#660000 url('../../img/feedback-tab-left.png') top left no-repeat;
 	width:36px;
 	height:100px;
 	position:fixed;
