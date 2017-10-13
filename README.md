@@ -42,7 +42,7 @@ SOFTWARE.
  - nodejs
  - npm
  - libgeos
- 
+
 
 ### Required Services:
 
@@ -123,3 +123,18 @@ launching the docker container.
 - `LOG_FILE_PATH`: Root directory where logging should write files
 - `LOG_FILE`: The filename in the directory to write log files to.
 - `UPLOAD_FOLDER`: The folder where uploaded contents should be written to. Defaults to `/var/run/datasets`
+
+## API
+
+Details on how to use the API are
+available on the API [wiki page](https://github.com/ioos/compliance-checker-web/wiki/API).
+
+Here are a couple examples:
+
+**JSON Output**
+
+https://data.ioos.us/compliance/api/run?report_format=json&test=cf:1.6&url=http://sos.maracoos.org/stable/dodsC/hrecos/stationHRMARPH-agg.ncml
+
+**HTML Output**
+
+https://data.ioos.us/compliance/api/run?report_format=html&test=cf:1.6&url=http://sos.maracoos.org/stable/dodsC/hrecos/stationHRMARPH-agg.ncml
