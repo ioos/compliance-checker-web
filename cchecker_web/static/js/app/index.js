@@ -44,6 +44,11 @@ _.extend(App.prototype, {
           href:  'http://data.nodc.noaa.gov/thredds/catalog/testdata/mbiddle/GOLD_STANDARD_NETCDF/catalog.html',
           title: 'NCEI Gold Standard Example',
           text:  'NCEI Example',
+        },
+        {
+          href:  'https://ioos.github.io/ioos-netcdf/ioos-netcdf-metadata-description-v1-1.html#ioos-netcdf-metadata-profile-attributes',
+          title: 'IOOS NetCDF v1.1 Standard',
+          text:  'IOOS NetCDF',
         }
     ]);
     // Initialize the Navbar with a Logout button
