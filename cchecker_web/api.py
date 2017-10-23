@@ -156,11 +156,11 @@ def prettify(ugly):
 
     :param str ugly: An ugly string
     '''
-    pretty = ugly.replace('-', ' ')
+    pretty = ugly.replace('-', ' ').replace('_', ' ')
     pretty = pretty.title()
     buf = []
     for token in pretty.split(' '):
-        if token.upper() in ('IOOS', 'CF', 'ACDD', 'NCEI'):
+        if token.upper() in ('IOOS', 'CF', 'ACDD', 'NCEI', 'SOS'):
             buf.append(token.upper())
         elif token.lower() == 'timeseriesprofile':
             buf.append('Timeseries Profile')
