@@ -6,7 +6,7 @@ cchecker_web/api.py
 from cchecker_web import cchecker_web as api
 from cchecker_web.upload import get_job_id
 from cchecker_web.processing import compliance_check
-from flask import request, send_file, redirect, jsonify, url_for, current_app as app
+from flask import render_template,request, send_file, redirect, jsonify, url_for, current_app as app
 from compliance_checker.runner import CheckSuite
 import json
 import time
@@ -25,7 +25,6 @@ def show_job(job_id):
     if 'error' in job_result:
         return jsonify(job_result), 400
     return jsonify(job_result), 200
-
 
 @api.route('/api/config')
 def show_config():

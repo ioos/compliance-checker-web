@@ -139,19 +139,21 @@ _.extend(App.prototype, {
       self.views.netCDFUpload.render();
     });
 
-
     this.submit.on('click', function() {
       var checkID = self.views.testSelection.getSelected();
       self.form.checker = checkID;
       self.form['file-0'] = self.models.upload.get('file');
       var urlInput = $('#url-input').val();
+
       if(urlInput.length > 0) {
         self.form.url = urlInput;
       }
       var xhrForm = new FormData();
+
       for(var key in self.form) {
         xhrForm.append(key, self.form[key]);
       }
+
       var req = $.ajax({
         url: self.urlRoot + 'upload',
         xhr: function() {
@@ -169,13 +171,16 @@ _.extend(App.prototype, {
         processData: false,
         data: xhrForm
       });
+
       req.always(function() {
         self.drop.removeClass('uploading');
       });
+
       req.done(function(data) {
         $('.drop-status').html('<div class="alert alert-success"><i class="fa fa-spin fa-fw fa-spinner"> </i>' + data.message + '</div>');
         self.pollResult(data.job_id);
       });
+
       req.error(function(jqXHR, textStatus, error) {
         if(jqXHR.status == 413) {
           $('.drop-status').html('<div class="alert alert-danger">File is too large!</div>');
