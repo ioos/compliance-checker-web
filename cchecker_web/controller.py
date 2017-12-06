@@ -80,8 +80,9 @@ def show_report(job_id):
     css = load_css('main.css', 'report')
     return render_template('report.html', scripts=scripts, css=css)
 
-@api.route('/about.html')
+@api.route('/about')
 def show_about():
-    css = load_css('main.css', 'report')
+    scripts = load_javascripts('main.js', 'about')
+    css = load_css('main.css', 'index')
     # cc_version is the compliance checker version.
-    return render_template('about.html', css=css, cc_version=cc_version)
+    return render_template('about.html', scripts=scripts, css=css, cc_version=cc_version)

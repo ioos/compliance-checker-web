@@ -8,6 +8,9 @@
         "cchecker_web/static/js/partials/IOOSNavbar.html",
         "cchecker_web/static/js/partials/NetCDFUpload.html",
         "cchecker_web/static/js/partials/TestSelection.html"
+      ],
+      "cchecker_web/static/js/partials/compiled/about.js": [
+        "cchecker_web/static/js/partials/IOOSNavbar.html"
       ]
     },
     "js": {
@@ -49,6 +52,24 @@
 
         "cchecker_web/static/js/app.js",
         "cchecker_web/static/js/app/index.js",
+        "cchecker_web/static/js/app/feedback.js"
+      ],
+      "cchecker_web/static/js/compiled/about.js" : [
+        "cchecker_web/static/lib/jquery/dist/jquery.min.js",
+        "cchecker_web/static/lib/underscore/underscore-min.js",
+        "cchecker_web/static/lib/bootstrap/dist/js/bootstrap.min.js",
+        "cchecker_web/static/lib/backbone/backbone-min.js",
+        "cchecker_web/static/lib/backbone.stickit/backbone.stickit.js",
+        "cchecker_web/static/lib/bootstrap-select/dist/js/bootstrap-select.min.js",
+
+        "cchecker_web/static/js/partials/compiled/about.js",
+
+
+        "cchecker_web/static/js/views/BaseView.js",
+        "cchecker_web/static/js/views/IOOSNavbarView.js",
+
+        "cchecker_web/static/js/app.js",
+        "cchecker_web/static/js/app/about.js",
         "cchecker_web/static/js/app/feedback.js"
       ]
     },
