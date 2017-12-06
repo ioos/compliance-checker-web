@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}
+<title>IOOS Compliance Checker</title>
+{% endblock %}
+{% block head %}
+
+<!-- scripts -->
+{{ scripts|safe }}
+
+<!-- css -->
+{{ css|safe }}
+
+{% endblock %}
+{% block body %}
+{% include 'navbar.html' %}
+<div id="about" class="about">
+</div>
+
+<div id="about-container">
+  <div id="about-heading">
+    <h1>About</h1>
+  </div>
+  <div class="about-faq">
+    <b>What is the compliance checker?</b>
+  </div>
+  <div class="about-faq">
+    The compliance checker is a tool to check the compliance of of netcdf/.nc files, allowing you to browse/drag a 
+    local file from your computer, or entering in a url to a .nc file. The data will be checked against the compliance selected from the dropdown, with options for ACDD 1.3, ACDD 1.1, CF 1.6, IOOS 1.1, IOOS 0.1, and IOOS SOS 0.1.
+  </div>
+  <br>
+  <div class="about-faq">
+    <b>What does the compliance checker check?</b>
+  </div>
+  <div class="about-faq">
+    The compliance checker checks for High, Medium, and Low priority issues with standard names/keywords and provides a score and corrective action suggestions for fixing compliance problems that are detected. 
+  </div>
+  <br>
+    <div class="about-faq">
+    <b>What version of the Compliance Checker is run on this site?</b>
+  </div>
+  <div class="about-faq">
+    The version of the compliance checker is 
+    {{ cc_version|safe }}
+  </div>
+  <br>
+    <div class="about-faq">
+    <b>Where can I find more information about the Compliance Checker?</b>
+  </div>
+  <div class="about-faq">
+    You can find out more information on the <a target="_blank" href="https://github.com/ioos/compliance-checker-web/blob/master/README.md">README for the Compliance Checker</a>.
+  </div>
+  <br>
+
+  <div id="about-references-header">
+    <h2>References:</h2>
+  </div>
+  <div id="about-references-links-container">
+  <div class="about-reference-links">
+      <a target="_blank" href="http://wiki.esipfed.org/index.php/Category:Attribute_Conventions_Dataset_Discovery">ACDD</a>
+    </div>
+    <div class="about-reference-links">
+      <a target="_blank" href="http://cfconventions.org/documents.html">CF Conventions</a>
+    </div>
+    <div class="about-reference-links">
+      <a target="_blank" href="https://github.com/ioos/ioosngdac/wiki/NGDAC-NetCDF-File-Format-Version-2">Glider DAC wiki</a>
+    </div>
+    <div class="about-reference-links">
+      <a target="_blank" href="http://data.nodc.noaa.gov/thredds/catalog/testdata/mbiddle/GOLD_STANDARD_NETCDF/catalog.html">NCEI NetCDF Templates v2.0</a>
+    </div>
+    <div class="about-reference-links">
+      <a target="_blank" href="http://data.nodc.noaa.gov/thredds/catalog/testdata/mbiddle/GOLD_STANDARD_NETCDF/catalog.html">NCEI Example</a>
+    </div>
+    <div class="about-reference-links">
+      <a target="_blank" href="https://ioos.github.io/ioos-netcdf/ioos-netcdf-metadata-description-v1-1.html#ioos-netcdf-metadata-profile-attributes">IOOS NetCDF</a>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

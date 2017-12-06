@@ -3,6 +3,7 @@
 '''
 cchecker_web/controller.py
 '''
+from compliance_checker import __version__ as cc_version
 from cchecker_web import cchecker_web as api
 from cchecker_web import APP_ROOT
 from flask import render_template, redirect, url_for, jsonify
@@ -78,3 +79,9 @@ def show_report(job_id):
     scripts = load_javascripts('main.js', 'report')
     css = load_css('main.css', 'report')
     return render_template('report.html', scripts=scripts, css=css)
+
+@api.route('/about.html')
+def show_about():
+    css = load_css('main.css', 'report')
+    # cc_version is the compliance checker version.
+    return render_template('about.html', css=css, cc_version=cc_version)

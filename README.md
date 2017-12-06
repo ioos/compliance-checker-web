@@ -66,10 +66,12 @@ SOFTWARE.
 
 ### The UI
 
-The application has two components that need to run. app.py and worker.py. For development it is sufficient to run:
+The application has two components that need to run. app.py and worker.py:
 
 ```
 python app.py
+
+If running the actual compliance checker report, be sure worker.py is running and started after running python app.py
 ```
 
 For production, you can use whatever WSGI service you desire, I personally use gunicorn.
