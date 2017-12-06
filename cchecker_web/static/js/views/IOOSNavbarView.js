@@ -8,6 +8,7 @@ var IOOSNavbarView = BaseView.extend({
     this.options = _.extend({
       links: [],
       referenceUrls: [],
+      page: '',
     }, options);
 
     BaseView.prototype.initialize.call(this);
@@ -15,8 +16,11 @@ var IOOSNavbarView = BaseView.extend({
   templateName: "IOOSNavbar",
   render: function() {
     var self = this;
-    this.$el.html(this.template({links: this.options.links,
-                                 referenceUrls: this.options.referenceUrls}));
+    this.$el.html(this.template({
+      links: this.options.links,
+      referenceUrls: this.options.referenceUrls,
+      page: this.options.page,
+    }));
     return this;
   }
 });

@@ -12,69 +12,78 @@
 
 {% endblock %}
 {% block body %}
-{% include 'navbar.html' %}
+<div id="navbar-view">
+</div>
 <div id="about" class="about">
 </div>
-
-<div id="about-container">
-  <div id="about-heading">
-    <h1>About</h1>
-  </div>
-  <div class="about-faq">
-    <b>What is the compliance checker?</b>
-  </div>
-  <div class="about-faq">
-    The compliance checker is a tool to check the compliance of of netcdf/.nc files, allowing you to browse/drag a 
-    local file from your computer, or entering in a url to a .nc file. The data will be checked against the compliance selected from the dropdown, with options for ACDD 1.3, ACDD 1.1, CF 1.6, IOOS 1.1, IOOS 0.1, and IOOS SOS 0.1.
-  </div>
-  <br>
-  <div class="about-faq">
-    <b>What does the compliance checker check?</b>
-  </div>
-  <div class="about-faq">
-    The compliance checker checks for High, Medium, and Low priority issues with standard names/keywords and provides a score and corrective action suggestions for fixing compliance problems that are detected. 
-  </div>
-  <br>
-    <div class="about-faq">
-    <b>What version of the Compliance Checker is run on this site?</b>
-  </div>
-  <div class="about-faq">
-    The version of the compliance checker is 
-    {{ cc_version|safe }}
-  </div>
-  <br>
-    <div class="about-faq">
-    <b>Where can I find more information about the Compliance Checker?</b>
-  </div>
-  <div class="about-faq">
-    You can find out more information on the <a target="_blank" href="https://github.com/ioos/compliance-checker-web/blob/master/README.md">README for the Compliance Checker</a>.
-  </div>
-  <br>
-
-  <div id="about-references-header">
-    <h2>References:</h2>
-  </div>
-  <div id="about-references-links-container">
-  <div class="about-reference-links">
-      <a target="_blank" href="http://wiki.esipfed.org/index.php/Category:Attribute_Conventions_Dataset_Discovery">ACDD</a>
+<div class="container container-fluid">
+  <div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+      <div id="about-container">
+        <div id="about-heading">
+          <h1>Frequently Asked Questions</h1>
+        </div>
+        <div class="about-faq">
+          <h3>What is the compliance checker?</h3>
+        </div>
+        <div class="about-faq">
+          <p>
+            The IOOS Compliance Checker is a python based tool for data providers to check for completeness and community standard compliance of local or remote netCDF files against CF and ACDD file standards. The python module can be used as a command-line tool or as a library that can be integrated into other software.
+          </p>
+          <p>
+            You are currently viewing the web-based version of the Compliance Checker. It was developed to enable a broader audience and improve accessibility for the checker. With the web version, providers can simply provide a link or upload their datasets and get the full suite of capabilities that Compliance Checker offers.
+          </p>
+        </div>
+        <div class="about-faq">
+          <h3>What does the compliance checker check?</h3>
+        </div>
+        <div class="about-faq">
+          It currently supports the following sources and standards:
+          <ul>
+            <li>
+              <a href="http://wiki.esipfed.org/index.php/Attribute_Convention_for_Data_Discovery_1-3" target="_blank">ACDD (1.1, 1.3)</a>
+            </li>
+            <li>
+              <a href="http://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html" target="_blank">CF (1.6)</a>
+            </li>
+            <li>
+              <a href="https://ioos.github.io/ioos-netcdf/ioos-netcdf-metadata-description-v1-1.html#ioos-netcdf-metadata-profile-attributes" target="_blank">IOOS (1.1)</a>
+            </li>
+            <li>
+              <a href="https://github.com/ioos/ioosngdac/wiki/NGDAC-NetCDF-File-Format-Version-2" target="_blank">Glider DAC</a>
+            </li>
+            <li>
+              <a href="https://www.nodc.noaa.gov/data/formats/netcdf/v2.0/" target="_blank">NCEI (1.1, 2.0)</a>
+            </li>
+          </ul>
+        </div>
+        <div class="about-faq">
+          <h3>What version of the Compliance Checker is run on this site?</h3>
+        </div>
+        <div class="about-faq">
+          This web site is using <a href="https://pypi.python.org/pypi/compliance-checker" target="_blank">version {{ cc_version|safe }} </a>of the compliance checker.
+        </div>
+        <div class="about-faq">
+          <h3>Is there an API?</h3>
+        </div>
+        <div class="about-faq">
+          There sure is. Check out the details on how to use the web API <a href="https://github.com/ioos/compliance-checker-web/wiki/API" target="_blank">here</a>.
+        </div>
+        <div class="about-faq">
+          <h3>Where can I find more information about the Compliance Checker?</h3>
+        </div>
+        <div class="about-faq" style="padding-bottom: 50px">
+          The Compliance Checker is completely opensource and available on <a target="_blank" href="https://github.com/ioos/compliance-checker">Github</a> Refer to the README for details on how to install and use the Compliance Checker.
+        </div>
+      </div>
     </div>
-    <div class="about-reference-links">
-      <a target="_blank" href="http://cfconventions.org/documents.html">CF Conventions</a>
-    </div>
-    <div class="about-reference-links">
-      <a target="_blank" href="https://github.com/ioos/ioosngdac/wiki/NGDAC-NetCDF-File-Format-Version-2">Glider DAC wiki</a>
-    </div>
-    <div class="about-reference-links">
-      <a target="_blank" href="http://data.nodc.noaa.gov/thredds/catalog/testdata/mbiddle/GOLD_STANDARD_NETCDF/catalog.html">NCEI NetCDF Templates v2.0</a>
-    </div>
-    <div class="about-reference-links">
-      <a target="_blank" href="http://data.nodc.noaa.gov/thredds/catalog/testdata/mbiddle/GOLD_STANDARD_NETCDF/catalog.html">NCEI Example</a>
-    </div>
-    <div class="about-reference-links">
-      <a target="_blank" href="https://ioos.github.io/ioos-netcdf/ioos-netcdf-metadata-description-v1-1.html#ioos-netcdf-metadata-profile-attributes">IOOS NetCDF</a>
-    </div>
   </div>
-
 </div>
 
+<script type="text/javascript">
+var app = new App();
+$(document).ready(function() {
+  app.start();
+});
+</script>
 {% endblock %}

@@ -54,7 +54,8 @@ _.extend(App.prototype, {
     // Initialize the Navbar with a Logout button
     this.views.navbar = new IOOSNavbarView({
       el: $('#navbar-view'),
-      referenceUrls: referenceUrls
+      referenceUrls: referenceUrls,
+      page: 'home'
     });
     this.views.navbar.render();
 
