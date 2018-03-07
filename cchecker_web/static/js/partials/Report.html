@@ -2,9 +2,9 @@
   <div class="row">
     <div class="col-md-12">
       <div class="page-header">
-        <h3>Your dataset scored <%= model.get('scored_points') %> out of <%= model.get('possible_points') %> points</h3>
-        <p>During the <%= model.get('testname') %> check</p>
+        <h2>IOOS Compliance Checker Report</h2>
         <p>For dataset <%= model.get('source_name') %></p>
+        <p>During the <%= model.get('testname') %> check</p>
         <p>
           <a href="<%= model.get('reportUrl') %>" class="btn btn-primary" title="Click to download the report as a text file">
             <i class="fa fa-download" aria-hidden="true"></i> Download Report
@@ -12,131 +12,148 @@
         </p>
       </div>
     </div>
-    <div class="col-md-12">
-      <h4>
-        Scoring Breakdown:
-      </h4>
-    </div>
-    <div class="col-md-12">
-      <div class="table-collapse">
-        <a data-target="high-priority-table" href="#">High Priority <i class="glyphicon glyphicon-collapse-up"></i></a>
-      </div>
-      <% if(model.get('high_count') > 0) { %>
-      <div class="failures">
-        | <span class="label label-danger label-as-badge"><%= model.get('high_count') %></span>
-      </div>
-      <% } %>
-      <div class="high-priority-table collapse in">
-        <table class="table">
-          <thead>
-            <tr>
-              <th class="tname">Name</th>
-              <th class="tscore">Score</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% _.each(model.get('high_priorities'), function(score) { %>
-            <% if(score['value'][0] < score['value'][1]) { %>
-            <tr class="bad-score">
-            <% } else { %>
-            <tr>
-            <% } %>
-              <td><%= score['name']%></td>
-              <td><%= score['value'][0]%> / <%= score['value'][1] %></td>
-            </tr>
-            <% }); %>
-          </tbody>
-        </table>
-      </div> <!-- .high-priority-table -->
-    </div> <!-- .col-md-12 -->
-    <div class="col-md-12">
-      <div class="table-collapse">
-        <a data-target="medium-priority-table" href="#">Medium Priority <i class="glyphicon glyphicon-collapse-up"></i></a>
-      </div>
-      <% if(model.get('medium_count') > 0) { %>
-      <div class="failures">
-        | <span class="label label-danger label-as-badge"><%= model.get('medium_count') %></span>
-      </div>
-      <% } %>
-      <div class="medium-priority-table collapse in">
-        <table class="table">
-          <thead>
-            <tr>
-              <th class="tname">Name</th>
-              <th class="tscore">Score</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% _.each(model.get('medium_priorities'), function(score) { %>
-            <% if(score['value'][0] < score['value'][1]) { %>
-            <tr class="bad-score">
-            <% } else { %>
-            <tr>
-            <% } %>
 
-              <td><%= score['name'] %></td>
-              <td><%= score['value'][0]%> / <%= score['value'][1] %></td>
-            </tr>
-            <% }); %>
-          </tbody>
-        </table>
-      </div> <!-- .medium-priority-table -->
-    </div> <!-- .col-md-12 -->
-    <div class="col-md-12">
-      <div class="table-collapse">
-        <a data-target="low-priority-table" href="#">Low Priority <i class="glyphicon glyphicon-collapse-up"></i></a>
-      </div>
-      <% if(model.get('low_count') > 0) { %>
-      <div class="failures">
-        | <span class="label label-danger label-as-badge"><%= model.get('low_count') %></span>
-      </div>
-      <% } %>
-      <div class="low-priority-table collapse in">
-        <table class="table">
-          <thead>
-            <tr>
-              <th class="tname">Name</th>
-              <th class="tscore">Score</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% _.each(model.get('low_priorities'), function(score) { %>
-            <% if(score['value'][0] < score['value'][1]) { %>
-            <tr class="bad-score">
-            <% } else { %>
-            <tr>
-            <% } %>
-
-              <td><%= score['name'] %></td>
-              <td><%= score['value'][0]%> / <%= score['value'][1] %></td>
-            </tr>
-            <% }); %>
-          </tbody>
-        </table>
-      </div> <!-- .low-priority-table -->
-    </div> <!-- .col-md-12 -->
     <div class="col-md-12">
       <h4>Corrective Actions</h4>
-      <table class="table">
-        <thead>
-          <tr>
-            <th class="cname">Name</td>
-            <th class="cpriority">Priority</td>
-            <th class="ccorrection">Corrective action</td>
-          </tr>
-        </thead>
-        <tbody>
-        <% _.each(model.get('all_priorities'), function(result) { %>
-          <% _.each(result.msgs, function(msg) { %>
-            <tr>
-              <td><%= result.name %></td>
-              <td><%= result.weight %></td>
-              <td><%= msg %></td>
-            </tr>
-          <% }); %>
-        <% }); %>
-        </tbody>
-      </table>
+      <div class="col-md-12">
+        <div class="table-collapse">
+          <a data-target="high-priority-table" href="#">High Priority <i class="glyphicon glyphicon-collapse-up"></i></a>
+        </div>
+        <% if(model.get('high_count') > 0) { %>
+        <div class="failures">
+          | <span class="label label-danger label-as-badge"><%= model.get('high_count') %></span>
+        </div>
+        <div class="high-priority-table collapse in">
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="cname">Name</th>
+                <th class="ccorrection">Reasoning</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% _.each(model.get('all_priorities'), function(result) { %>
+                <% if (result.weight === 3) { %>
+                  <% _.each(result.msgs, function(msg) { %>
+                    <tr>
+                      <td><%= result.name %></td>
+                      <td><%= msg %></td>
+                    </tr>
+                  <% }); %>
+                <% } %>
+              <% }); %>
+            </tbody>
+          </table>
+        </div>
+        <% } else { %>
+          <div class="failures">
+            | <span class="label label-success label-as-badge">{{ model.get('high_count') }}</span>
+          </div>
+          <div class="high-priority-table collapse in">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>All high priority checks passed!</th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        <% } %>
+      </div>
+
+      <div class="col-md-12">
+        <div class="table-collapse">
+          <a data-target="medium-priority-table" href="#">Medium Priority <i class="glyphicon glyphicon-collapse-up"></i></a>
+        </div>
+        <% if(model.get('medium_count') > 0) { %>
+        <div class="failures">
+          | <span class="label label-danger label-as-badge"><%= model.get('medium_count') %></span>
+        </div>
+        <div class="medium-priority-table collapse in">
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="cname">Name</th>
+                <th class="ccorrection">Reasoning</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% _.each(model.get('all_priorities'), function(result) { %>
+                <% if (result.weight === 2) { %>
+                  <% _.each(result.msgs, function(msg) { %>
+                    <tr>
+                      <td><%= result.name %></td>
+                      <td><%= msg %></td>
+                    </tr>
+                  <% }); %>
+                <% } %>
+              <% }); %>
+            </tbody>
+          </table>
+        </div>
+        <% } else { %>
+          <div class="failures">
+            | <span class="label label-success label-as-badge">{{ model.get('medium_count') }}</span>
+          </div>
+          <div class="medium-priority-table collapse in">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>All medium priority checks passed!</th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        <% } %>
+      </div>
+
+      <div class="col-md-12">
+        <div class="table-collapse">
+          <a data-target="low-priority-table" href="#">Low Priority <i class="glyphicon glyphicon-collapse-up"></i></a>
+        </div>
+        <% if(model.get('low_count') > 0) { %>
+        <div class="failures">
+          | <span class="label label-danger label-as-badge"><%= model.get('low_count') %></span>
+        </div>
+        <div class="low-priority-table collapse in">
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="cname">Name</th>
+                <th class="ccorrection">Reasoning</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% _.each(model.get('all_priorities'), function(result) { %>
+                <% if (result.weight === 1) { %>
+                  <% _.each(result.msgs, function(msg) { %>
+                    <tr>
+                      <td><%= result.name %></td>
+                      <td><%= msg %></td>
+                    </tr>
+                  <% }); %>
+                <% } %>
+              <% }); %>
+            </tbody>
+          </table>
+        </div>
+        <% } else { %>
+          <div class="failures">
+            | <span class="label label-success label-as-badge">{{ model.get('low_count') }}</span>
+          </div>
+          <div class="low-priority-table collapse in">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>All low priority checks passed!</th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        <% } %>
+      </div>
+    </div>
+
     </div> <!-- .col-md-12 -->
   </div> <!-- .row -->
   <div class="row">
