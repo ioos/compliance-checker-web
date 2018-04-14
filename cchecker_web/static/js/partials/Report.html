@@ -17,7 +17,7 @@
       <h4>Corrective Actions</h4>
       <div class="col-md-12">
         <div class="table-collapse">
-          <a data-target="high-priority-table" href="#">High Priority <i class="glyphicon glyphicon-collapse-up"></i></a>
+          <a data-target="high-priority-table" href="#"><%= model.get('scoreheader')['3'] %> <i class="glyphicon glyphicon-collapse-up"></i></a>
         </div>
         <% if(model.get('high_count') > 0) { %>
         <div class="failures">
@@ -53,7 +53,7 @@
             <table class="table">
               <tbody>
                 <tr>
-                  <td>All high priority checks passed!</th>
+                  <td>All <%= model.get('scoreheader')['3'] %> checks passed!</th>
                 </tr>
               </tbody>
             </table>
@@ -63,7 +63,7 @@
 
       <div class="col-md-12">
         <div class="table-collapse">
-          <a data-target="medium-priority-table" href="#">Medium Priority <i class="glyphicon glyphicon-collapse-up"></i></a>
+          <a data-target="medium-priority-table" href="#"><%= model.get('scoreheader')['2'] %> <i class="glyphicon glyphicon-collapse-up"></i></a>
         </div>
         <% if(model.get('medium_count') > 0) { %>
         <div class="failures">
@@ -99,7 +99,7 @@
             <table class="table">
               <tbody>
                 <tr>
-                  <td>All medium priority checks passed!</th>
+                  <td>All <%= model.get('scoreheader')['2'] %> checks passed!</th>
                 </tr>
               </tbody>
             </table>
@@ -109,7 +109,7 @@
 
       <div class="col-md-12">
         <div class="table-collapse">
-          <a data-target="low-priority-table" href="#">Low Priority <i class="glyphicon glyphicon-collapse-up"></i></a>
+          <a data-target="low-priority-table" href="#"><%= model.get('scoreheader')['1'] %> <i class="glyphicon glyphicon-collapse-up"></i></a>
         </div>
         <% if(model.get('low_count') > 0) { %>
         <div class="failures">
@@ -145,7 +145,7 @@
             <table class="table">
               <tbody>
                 <tr>
-                  <td>All low priority checks passed!</th>
+                  <td>All <%= model.get('scoreheader')['1'] %> checks passed!</th>
                 </tr>
               </tbody>
             </table>

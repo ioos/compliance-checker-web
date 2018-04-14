@@ -3,4 +3,4 @@ flask-cache==0.13.1
 PyYAML==3.11
 redis==2.10.5
 rq==0.6.0
-compliance-checker>=3.0.0
+compliance-checker>=4.0.0
