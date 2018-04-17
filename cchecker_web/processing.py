@@ -4,6 +4,7 @@ from __future__ import print_function
 from __future__ import unicode_literals
 from compliance_checker.runner import CheckSuite
 from rq.connections import get_current_connection
+import six
 import base64
 import logging
 import requests
@@ -72,10 +73,9 @@ def compliance_check(job_id, dataset, checker, path=None):
             path = os.path.dirname(dataset)
         fname = 'compliance_{}.txt'.format(job_id)
         output_filename = os.path.join(path, fname)
-        limit = 'strict'
         with io.open(output_filename, 'w', encoding='utf-8') as f:
             with stdout_redirector(f):
-                stdout_output(cs, aggregates, groups, limit, checker)
+                stdout_output(cs, score_groups, aggregates['source_name'])
 
         redis.set('processing:job:%s' % job_id, buf, 3600)
 
@@ -90,32 +90,23 @@ def compliance_check(job_id, dataset, checker, path=None):
         redis.set('processing:job:%s' % job_id, json.dumps(error_message), 3600)
         return False
 
-
-def stdout_output(cs, aggregates, groups, limit, checker):
+def stdout_output(cs, score_groups, source_name):
     '''
     Calls output routine to display results in terminal, including scoring.
     Goes to verbose function if called by user.
 
     :param CheckSuite cs: Compliance Checker Suite
-    :param dict aggregates: Dictionary of the Compliance Checker results
-    :param list groups: List of results
-    :param int limit: The degree of strictness, 1 being the strictest, and going up from there.
-    :param str checker: The name of the compliance checker test
+    :param list score_groups: list of results
+    :param str source_name: filename
     '''
-    points = aggregates['scored_points']
-    out_of = aggregates['possible_points']
-    source_name = aggregates['source_name']
-
-    # Print out the headers, (slightly customized from typical CC report)
-    print('\n')
-    print("-" * 80)
-    print('{:^80}'.format("Your dataset scored %r out of %r points" % (points, out_of)))
-    print('{:^80}'.format("during the %s check" % checker))
-    print('{:^80}'.format("Source name: %s" % source_name))
-    print("-" * 80)
-
+    limit = 1 # Strictness
     # Generate the report as normal
-    cs.verbose_output_generation(groups, limit, points, out_of)
+    for checker, rpair in six.iteritems(score_groups):
+        groups, errors = rpair
+        score_list, points, out_of = cs.standard_output(source_name, limit,
+                                                        checker,
+                                                        groups)
+        cs.standard_output_generation(groups, limit, points, out_of, check=checker)
     return groups
 
 
