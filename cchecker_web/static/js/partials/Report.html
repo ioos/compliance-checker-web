@@ -47,7 +47,7 @@
         </div>
         <% } else { %>
           <div class="failures">
-            | <span class="label label-success label-as-badge">{{ model.get('high_count') }}</span>
+            | <span class="label label-success label-as-badge"><i class="glyphicon glyphicon-ok"></i></span>
           </div>
           <div class="high-priority-table collapse in">
             <table class="table">
@@ -93,7 +93,7 @@
         </div>
         <% } else { %>
           <div class="failures">
-            | <span class="label label-success label-as-badge">{{ model.get('medium_count') }}</span>
+            | <span class="label label-success label-as-badge"><i class="glyphicon glyphicon-ok"></i></span>
           </div>
           <div class="medium-priority-table collapse in">
             <table class="table">
@@ -139,7 +139,7 @@
         </div>
         <% } else { %>
           <div class="failures">
-            | <span class="label label-success label-as-badge">{{ model.get('low_count') }}</span>
+            | <span class="label label-success label-as-badge"><i class="glyphicon glyphicon-ok"></i></span>
           </div>
           <div class="low-priority-table collapse in">
             <table class="table">
