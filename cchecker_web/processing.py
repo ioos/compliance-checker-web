@@ -83,9 +83,13 @@ def compliance_check(job_id, dataset, checker, path=None):
 
     except Exception as e:
         logger.exception("Failed to process job")
+        if getattr(e, 'message', None):
+            message = e.message
+        else:
+            message = str(e)
         error_message = {
             "error": type(e).__name__,
-            "message": e.message
+            "message": message
         }
         redis.set('processing:job:%s' % job_id, json.dumps(error_message), 3600)
         return False
@@ -146,4 +150,3 @@ def ncdump(dataset):
     except Exception:
         return "Error generating ncdump"
     return filtered_lines
-
