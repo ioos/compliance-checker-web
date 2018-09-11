@@ -44,6 +44,12 @@ SOFTWARE.
  - libgeos
 
 
+ #### Ubuntu install
+ ```
+ sudo apt-get install libudunits2-dev
+ pip install -r requirements.txt
+```
+
 ### Required Services:
 
  - redis
