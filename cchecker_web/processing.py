@@ -64,6 +64,8 @@ def compliance_check(job_id, dataset, checker, path=None):
                 aggregates['source_name'] = decoded
             else:
                 aggregates['source_name'] = decoded.decode('utf-8')
+        aggregates['testname'] = cs._get_check_versioned_name(checker)
+        aggregates['cc_url'] = cs._get_check_url(aggregates['testname'])
         aggregates['ncdump'] = ncdump(dataset)
         buf = json.dumps(aggregates)
 
