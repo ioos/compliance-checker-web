@@ -42,11 +42,11 @@ SOFTWARE.
  - nodejs
  - npm
  - libgeos
+ - libudunits2-dev
 
 
- #### Ubuntu install
+ #### Required Python libraries
  ```
- sudo apt-get install libudunits2-dev
  pip install -r requirements.txt
 ```
 
