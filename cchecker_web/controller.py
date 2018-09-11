@@ -70,9 +70,10 @@ def show_root():
 
 @api.route('/index.html')
 def show_index():
+    google_analytics_id = app.config.get('GOOGLE_ANALYTICS_ID', '')
     scripts = load_javascripts('main.js', 'index')
     css = load_css('main.css', 'index')
-    return render_template('index.html', scripts=scripts, css=css)
+    return render_template('index.html', scripts=scripts, css=css, google_analytics_id=google_analytics_id)
 
 @api.route('/report/<string:job_id>')
 def show_report(job_id):

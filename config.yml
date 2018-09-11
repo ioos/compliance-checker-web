@@ -14,6 +14,8 @@ COMMON: &common
   CACHE:
     CACHE_TYPE: simple
 
+  GOOGLE_ANALYTICS_ID: ''
+
 DEVELOPMENT: &development
   <<: *common 
   DEBUG: True
