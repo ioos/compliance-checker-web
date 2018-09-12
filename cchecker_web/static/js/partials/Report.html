@@ -4,7 +4,6 @@
       <div class="page-header">
         <h2>IOOS Compliance Checker Report</h2>
         <p>For dataset <%= model.get('source_name') %></p>
-        <p>During the <%= model.get('testname') %> check</p>
         <p>
           <a href="<%= model.get('reportUrl') %>" class="btn btn-primary" title="Click to download the report as a text file">
             <i class="fa fa-download" aria-hidden="true"></i> Download Report
@@ -12,7 +11,15 @@
         </p>
       </div>
     </div>
-
+    <div class="col-md-12">
+      <h3>
+        <% if (model.get('cc_url')) { %>
+          <a href="<%= model.get('cc_url') %>" target="_blank"><%= model.get('testname') %></a>
+        <% } else { %>
+          <%= model.get('testname') %>
+        <% } %>
+      </h3>
+    </div>
     <div class="col-md-12">
       <h4>Corrective Actions</h4>
       <div class="col-md-12">
