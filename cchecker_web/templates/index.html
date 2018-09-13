@@ -4,11 +4,21 @@
 {% endblock %}
 {% block head %}
 
-<!-- scripts -->
-{{ scripts|safe }}
-
 <!-- css -->
 {{ css|safe }}
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src='{{"https://www.googletagmanager.com/gtag/js?id=" + google_analytics_id }}'></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '{{ google_analytics_id }}');
+</script>
+
+<!-- scripts -->
+{{ scripts|safe }}
 
 {% endblock %}
 {% block body %}
