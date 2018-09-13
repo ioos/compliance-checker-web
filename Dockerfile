@@ -55,7 +55,6 @@ WORKDIR /usr/lib/ccweb
 # Install python dependencies
     # First, clean up requirements file to be compatible with conda pkgs
 RUN sed -i 's/redis==/redis-py==/' requirements.txt && \
-    # Install what is possible using conda
     conda install --file requirements.txt && \
     conda clean --all --yes
 
