@@ -182,7 +182,7 @@ _.extend(App.prototype, {
         self.pollResult(data.job_id);
       });
 
-      req.error(function(jqXHR, textStatus, error) {
+      req.fail(function(jqXHR, textStatus, error) {
         if(jqXHR.status == 413) {
           $('.drop-status').html('<div class="alert alert-danger">File is too large!</div>');
         } else if(jqXHR.status == 400) {
