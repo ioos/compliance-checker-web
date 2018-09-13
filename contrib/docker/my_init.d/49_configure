@@ -28,9 +28,11 @@ COMMON: &common
 
   CACHE:
     CACHE_TYPE: simple
-    
+
+  GOOGLE_ANALYTICS_ID: ${GOOGLE_ANALYTICS_ID}
+
 DEVELOPMENT: &development
-  <<: *common 
+  <<: *common
   DEBUG: True
 
 PRODUCTION: &production
