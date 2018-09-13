@@ -77,13 +77,15 @@ def show_index():
 
 @api.route('/report/<string:job_id>')
 def show_report(job_id):
+    google_analytics_id = app.config.get('GOOGLE_ANALYTICS_ID', '')
     scripts = load_javascripts('main.js', 'report')
     css = load_css('main.css', 'report')
-    return render_template('report.html', scripts=scripts, css=css)
+    return render_template('report.html', scripts=scripts, css=css, google_analytics_id=google_analytics_id)
 
 @api.route('/about')
 def show_about():
+    google_analytics_id = app.config.get('GOOGLE_ANALYTICS_ID', '')
     scripts = load_javascripts('main.js', 'about')
     css = load_css('main.css', 'index')
     # cc_version is the compliance checker version.
-    return render_template('about.html', scripts=scripts, css=css, cc_version=cc_version)
+    return render_template('about.html', scripts=scripts, css=css, cc_version=cc_version, google_analytics_id=google_analytics_id)
