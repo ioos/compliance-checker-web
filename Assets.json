@@ -75,13 +75,11 @@
     },
     "css": {
       "cchecker_web/static/css/compiled/report.css":[
-        "cchecker_web/static/lib/bootstrap/dist/css/bootstrap.min.css",
         "cchecker_web/static/lib/bootstrap-select/dist/css/bootstrap-select.min.css",
         "cchecker_web/static/css/result.css",
         "cchecker_web/static/css/main.css"
       ],
       "cchecker_web/static/css/compiled/index.css":[
-        "cchecker_web/static/lib/bootstrap/dist/css/bootstrap.min.css",
         "cchecker_web/static/lib/bootstrap-select/dist/css/bootstrap-select.min.css",
         "cchecker_web/static/css/main.css",
         "cchecker_web/static/css/index.css",
