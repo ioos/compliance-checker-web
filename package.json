@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/ioos/compliance-checker-web",
   "dependencies": {
-    "bower": "^1.5.3",
+    "bower": "^1.8.8",
     "grunt": "^0.4.5",
     "grunt-concat-css": "^0.3.1",
     "grunt-contrib-concat": "^0.5.1",
