@@ -1,6 +1,12 @@
 flask==0.11.1
-flask-cache==0.13.1
+flask-caching
 PyYAML==3.11
 redis==2.10.5
+cython
+gunicorn
+netcdftime
+cf_units==1.2.0
+cc-plugin-ncei
+cc-plugin-glider
 rq==0.6.0
-compliance-checker>=4.1.1
+git+https://git@github.com/ioos/compliance-checker.git@5b83698655a26e93f6f996ddf696323970fa31a2

@@ -8,7 +8,7 @@ Compliance Checker Web
 from flask import Blueprint, request
 from flask import current_app as app
 
-from flask_cache import Cache
+from flask_caching import Cache
 from functools import wraps
 import os
 
