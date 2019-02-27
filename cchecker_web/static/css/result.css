@@ -48,3 +48,59 @@
   border-radius: 1em;
 }
 
+/* ------------------------- */
+/* ----- Table Styling ----- */
+/* ------------------------- */
+
+table {
+  font-family: helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th{
+    text-align: left;
+    padding: 12 px;
+}
+
+td{
+  /*border-top: 1px solid #dddddd;
+  border-bottom: 1px solid #dddddd;
+  border-left: 1px solid #dddddd;
+  border-right: 1px solid #dddddd;*/
+  font-size: 14px;
+  text-align: left;
+  padding: 8px;
+}
+
+td:first-child{
+  font-style: italic;
+}
+
+/* ------------------------ */
+/* ----- List styling ----- */
+/* ------------------------ */
+
+li{
+  line-height: 14px;
+}
+
+#report-header {
+  display: flex;
+  justify-content: center;
+}
+
+#report-subheading {
+  display: flex;
+  justify-content: center;
+}
+
+#report-table-heading {
+  display: flex;
+  justify-content: center;
+}
+
+#report-table-subheading {
+  display: flex;
+  justify-content: center;
+}

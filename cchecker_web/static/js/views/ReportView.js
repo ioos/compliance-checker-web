@@ -9,9 +9,11 @@ var ReportView = Backbone.View.extend({
   render: function() {
     this.$el.html(this.template({model: this.model}));
     this.$el.find('.high-priority-table').collapse({toggle: false});
+
     this.$el.find('.table-collapse').click(function(e) {
       e.preventDefault();
       $('.' + $(e.target).data('target')).collapse('toggle');
+
       var glyph = $(e.target).find('.glyphicon');
       if(glyph.hasClass('glyphicon-collapse-up')) {
         glyph.removeClass('glyphicon-collapse-up');
@@ -21,10 +23,12 @@ var ReportView = Backbone.View.extend({
         glyph.addClass('glyphicon-collapse-up');
       }
     });
+
     this.$el.find('.table-collapse i.glyphicon').click(function(e) {
       e.preventDefault();
-      $('.' + $(e.target).data('target')).collapse('toggle');
-      var glyph = $(e.target).find('.glyphicon');
+
+      $('.' + $(e.target.parentElement).data('target')).collapse('toggle');
+      var glyph = $(e.target.parentElement).find('.glyphicon');
       if(glyph.hasClass('glyphicon-collapse-up')) {
         glyph.removeClass('glyphicon-collapse-up');
         glyph.addClass('glyphicon-collapse-down');
