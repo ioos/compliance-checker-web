@@ -2,6 +2,7 @@
   "main": {
     "jst": {
       "cchecker_web/static/js/partials/compiled/report.js": [
+        "cchecker_web/static/js/partials/IOOSNavbar.html",
         "cchecker_web/static/js/partials/Report.html"
       ],
       "cchecker_web/static/js/partials/compiled/index.js": [
@@ -20,12 +21,16 @@
         "cchecker_web/static/lib/bootstrap/dist/js/bootstrap.min.js",
         "cchecker_web/static/lib/backbone/backbone-min.js",
         "cchecker_web/static/lib/backbone.stickit/backbone.stickit.js",
+        "cchecker_web/static/lib/bootstrap-select/dist/js/bootstrap-select.min.js",
 
         "cchecker_web/static/js/partials/compiled/report.js",
 
         "cchecker_web/static/js/models/ReportModel.js",
+        "cchecker_web/static/js/models/ReferencesModel.js",
 
         "cchecker_web/static/js/views/ReportView.js",
+        "cchecker_web/static/js/views/BaseView.js",
+        "cchecker_web/static/js/views/IOOSNavbarView.js",
 
         "cchecker_web/static/js/app.js",
         "cchecker_web/static/js/app/report.js",
@@ -44,6 +49,7 @@
         "cchecker_web/static/js/models/TestModel.js",
         "cchecker_web/static/js/models/UploadModel.js",
         "cchecker_web/static/js/models/ConfigModel.js",
+        "cchecker_web/static/js/models/ReferencesModel.js",
 
         "cchecker_web/static/js/views/BaseView.js",
         "cchecker_web/static/js/views/NetCDFUploadView.js",
@@ -64,6 +70,7 @@
 
         "cchecker_web/static/js/partials/compiled/about.js",
 
+        "cchecker_web/static/js/models/ReferencesModel.js",
 
         "cchecker_web/static/js/views/BaseView.js",
         "cchecker_web/static/js/views/IOOSNavbarView.js",
@@ -77,6 +84,7 @@
       "cchecker_web/static/css/compiled/report.css":[
         "cchecker_web/static/lib/bootstrap-select/dist/css/bootstrap-select.min.css",
         "cchecker_web/static/css/result.css",
+        "cchecker_web/static/css/ioos_navbar.css",
         "cchecker_web/static/css/main.css"
       ],
       "cchecker_web/static/css/compiled/index.css":[

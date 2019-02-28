@@ -7,3 +7,9 @@ cchecker_web/static/css/compiled/*.css
 cchecker_web/static/js/compiled/*.js
 cchecker_web/static/js/partials/compiled/*.js
 node_modules/
+
+#redis
+dump.rdb
+
+# Local config file
+config.local.yml
