@@ -21,7 +21,7 @@ _.extend(App.prototype, {
   initializeViews: function() {
     var self = this;
     var referenceUrls = _.compact(this.models.references.get('references'));
-    
+
     // Initialize the Navbar with a Logout button
     this.views.navbar = new IOOSNavbarView({
       el: $('#navbar-view'),
@@ -128,6 +128,9 @@ _.extend(App.prototype, {
 
       var req = $.ajax({
         url: self.urlRoot + 'upload',
+        beforeSend: function() {
+          $('.drop-status').html('<div class="alert alert-success"><i class="fa fa-spin fa-fw fa-spinner"> </i>' + "Uploading ..."+ '</div>');
+        },
         xhr: function() {
           var x = $.ajaxSettings.xhr();
           x.upload.addEventListener('progress', function(e) {
