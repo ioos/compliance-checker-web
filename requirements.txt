@@ -1,12 +1,12 @@
-flask==0.11.1
+flask>=1.1.1
 flask-caching
-PyYAML==3.11
-redis==2.10.5
+PyYAML>=3.11
+redis>=2.10.5
+rq>=0.6.0
+compliance-checker>=4.3.1
 cython
 gunicorn
 netcdftime
 cf_units==1.2.0
 cc-plugin-ncei
 cc-plugin-glider
-rq==0.6.0
-compliance-checker>=4.2.2
