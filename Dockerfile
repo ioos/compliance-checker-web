@@ -7,7 +7,7 @@ USER root
 # Install nodejs/npm and friends:
 RUN (curl -sL https://rpm.nodesource.com/setup_6.x | bash) && \
     yum -y install nodejs && \
-    npm install -g grunt-cli
+    npm install -g grunt-cli yarn
 
 # Install container dependencies:
 RUN yum -y install epel-release && \
@@ -91,10 +91,8 @@ RUN pip --version && pip install -r requirements.txt
 # Install local dependencies
 USER ccweb
 RUN npm install && \
-    ./node_modules/.bin/bower install && \
+    yarn install && \
     grunt
-
-RUN ./node_modules/.bin/bower install
 
 USER root
 
