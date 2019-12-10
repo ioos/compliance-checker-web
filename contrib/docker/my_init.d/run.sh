@@ -55,7 +55,7 @@ wait_for_redis
 exec /usr/bin/python \
          /usr/lib/ccweb/worker.py &
 
-exec /usr/bin/gunicorn \
+exec /usr/local/bin/gunicorn \
          --workers 2 \
          --bind 0.0.0.0:3000 \
          --chdir /usr/lib/ccweb \
