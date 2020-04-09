@@ -42,8 +42,7 @@ RUN (curl -sL https://rpm.nodesource.com/setup_10.x | bash) && \
 
 # Install web dependencies
 USER ccweb
-RUN npm install && \
-    yarn install && \
+RUN yarn install && \
     grunt
 
 CMD ["/bin/bash", "/etc/run.sh"]
