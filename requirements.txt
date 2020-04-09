@@ -1,12 +1,13 @@
+cython
 flask>=1.1.1
 flask-caching
 PyYAML>=3.11
 redis>=2.10.5
 rq>=0.6.0
-compliance-checker>=4.3.2
-cython
+numpy
+cf-units==2.0.2
+-e git://github.com/ioos/compliance-checker.git#egg=compliance-checker
 gunicorn
 netcdftime
-cf_units==1.2.0
 cc-plugin-ncei
 cc-plugin-glider

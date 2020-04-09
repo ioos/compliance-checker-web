@@ -120,6 +120,22 @@ In production environments it's better to run a few workers.
 4. Visit the docker host on port 3000
 
 
+### Building the container
+
+The Docker image uses the RPS core base image to build off of. This reduces the number of dependencies needed
+to be built at build time for _this_ image, hopefully keeping you out of dependecy hell.
+
+__NOTE__: The `requirements.txt` indicates that `cf-units` should be version `2.0.2`. This is not the latest
+version available from PyPI, but it is the version that properly installs best with the base image.
+
+You must have the proper AWS credentials to pull from ECR.
+
+```
+$ aws ecr get-login
+```
+
+Upon obtaining the `docker login` output, paste the output and log in; now you'll be able to pull the image.
+
 ### Docker Environment Configurations
 
 The following are a list of useful configuration variables that can be
