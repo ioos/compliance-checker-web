@@ -1,0 +1,9 @@
+# virtual environments
+env
+env/
+env/*
+
+# statically linked CSS
+cchecker_web/static/lib
+cchecker_web/static/lib/
+cchecker_web/static/lib/*

@@ -5,7 +5,7 @@ MAINTAINER RPS <devops@rpsgroup.com>
 USER root
 
 # Install nodejs/npm and friends:
-RUN (curl -sL https://rpm.nodesource.com/setup_6.x | bash) && \
+RUN (curl -sL https://rpm.nodesource.com/setup_10.x | bash) && \
     yum -y install nodejs && \
     npm install -g grunt-cli yarn
 
@@ -68,6 +68,7 @@ RUN rm /usr/bin/python
 RUN ln -s /usr/bin/python3.6 /usr/bin/python
 
 RUN pip install Cython --install-option="--no-cython-compile"
+RUN pip install numpy
 
 # Startup Shell script:
 COPY contrib/docker/my_init.d/run.sh /etc/run.sh
@@ -76,7 +77,7 @@ COPY contrib/docker/my_init.d/run.sh /etc/run.sh
 RUN mkdir /usr/lib/ccweb /var/run/datasets /var/log/ccweb
 
 COPY cchecker_web /usr/lib/ccweb/cchecker_web
-COPY .bowerrc Gruntfile.js Assets.json bower.json package.json requirements.txt\
+COPY Gruntfile.js Assets.json package.json requirements.txt\
      app.py setup.py worker.py /usr/lib/ccweb/
 COPY contrib/config/config.yml /usr/lib/ccweb/
 
@@ -90,8 +91,7 @@ RUN pip --version && pip install -r requirements.txt
 
 # Install local dependencies
 USER ccweb
-RUN npm install && \
-    yarn install && \
+RUN yarn install && \
     grunt
 
 USER root
