@@ -52,7 +52,6 @@ wait_for_redis(){
 
 wait_for_redis
 
-#exec /usr/bin/python \
 exec /usr/bin/python3.6 \
          /usr/lib/ccweb/worker.py &
 

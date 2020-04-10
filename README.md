@@ -45,10 +45,14 @@ SOFTWARE.
  - libudunits2-dev
 
 
- #### Required Python libraries
- ```
- pip install -r requirements.txt
+#### Required Python libraries
+
 ```
+$ pip install -r requirements.txt
+```
+
+__NOTE__: The `compliance-checker` is a required Python package. Due to some current package difficulties,
+we recommend installing directly from the GitHub repository at `git://github.com/ioos/compliance-checker.git#egg=compliance-checker`.
 
 ### Required Services:
 
@@ -57,16 +61,19 @@ SOFTWARE.
 ### Installation
 
 1. Clone the repository
-   ```
-   git clone https://github.com/ioos/compliance-checker-web/
-   ```
+
+```
+$ git clone https://github.com/ioos/compliance-checker-web/
+```
 
 2. Install node and JS dependencies
-   ```
-   npm install
-   bower install
-   grunt
-   ```
+
+```
+$ npm install -g grunt-cli yarn
+$ cd compliance-checker-web
+$ yarn
+$ grunt
+```
 
 ## Running
 
@@ -99,28 +106,7 @@ python worker.py
 
 In production environments it's better to run a few workers.
 
-
-## Running with Docker
-
-1. Create a network to run on
-   ```
-   docker network create ccweb
-   ```
-
-2. Launch redis
-   ```
-   docker run --net ccweb -d --name redis redis:3.0.7-alpine
-   ```
-
-3. Launch this container
-   ```
-   docker run --net ccweb -d --name ccweb -p 3000:3000 ioos/compliance-checker-web
-   ```
-
-4. Visit the docker host on port 3000
-
-
-### Building the container
+## Building the container
 
 The Docker image uses the RPS core base image to build off of. This reduces the number of dependencies needed
 to be built at build time for _this_ image, hopefully keeping you out of dependecy hell.
@@ -135,6 +121,31 @@ $ aws ecr get-login
 ```
 
 Upon obtaining the `docker login` output, paste the output and log in; now you'll be able to pull the image.
+
+Build the container like so:
+
+```
+$ docker build -t <name>:<tag> -f Dockerfile .
+```
+
+Production builds should be tagged with `ioos/compliance-checker-web`. Local builds are left to the user.
+
+__IMPORTANT__: Ensure that `./cchecker_web/static/lib` is _completely empty_ before building the container.
+If it is not, `yarn` and `grunt` will attempt to use the already built/linked CSS inside the container,
+which whill break symlinks and lead to ugly CSS.
+
+## Running in development with docker-compose
+
+1. Launch this container
+
+```
+$ docker-compose up -d
+```
+
+2. Visit the docker host on port 3000
+
+It should be noted that the current `docker-compose.yml` file is used for development only. In production,
+different Docker volumes are used.
 
 ### Docker Environment Configurations
 

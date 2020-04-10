@@ -19,7 +19,7 @@ COPY contrib/docker/my_init.d/run.sh /etc/run.sh
 # Add our project
 RUN mkdir /usr/lib/ccweb /var/run/datasets /var/log/ccweb
 COPY cchecker_web /usr/lib/ccweb/cchecker_web
-COPY .bowerrc Gruntfile.js Assets.json bower.json package.json requirements.txt\
+COPY Gruntfile.js Assets.json package.json requirements.txt\
      app.py setup.py worker.py /usr/lib/ccweb/
 COPY contrib/config/config.yml /usr/lib/ccweb/
 
@@ -32,7 +32,6 @@ WORKDIR /usr/lib/ccweb
 RUN pip install -U pip
 RUN pip install cython --no-compile
 RUN pip install numpy
-#RUN pip install cf-units==2.0.2
 RUN pip --version && pip install -r requirements.txt
 
 # Install nodejs/npm and friends:
