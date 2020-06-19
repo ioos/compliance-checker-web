@@ -22,8 +22,7 @@ RUN yum -y groupinstall "Development Tools"
 
 # Python 3.6 update:
 RUN yum update -y \
-    && yum install -y https://centos7.iuscommunity.org/ius-release.rpm \
-    && yum install -y python36u python36u-libs python36u-devel python36u-pip \
+    && yum install -y python36 python36-libs python36-devel python36-pip \
     && yum install -y which gcc \ 
     && yum install -y udunits2-devel \
     && yum install -y expat-devel \
@@ -36,7 +35,9 @@ RUN curl -O ftp://ftp.unidata.ucar.edu/pub/udunits/udunits-2.2.25.tar.gz \
     && /bin/sh configure --prefix=/usr/local \
     && make \
     && make install \
-    && cd ..
+    && cd .. \
+    && rm -rf udunits-2.2.25 \
+    && rm -rf udunits-2.2.25.tar.gz
 
 # HDF5
 RUN curl -O https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.8/hdf5-1.8.19/src/hdf5-1.8.19.tar.gz \
@@ -45,7 +46,9 @@ RUN curl -O https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.8/hdf5-1.8.19/
     && /bin/sh configure --prefix=/usr/local \
     && make \
     && make install \
-    && cd ..
+    && cd .. \
+    && rm -rf hdf5-1.8.19 \
+    && rm -rf hdf5-1.8.19.tar.gz
 
 # NETCDF4
 RUN curl -O ftp://ftp.unidata.ucar.edu/pub/netcdf/netcdf-4.4.1.1.tar.gz \
@@ -54,7 +57,9 @@ RUN curl -O ftp://ftp.unidata.ucar.edu/pub/netcdf/netcdf-4.4.1.1.tar.gz \
     && /bin/sh configure --prefix=/usr/local \
     && make \
     && make install \
-    && cd ..
+    && cd .. \
+    && rm -rf netcdf-4.4.1.1 \
+    && rm -rf netcdf-4.4.1.1.tar.gz
 
 RUN yum -y install httpd
 RUN yum clean all
@@ -102,6 +107,8 @@ COPY contrib/docker/runit/web.sh /etc/service/ccweb-app/run
 COPY contrib/docker/runit/worker.sh /etc/service/ccweb-worker-01/run
 RUN chmod +x /etc/service/ccweb-app/run /etc/service/ccweb-worker-01/run
 
+# Don't run as root user
+USER ccweb
 
 CMD ["/bin/bash", "/etc/run.sh"]
 EXPOSE 3000
