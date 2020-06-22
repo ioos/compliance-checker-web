@@ -30,7 +30,7 @@ SOFTWARE.
 ```
 
 
-### Installation
+### Local Installation
 
 #### Required Libraries:
 
@@ -46,9 +46,13 @@ SOFTWARE.
 
 
  #### Required Python libraries
- ```
- pip install -r requirements.txt
+
 ```
+$ pip install -r requirements.txt
+```
+
+It should be noted that, because of some packaging conflicts, the `compliance-checker` requirement
+points at the GitHub repository on the master branch.
 
 ### Required Services:
 
@@ -57,16 +61,18 @@ SOFTWARE.
 ### Installation
 
 1. Clone the repository
-   ```
-   git clone https://github.com/ioos/compliance-checker-web/
-   ```
+
+```
+$ git clone https://github.com/ioos/compliance-checker-web/
+```
 
 2. Install node and JS dependencies
-   ```
-   npm install
-   bower install
-   grunt
-   ```
+
+```
+$ npm install -g grunt-cli yarn
+$ cd compliance-checker-web # if not already
+$ grunt
+```
 
 ## Running
 
@@ -94,7 +100,7 @@ After the job is executed the resulting report is stored on redis for an hour.
 To run the worker:
 
 ```
-python worker.py
+$ python worker.py
 ```
 
 In production environments it's better to run a few workers.
@@ -102,22 +108,21 @@ In production environments it's better to run a few workers.
 
 ## Running with Docker
 
-1. Create a network to run on
-   ```
-   docker network create ccweb
-   ```
+1. Build the container
 
-2. Launch redis
-   ```
-   docker run --net ccweb -d --name redis redis:3.0.7-alpine
-   ```
+```
+$ docker build -t <name>:<tag> -f Dockerfile .
+```
 
-3. Launch this container
-   ```
-   docker run --net ccweb -d --name ccweb -p 3000:3000 ioos/compliance-checker-web
-   ```
+Production builds should be tagged with `ioos/compliance-checker-web:latest`.
 
-4. Visit the docker host on port 3000
+2. Use `docker-compose` to run locally:
+
+```
+$ docker-compose up -d
+```
+
+3. Visit the docker host on port 3000
 
 
 ### Docker Environment Configurations

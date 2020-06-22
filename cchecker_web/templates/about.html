@@ -39,7 +39,7 @@
         </div>
         <div class="about-faq">
           <p>
-            The IOOS Compliance Checker is a python based tool for data providers to check for completeness and community standard compliance of local or remote netCDF files against CF and ACDD file standards. The python module can be used as a command-line tool or as a library that can be integrated into other software.
+            The IOOS Compliance Checker is a Python-based tool for data providers to check for completeness and community standard compliance of local or remote netCDF files against CF and ACDD file standards. The Python module can be used as a command-line tool or as a library that can be integrated into other software.
           </p>
           <p>
             You are currently viewing the web-based version of the Compliance Checker. It was developed to enable a broader audience and improve accessibility for the checker. With the web version, providers can simply provide a link or upload their datasets and get the full suite of capabilities that Compliance Checker offers.
@@ -58,7 +58,7 @@
               <a href="http://cfconventions.org/Data/cf-conventions/cf-conventions-1.7/cf-conventions.html" target="_blank">CF (1.6, 1.7)</a>
             </li>
             <li>
-              <a href="https://ioos.github.io/ioos-netcdf/ioos-netcdf-metadata-description-v1-1.html#ioos-netcdf-metadata-profile-attributes" target="_blank">IOOS (1.1)</a>
+              <a href="https://ioos.github.io/ioos-metadata/" target="_blank">IOOS (1.1, 1.2)</a>
             </li>
             <li>
               <a href="https://github.com/ioos/ioosngdac/wiki/NGDAC-NetCDF-File-Format-Version-2" target="_blank">Glider DAC</a>
@@ -69,10 +69,16 @@
           </ul>
         </div>
         <div class="about-faq">
+          <h3>Can I test an ERDDAP dataset with the Compliance Checker?</h3>
+        </div>
+        <div class="about-faq">
+          Yes. When testing an ERDDAP dataset, please supply the URL to the dataset without a file extension. For example, to test this <a href="https://standards.sensors.ioos.us/erddap/tabledap/morro-bay-bs1-met.html" target="_blank">Morro Bay dataset</a>, you should supply the URL like so: "https://standards.sensors.ioos.us/erddap/tabledap/morro-bay-bs1-met".
+        </div>
+        <div class="about-faq">
           <h3>What version of the Compliance Checker is run on this site?</h3>
         </div>
         <div class="about-faq">
-          This web site is using <a href="https://pypi.python.org/pypi/compliance-checker" target="_blank">version {{ cc_version|safe }} </a>of the compliance checker.
+          This web site is using <a href="https://pypi.python.org/pypi/compliance-checker" target="_blank">version {{ cc_version|safe }} </a>of the Compliance Checker.
         </div>
         <div class="about-faq">
           <h3>Is there an API?</h3>
@@ -84,7 +90,7 @@
           <h3>Where can I find more information about the Compliance Checker?</h3>
         </div>
         <div class="about-faq">
-          The Compliance Checker is completely opensource and available on <a target="_blank" href="https://github.com/ioos/compliance-checker">Github</a> Refer to the README for details on how to install and use the Compliance Checker.
+          The Compliance Checker is completely open-source and available on <a target="_blank" href="https://github.com/ioos/compliance-checker">Github</a> Refer to the README for details on how to install and use the Compliance Checker.
         </div>
         <div class="about-faq">
           <h3>Disclaimer</h3>
