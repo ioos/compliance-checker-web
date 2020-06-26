@@ -56,8 +56,12 @@
   height: 47px;
 }
 
+.navbar-custom .navbar-brand:hover {
+  background-color: #122b4d;
+}
+
 .navbar-custom .navbar-brand a {
-  color: #ffffff;
+  color: #55D6F8;
 }
 .navbar-custom .navbar-brand a:hover,
 .navbar-custom .navbar-brand a:focus {
@@ -69,8 +73,12 @@
   color: #565c61;
 }
 .navbar-custom .navbar-nav > li > a {
-  color: #ffffff;
+  color: #55D6F8;
   font-size: 18px;
+}
+
+.navbar-custom .navbar-nav > li:hover {
+  background-color: #122b4d;
 }
 .navbar-custom .navbar-nav > li > a:hover,
 .navbar-custom .navbar-nav > li > a:focus {
