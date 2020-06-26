@@ -3,7 +3,7 @@ flask-caching
 PyYAML>=3.11
 redis>=2.10.5
 rq>=0.6.0
--e git://github.com/ioos/compliance-checker.git#egg=compliance-checker
+compliance-checker
 cython
 gunicorn
 netcdftime
