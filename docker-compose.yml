@@ -7,7 +7,7 @@ services:
     command: redis-server --appendonly yes
 
   compliance-checker:
-    image: test_ccweb:latest
+    image: ioos/compliance-checker-web:latest
     container_name: compliance-checker-web
     env_file: .env
     volumes:

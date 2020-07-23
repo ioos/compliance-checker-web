@@ -105,39 +105,9 @@ def check_for_cdl(filename, filepath):
         nc_file = filename.replace('.cdl', '.nc')
         nc_path = os.path.join(os.path.dirname(filepath),
                                encode(nc_file))
-        filepath = update_cdl_dimensions(filepath)
         generate_dataset(nc_path, filepath)
         filepath = nc_path
     return filepath
-
-
-def update_cdl_dimensions(filepath):
-    '''
-    Rewrite the cdl file to make all dimensions size 1
-
-    :param str filepath: Absolute path to .cdl file
-    '''
-    transform = False
-    data = []
-    with open(filepath, 'r') as f:
-        lines = f.readlines()
-
-    for line in lines:
-        if 'variables:' in line:
-            transform = False
-        elif transform:
-            prefix = line.split('=')[0]
-            line = prefix + '= 1 ;\n'
-        elif 'dimensions:' in line:
-            # This is where we start transforming dimensions
-            transform = True
-        data.append(line)
-
-    # Re write the file
-    with open(filepath, 'w') as f:
-        f.write(''.join(data))
-    return filepath
-
 
 def encode(s):
     return base64.b64encode(s.encode('utf-8')).decode('ascii')
