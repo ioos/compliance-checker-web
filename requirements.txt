@@ -5,7 +5,5 @@ redis>=2.10.5
 rq>=0.6.0
 compliance-checker
 gunicorn
-numpy
-cf-units
 cc-plugin-ncei
 cc-plugin-glider
