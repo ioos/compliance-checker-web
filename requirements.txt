@@ -7,3 +7,4 @@ compliance-checker
 gunicorn
 cc-plugin-ncei
 cc-plugin-glider
+cc-plugin-ugrid
