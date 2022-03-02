@@ -41,7 +41,7 @@ WORKDIR /usr/lib/ccweb
 # Install python dependencies
 RUN python3.8 -m pip install --upgrade pip &&\
     python3.8 -m pip --version &&\
-    pip install -r requirements.txt
+    pip3.8 install -r requirements.txt
 
 # Install local dependencies
 RUN chown -R ccweb ~/.config
