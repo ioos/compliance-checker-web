@@ -5,8 +5,7 @@ LABEL maintainer="RPS <devops@rpsgroup.com>"
 USER root
 
 # Install nodejs/npm and friends:
-RUN (curl -sL https://rpm.nodesource.com/setup_10.x | bash) && \
-    yum -y install nodejs && \
+RUN (curl -sL https://rpm.nodesource.com/setup_12.x | bash) && \
     npm install -g grunt-cli yarn
 
 # Install container dependencies:
