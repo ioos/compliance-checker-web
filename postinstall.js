@@ -20,11 +20,16 @@ if (!fs.existsSync(libDir)) {
 }
 
 modules.forEach(module => {
+  const target = path.resolve('node_modules', module);
+  const link = path.resolve(libDir, module);
+  
   try {
-    const target = path.resolve('node_modules', module);
-    const link = path.resolve(libDir, module);
-    fs.symlinkSync(target, link, 'junction');
-    console.log(`Symlink created for ${module}`);
+    if (fs.existsSync(link)) {
+      console.log(`Symlink for ${module} already exists.`);
+    } else {
+      fs.symlinkSync(target, link, 'junction');
+      console.log(`Symlink created for ${module}`);
+    }
   } catch (e) {
     console.error(`Failed to symlink ${module}: ${e.message}`);
   }
