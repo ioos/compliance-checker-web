@@ -27,7 +27,7 @@
     "grunt-contrib-cssmin": "^3.0.0",
     "grunt-contrib-pug": "^2.0.0",
     "grunt-contrib-jst": "^1.0.0",
-    "grunt-contrib-uglify": "^4.0.1",
+    "grunt-terser": "^1.0.0",
     "grunt-contrib-watch": "^1.1.0",
     "@bower_components/backbone": "jashkenas/backbone#~1.2.3",
     "@bower_components/backbone.stickit": "NYTimes/backbone.stickit#~0.9.2",

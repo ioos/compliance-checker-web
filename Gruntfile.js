@@ -8,12 +8,14 @@ module.exports = function(grunt) {
         files: '<%= assets.main.jst %>'
       }
     },
-    uglify: {
+    terser: {
       main: {
         options: {
           mangle: false,
           compress: false,
-          beautify: true
+          format: {
+            beautify: true
+          }
         },
         files: '<%= assets.main.js %>'
       }
@@ -33,13 +35,13 @@ module.exports = function(grunt) {
     }
   });
 
-  // Load the plugin that provides the "uglify" task.
+  // Load the plugin that provides the "terser" task.
   grunt.loadNpmTasks('grunt-contrib-cssmin');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-jst');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-terser');
 
-  grunt.registerTask('default', ['jst', 'cssmin', 'uglify']);
-  // Empty Commnet
+  grunt.registerTask('default', ['jst', 'cssmin', 'terser']);
+  // Empty Comment
 };
 
