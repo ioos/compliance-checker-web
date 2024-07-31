@@ -26,7 +26,7 @@ COPY contrib/docker/my_init.d/run.sh /etc/run.sh
 RUN mkdir /usr/lib/ccweb /var/run/datasets /var/log/ccweb
 
 COPY cchecker_web /usr/lib/ccweb/cchecker_web
-COPY Gruntfile.js Assets.json package.json requirements.txt \
+COPY Gruntfile.js Assets.json package.json postinstall.js requirements.txt \
      app.py setup.py worker.py /usr/lib/ccweb/
 COPY contrib/config/config.yml /usr/lib/ccweb/
 
