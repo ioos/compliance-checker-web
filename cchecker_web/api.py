@@ -121,7 +121,7 @@ def download_report():
     filepath = os.path.join(app.config['UPLOAD_FOLDER'],
                             job_id,
                             fname)
-    return send_file(filepath, attachment_filename=fname, as_attachment=True)
+    return send_file(filepath, download_name=fname, as_attachment=True)
 
 
 def populate_tests(filtered=True):
