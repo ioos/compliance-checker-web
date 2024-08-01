@@ -6,6 +6,7 @@ services:
     container_name: redis
     command: redis-server --appendonly yes
   compliance-checker:
+    # image: ioos/compliance-checker-web:latest
     build:
       context: .
       dockerfile: Dockerfile
