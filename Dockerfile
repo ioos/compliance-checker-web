@@ -4,18 +4,20 @@ LABEL maintainer="RPS <devops@rpsgroup.com>"
 
 USER root
 
-# Install nodejs/npm and friends
+# Install EPEL release
 RUN dnf -y install epel-release && \
-    dnf -y module enable nodejs:16 && \
+    dnf -y install --enablerepo=powertools dnf-plugins-core && \
+    dnf config-manager --set-enabled powertools
+
+# Install nodejs/npm and friends
+RUN dnf -y module enable nodejs:16 && \
     dnf -y install nodejs npm && \
     npm install -g grunt-cli yarn
 
 # Install container dependencies
-RUN dnf -y install redis
-
+RUN dnf -y install redis httpd
 RUN dnf -y groupinstall "Development Tools"
-
-RUN dnf -y install httpd
+RUN dnf -y install gcc gcc-c++ make cmake curl-devel libxml2-devel hdf5 hdf5-devel netcdf
 
 RUN systemctl enable httpd.service
 
@@ -46,14 +48,12 @@ RUN dnf -y install udunits2-devel udunits2
 ENV UDUNITS2_XML_PATH=/usr/share/udunits/udunits2.xml
 
 # Install Python dependencies
-#RUN pip3.8 install --global-option=build_ext --global-option="/usr/include/udunits2" cfunits
 RUN pip3.8 install -r requirements.txt
 
 # Install local dependencies
 USER ccweb
 RUN yarn install && \
     grunt
-# RUN chown -R ccweb ~/.config
 
 USER root
 
@@ -68,4 +68,3 @@ USER ccweb
 
 CMD ["/bin/bash", "/etc/run.sh"]
 EXPOSE 3000
-
