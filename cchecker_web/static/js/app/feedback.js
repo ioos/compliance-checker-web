@@ -28,9 +28,16 @@
     });
     if (valid)
       $.ajax({
-        url   : 'https://oceansMap2.asascience.com/?SiteID=1&Name=' + $('#feedback-name').val() + '&Email=' + $('#feedback-email').val() + '&Comment=' + $('#feedback-comment').val(),
-        type  : 'POST',
-        success: function (data) {
+        url: 'https://ioos.us/api/feedback',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({
+	  website: 'https://compliance.ioos.us',
+          body: $('#feedback-comment').val(),
+          name: $('#feedback-name').val(),
+          email: $('#feedback-email').val()
+        }),
+	success: function (data) {
           alert('Feedback Submitted');
           $('#feedbackForm').modal('hide');
         },
