@@ -1,13 +1,14 @@
-flask>=1.1.1
-flask-caching
-PyYAML>=3.11
-redis>=2.10.5
-rq>=0.6.0
+flask>=2.3.2
+flask-caching>=1.10.1
+PyYAML>=6.0
+redis>=4.5.4
+rq>=1.13.0
 compliance-checker
-gunicorn
+gunicorn>=20.1.0
 cc-plugin-ncei
 cc-plugin-glider
 cc-plugin-ugrid
 # we only need this for wheel based apps, anything installing from source or conda-forge is OK with older versions
 # see https://github.com/Unidata/netcdf4-python/issues/1151 for more context
-netcdf4>=1.6.0
+netcdf4>=1.6.3
+
