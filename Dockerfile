@@ -39,9 +39,6 @@ RUN dnf -y install openssl-devel bzip2-devel libffi-devel sqlite-devel \
     # Clean up source
     cd / && rm -rf /usr/src/Python-3.11.6*
 
-# Install udunits2 and set UDUNITS2_XML_PATH
-RUN dnf -y install udunits2-devel udunits2
-ENV UDUNITS2_XML_PATH=/usr/share/udunits/udunits2.xml
 
 # Startup Shell script
 COPY contrib/docker/my_init.d/run.sh /etc/run.sh
