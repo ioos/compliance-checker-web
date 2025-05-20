@@ -3,7 +3,7 @@
 '''
 worker.py
 '''
-from rq import Worker, Queue, Connection
+from rq import Worker, Queue
 from app import redis_connection
 from compliance_checker.runner import CheckSuite
 
@@ -18,7 +18,8 @@ CheckSuite.load_all_available_checkers()
 
 logging.basicConfig(level=logging.DEBUG)
 
+# Build Queue objects bound to our Redis connection
+queues = [Queue(name, connection=redis_connection) for name in listen]
 
-with Connection(redis_connection):
-    worker = Worker(map(Queue, listen))
-    worker.work()
+worker = Worker(queues, connection=redis_connection)
+worker.work()
