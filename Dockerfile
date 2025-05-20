@@ -21,8 +21,35 @@ RUN dnf -y install gcc gcc-c++ make cmake curl-devel libxml2-devel hdf5 hdf5-dev
 
 RUN systemctl enable httpd.service
 
+# Install Python 3.11 from source
+RUN dnf -y install openssl-devel bzip2-devel libffi-devel sqlite-devel \
+               zlib-devel readline-devel tk-devel xz-devel wget && \
+    cd /usr/src && \
+    wget https://www.python.org/ftp/python/3.11.6/Python-3.11.6.tgz && \
+    tar xzf Python-3.11.6.tgz && \
+    cd Python-3.11.6 && \
+    ./configure --enable-optimizations --with-ensurepip=install && \
+    make -j "$(nproc)" && \
+    make altinstall && \
+    # Symlink python3.11 / pip3.11 to python3 / pip3
+    ln -sf /usr/local/bin/python3.11 /usr/bin/python3 && \
+    ln -sf /usr/local/bin/pip3.11 /usr/bin/pip3 && \
+    # Upgrade pip and install wheel
+    python3 -m pip install --upgrade pip wheel && \
+    # Clean up source
+    cd / && rm -rf /usr/src/Python-3.11.6*
+
+# Install udunits2 and set UDUNITS2_XML_PATH
+RUN dnf -y install udunits2-devel udunits2
+ENV UDUNITS2_XML_PATH=/usr/share/udunits/udunits2.xml
+
 # Startup Shell script
 COPY contrib/docker/my_init.d/run.sh /etc/run.sh
+
+
+# Install Python dependencies (cached unless requirements.txt changes)
+COPY requirements.txt .
+RUN pip install -r requirements.txt
 
 # Add our project
 RUN mkdir /usr/lib/ccweb /var/run/datasets /var/log/ccweb
@@ -36,19 +63,6 @@ COPY contrib/config/config.yml /usr/lib/ccweb/
 RUN useradd -ms /bin/bash ccweb
 RUN chown -R ccweb:ccweb /usr/lib/ccweb /var/run/datasets /var/log/ccweb
 WORKDIR /usr/lib/ccweb
-
-# Install Python 3.8, development tools, and dependencies
-RUN dnf -y install python38 python38-devel python38-pip && \
-    python3.8 -m pip install --upgrade pip && \
-    python3.8 -m pip --version && \
-    pip3.8 install wheel
-
-# Install udunits2 and set UDUNITS2_XML_PATH
-RUN dnf -y install udunits2-devel udunits2
-ENV UDUNITS2_XML_PATH=/usr/share/udunits/udunits2.xml
-
-# Install Python dependencies
-RUN pip3.8 install -r requirements.txt
 
 # Install local dependencies
 USER ccweb

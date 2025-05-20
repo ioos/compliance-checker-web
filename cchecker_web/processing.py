@@ -3,7 +3,6 @@
 from __future__ import print_function
 from __future__ import unicode_literals
 from compliance_checker.runner import CheckSuite
-from rq.connections import get_current_connection
 import six
 import base64
 import logging
@@ -12,6 +11,7 @@ import json
 import io
 import os
 import sys
+import redis
 import subprocess
 from contextlib import contextmanager
 
@@ -43,7 +43,8 @@ def compliance_check(job_id, dataset, checker, path=None):
     :param str path: Full path to dataset directory (OPeNDAP only)
     '''
     try:
-        redis = get_current_connection()
+        REDIS_URL = os.getenv("REDIS_URL", "redis://redis:6379/0")
+        conn = redis.from_url(REDIS_URL)
         cs = CheckSuite()
         if dataset.startswith('http'):
             dataset = check_redirect(dataset)
@@ -79,7 +80,7 @@ def compliance_check(job_id, dataset, checker, path=None):
             with stdout_redirector(f):
                 stdout_output(cs, score_groups, aggregates['source_name'])
 
-        redis.set('processing:job:%s' % job_id, buf, 3600)
+        conn.set('processing:job:%s' % job_id, buf, 3600)
 
         return True
 
@@ -93,7 +94,7 @@ def compliance_check(job_id, dataset, checker, path=None):
             "error": type(e).__name__,
             "message": message
         }
-        redis.set('processing:job:%s' % job_id, json.dumps(error_message), 3600)
+        conn.set('processing:job:%s' % job_id, json.dumps(error_message), 3600)
         return False
 
 def stdout_output(cs, score_groups, source_name):
