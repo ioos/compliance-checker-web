@@ -25,11 +25,21 @@
 
   {% block head %}
   {% endblock %}
+  <script src="https://dgd6r9iiqa8y9.cloudfront.net/ioos-ui-components.min.js"></script>
 </head>
+
 <body>
-{% block body %}
-{% endblock %}
-{% include 'feedback.html' %}
+  <!-- IOOS Common Header -->
+  <ioos-header></ioos-header>
+    
+  {% block body %}
+  {% endblock %}
+  {% include 'feedback.html' %}
+
+  <!-- IOOS Common Footer -->
+  <ioos-footer></ioos-footer>
 </body>
+
+
 </html>
 
