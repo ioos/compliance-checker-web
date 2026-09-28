@@ -1,3 +1,14 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .banner {
   min-height: 60px;
   background-color: #ffffff;
@@ -323,7 +334,6 @@ thead .ccorrection {
   justify-content: space-around;
 }
 
-.about-reference-links {
-
+ioos-footer {
+  margin-top: auto;
 }
-
